@@ -1,0 +1,56 @@
+{
+    "name": "netgen/ibexa-openapi",
+    "description": "OpenAPI implementation for Ibexa CMS",
+    "license": "GPL-2.0-only",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Netgen",
+            "homepage": "https://netgen.io"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "netgen/layouts-core": "^1.4",
+        "ibexa/core": "^4.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.1",
+        "symfony/phpunit-bridge": "^5.4",
+        "symfony/var-dumper": "^5.4",
+        "phpstan/phpstan": "^1.9",
+        "phpstan/phpstan-strict-rules": "^1.4",
+        "phpstan/phpstan-symfony": "^1.2",
+        "phpstan/phpstan-phpunit": "^1.3",
+        "vimeo/psalm": "^5.4",
+        "psalm/plugin-symfony": "^5.0"
+    },
+    "config": {
+        "allow-plugins": false
+    },
+    "scripts": {
+        "test": "@php vendor/bin/phpunit --colors=always",
+        "phpstan": "@php vendor/bin/phpstan analyse -c phpstan.neon --level=8 --ansi lib bundle",
+        "phpstan-tests": "@php vendor/bin/phpstan analyse -c phpstan.tests.neon --level=8 --ansi tests",
+        "psalm": "@php vendor/bin/psalm -c psalm.xml --show-info=false"
+    },
+    "autoload": {
+        "psr-4": {
+            "Netgen\\IbexaOpenApi\\": "lib/",
+            "Netgen\\Bundle\\IbexaOpenApiBundle\\": "bundle/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Netgen\\IbexaOpenApi\\Tests\\": "tests/lib/",
+            "Netgen\\Bundle\\IbexaOpenApiBundle\\Tests\\": "tests/bundle/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
