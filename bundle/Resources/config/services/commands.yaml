@@ -1,0 +1,8 @@
+services:
+    netgen.ibexa_openapi.command.dump_specification:
+        class: Netgen\Bundle\IbexaOpenApiBundle\Command\DumpSpecificationCommand
+        arguments:
+            - '@netgen.ibexa_openapi.openapi.factory'
+            - '@serializer'
+        tags:
+            - { name: console.command, command: netgen:ibexa-openapi:dump-spec }

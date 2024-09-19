@@ -1,0 +1,16 @@
+services:
+    netgen.ibexa_openapi.controller.base:
+        class: Symfony\Bundle\FrameworkBundle\Controller\AbstractController
+        abstract: true
+        calls:
+            - [setContainer, ['@Psr\Container\ContainerInterface']]
+
+    netgen.ibexa_openapi.controller.openapi.specification:
+        class: Netgen\Bundle\IbexaOpenApiBundle\Controller\OpenApi\Specification
+        parent: netgen.ibexa_openapi.controller.base
+        arguments:
+            - '@netgen.ibexa_openapi.openapi.factory'
+            - '@serializer'
+        public: true
+        tags:
+            - { name: container.service_subscriber }

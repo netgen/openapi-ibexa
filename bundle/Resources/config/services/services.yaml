@@ -1,1 +1,7 @@
 services:
+    netgen.ibexa_openapi.openapi.factory:
+        class: Netgen\IbexaOpenApi\OpenApi\OpenApiFactory
+        arguments:
+            - !tagged_iterator netgen.ibexa_openapi.path_provider
+            - !tagged_iterator netgen.ibexa_openapi.schema_provider
+            - '%netgen.ibexa_openapi.route_prefix%'
