@@ -20,7 +20,6 @@ final class PagePathProvider implements PathProviderInterface
     public function providePaths(): iterable
     {
         $getOperation = new Operation(
-            'page_get',
             [new Parameter('id', ParameterIn::Path, new NumberSchema())],
             null,
             new Responses(

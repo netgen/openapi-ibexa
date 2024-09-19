@@ -8,7 +8,6 @@ final class Header
 {
     public function __construct(
         private Schema $schema,
-        private ParameterStyle $style = ParameterStyle::Simple,
         private bool $required = false,
     ) {}
 
@@ -19,7 +18,7 @@ final class Header
 
     public function getStyle(): ParameterStyle
     {
-        return $this->style;
+        return ParameterStyle::Simple;
     }
 
     public function getRequired(): bool
