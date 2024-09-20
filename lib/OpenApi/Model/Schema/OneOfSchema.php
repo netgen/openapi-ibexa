@@ -17,7 +17,7 @@ final class OneOfSchema extends Schema
      */
     public function __construct(
         private array $oneOf,
-        private Discriminator $discriminator,
+        private ?Discriminator $discriminator = null,
     ) {
         if (count($this->oneOf) === 0) {
             throw new InvalidArgumentException('oneOf list must have at least one schema.');
@@ -32,7 +32,7 @@ final class OneOfSchema extends Schema
         return $this->oneOf;
     }
 
-    public function getDiscriminator(): Discriminator
+    public function getDiscriminator(): ?Discriminator
     {
         return $this->discriminator;
     }
