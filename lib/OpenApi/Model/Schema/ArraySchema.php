@@ -12,6 +12,11 @@ final class ArraySchema extends Schema
         private Schema $items,
     ) {}
 
+    public function getType(): string
+    {
+        return 'array';
+    }
+
     public function getItems(): Schema
     {
         return $this->items;
