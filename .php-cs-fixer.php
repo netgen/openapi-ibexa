@@ -10,7 +10,7 @@ return (new PhpCsFixer\Config())
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
 
-        // Overrides for rules included in PhpCsFixer rule sets
+        // Overrides for rules included in PER-CS & PhpCsFixer rule sets
         'concat_space' => ['spacing' => 'one'],
         'fully_qualified_strict_types' => ['phpdoc_tags' => []],
         'method_chaining_indentation' => false,
@@ -28,7 +28,8 @@ return (new PhpCsFixer\Config())
         'phpdoc_order' => ['order' => ['param', 'throws', 'return']],
         'phpdoc_types_order' => ['null_adjustment' => 'always_last', 'sort_algorithm' => 'none'],
         'single_line_comment_style' => false,
-        'trailing_comma_in_multiline' => ['elements' => ['arrays', 'arguments']],
+        'trailing_comma_in_multiline' => ['elements' => ['arrays', 'arguments', 'parameters', 'match']],
+        'yield_from_array_to_yields' => false,
         'yoda_style' => false,
 
         // Additional rules
