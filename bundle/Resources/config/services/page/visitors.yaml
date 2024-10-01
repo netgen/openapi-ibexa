@@ -1,0 +1,10 @@
+services:
+    netgen.ibexa_openapi.page.output.visitor.output_visitor:
+        class: Netgen\IbexaOpenApi\Page\Output\OutputVisitor
+        arguments:
+            - !tagged_iterator netgen.ibexa_openapi.page.output.visitor
+
+    netgen.ibexa_openapi.page.output.visitor.page:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\PageVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }

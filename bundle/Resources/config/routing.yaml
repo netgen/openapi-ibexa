@@ -1,7 +1,9 @@
-netgen_ibexa_openapi_specification:
+netgen_ibexa_openapi_openapi_specification:
     path: /openapi/specification
     controller: netgen.ibexa_openapi.controller.openapi.specification
+    methods: [GET]
 
-netgen_ibexa_openapi_content_page:
-    path: /content/page/{id}
+netgen_ibexa_openapi_page_view:
+    path: /page/{id}
+    controller: netgen.ibexa_openapi.controller.page.view
     methods: [GET]
