@@ -14,6 +14,7 @@ use Netgen\IbexaOpenApi\OpenApi\Model\Responses;
 use Netgen\IbexaOpenApi\OpenApi\Model\Schema\NumberSchema;
 use Netgen\IbexaOpenApi\OpenApi\Model\Schema\ReferenceSchema;
 use Netgen\IbexaOpenApi\OpenApi\PathProviderInterface;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 final class PagePathProvider implements PathProviderInterface
 {
@@ -24,7 +25,7 @@ final class PagePathProvider implements PathProviderInterface
             null,
             new Responses(
                 [
-                    '200' => new Response(
+                    SymfonyResponse::HTTP_OK => new Response(
                         'The page',
                         [],
                         [
@@ -35,6 +36,6 @@ final class PagePathProvider implements PathProviderInterface
             ),
         );
 
-        yield '/content/page/{id}' => new Path($getOperation);
+        yield '/page/{id}' => new Path($getOperation);
     }
 }
