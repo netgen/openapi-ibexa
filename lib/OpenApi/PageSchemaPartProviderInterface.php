@@ -12,7 +12,7 @@ interface PageSchemaPartProviderInterface
     public function providePageSchemaParts(): iterable;
 
     /**
-     * @return iterable<string>
+     * @return string[]
      */
-    public function getRequiredIdentifiers(): iterable;
+    public function getRequiredIdentifiers(): array;
 }

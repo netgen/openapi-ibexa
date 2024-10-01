@@ -22,10 +22,8 @@ final class PageSchemaProvider implements SchemaProviderInterface
         $required = [];
 
         foreach ($this->pageSchemaPartProviders as $pageSchemaPartProvider) {
-            foreach ($pageSchemaPartProvider->providePageSchemaParts() as $identifier => $pageSchemaPart) {
-                $properties[$identifier] = $pageSchemaPart;
-            }
-
+            $properties += [...$pageSchemaPartProvider->providePageSchemaParts()];
+            // Cannot use += here due to numeric keys
             $required = [...$required, ...$pageSchemaPartProvider->getRequiredIdentifiers()];
         }
 
