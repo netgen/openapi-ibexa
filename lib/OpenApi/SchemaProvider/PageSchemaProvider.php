@@ -4,13 +4,31 @@ declare(strict_types=1);
 
 namespace Netgen\IbexaOpenApi\OpenApi\SchemaProvider;
 
-use Netgen\IbexaOpenApi\OpenApi\Model\Schema\StringSchema;
+use Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema;
 use Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface;
 
 final class PageSchemaProvider implements SchemaProviderInterface
 {
+    /**
+     * @param iterable<\Netgen\IbexaOpenApi\OpenApi\PageSchemaPartProviderInterface> $pageSchemaPartProviders
+     */
+    public function __construct(
+        private iterable $pageSchemaPartProviders,
+    ) {}
+
     public function provideSchemas(): iterable
     {
-        yield 'Default.Page' => new StringSchema();
+        $properties = [];
+        $required = [];
+
+        foreach ($this->pageSchemaPartProviders as $pageSchemaPartProvider) {
+            foreach ($pageSchemaPartProvider->providePageSchemaParts() as $identifier => $pageSchemaPart) {
+                $properties[$identifier] = $pageSchemaPart;
+            }
+
+            $required = [...$required, ...$pageSchemaPartProvider->getRequiredIdentifiers()];
+        }
+
+        yield 'Default.Page' => new ObjectSchema($properties, null, $required);
     }
 }
