@@ -6,11 +6,14 @@ namespace Netgen\IbexaOpenApi\OpenApi\Model;
 
 final class Info
 {
+    private const TITLE = 'OpenAPI implementation for Ibexa CMS';
+
     private const API_VERSION = '1.0.0';
 
-    private string $title = 'OpenAPI implementation for Ibexa CMS';
-
-    private string $version = self::API_VERSION;
+    public function __construct(
+        private string $title = self::TITLE,
+        private string $version = self::API_VERSION,
+    ) {}
 
     public function getTitle(): string
     {

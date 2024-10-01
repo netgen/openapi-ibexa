@@ -11,6 +11,8 @@ use function sprintf;
 
 final class Parameter
 {
+    private bool $required;
+
     private ParameterStyle $style;
 
     /**
@@ -27,13 +29,15 @@ final class Parameter
         private string $name,
         private ParameterIn $in,
         private Schema $schema,
+        bool $required = false,
         ?ParameterStyle $style = null,
-        private bool $required = false,
     ) {
         $this->style = $style ?? match ($in) {
             ParameterIn::Query, ParameterIn::Cookie => ParameterStyle::Form,
             ParameterIn::Header, ParameterIn::Path => ParameterStyle::Simple,
         };
+
+        $this->required = $this->in === ParameterIn::Path ? true : $required;
 
         if (!in_array($this->style, $this->allowedStyles[$this->in->value], true)) {
             throw new InvalidArgumentException(
@@ -62,17 +66,13 @@ final class Parameter
         return $this->schema;
     }
 
+    public function getRequired(): bool
+    {
+        return $this->required;
+    }
+
     public function getStyle(): ParameterStyle
     {
         return $this->style;
-    }
-
-    public function getRequired(): bool
-    {
-        if ($this->in === ParameterIn::Path) {
-            return true;
-        }
-
-        return $this->required;
     }
 }

@@ -12,7 +12,7 @@ use function count;
 final class Responses implements JsonSerializable
 {
     /**
-     * @param array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Response> $responses
+     * @param array<int|string, \Netgen\IbexaOpenApi\OpenApi\Model\Response> $responses
      */
     public function __construct(
         private array $responses,
@@ -32,6 +32,8 @@ final class Responses implements JsonSerializable
             yield 'default' => $this->default;
         }
 
-        yield from $this->responses;
+        foreach ($this->responses as $statusCode => $response) {
+            yield (string) $statusCode => $response;
+        }
     }
 }
