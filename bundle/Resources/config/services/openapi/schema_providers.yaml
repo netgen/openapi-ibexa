@@ -1,5 +1,7 @@
 services:
     netgen.ibexa_openapi.openapi.schema_provider.page:
         class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\PageSchemaProvider
+        arguments:
+            - !tagged_iterator netgen.ibexa_openapi.page_schema_part_provider
         tags:
             - { name: netgen.ibexa_openapi.schema_provider }
