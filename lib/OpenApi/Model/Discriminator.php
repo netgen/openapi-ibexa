@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\IbexaOpenApi\OpenApi\Model;
 
-abstract class Discriminator
+class Discriminator
 {
     /**
      * @param array<string, string>|null $mapping
