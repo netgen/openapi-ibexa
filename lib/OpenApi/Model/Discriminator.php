@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\IbexaOpenApi\OpenApi\Model;
 
+use Netgen\IbexaOpenApi\OpenApi\Model\Util\Reference;
+
+use function array_map;
+
 class Discriminator
 {
     /**
@@ -24,6 +28,9 @@ class Discriminator
      */
     public function getMapping(): ?array
     {
-        return $this->mapping;
+        return array_map(
+            static fn (string $schemaName): Reference => new Reference($schemaName),
+            $this->mapping,
+        );
     }
 }

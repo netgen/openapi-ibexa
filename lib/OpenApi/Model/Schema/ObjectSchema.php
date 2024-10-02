@@ -21,6 +21,7 @@ final class ObjectSchema extends Schema
         private ?array $properties = null,
         private ?array $patternProperties = null,
         private ?array $required = null,
+        private ?Discriminator $discriminator = null,
     ) {
         if ($this->required !== null && count($this->required) !== count(array_unique($this->required))) {
             throw new InvalidArgumentException('List of required properties must unique.');
@@ -54,5 +55,10 @@ final class ObjectSchema extends Schema
     public function getRequired(): ?array
     {
         return $this->required;
+    }
+
+    public function getDiscriminator(): ?Discriminator
+    {
+        return $this->discriminator;
     }
 }

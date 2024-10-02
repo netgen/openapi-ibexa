@@ -6,8 +6,7 @@ namespace Netgen\IbexaOpenApi\OpenApi\Model\Schema;
 
 use JsonSerializable;
 use Netgen\IbexaOpenApi\OpenApi\Model\Schema;
-
-use function sprintf;
+use Netgen\IbexaOpenApi\OpenApi\Model\Util\Reference;
 
 final class ReferenceSchema extends Schema implements JsonSerializable
 {
@@ -21,7 +20,7 @@ final class ReferenceSchema extends Schema implements JsonSerializable
     public function jsonSerialize(): array
     {
         return [
-            '$ref' => sprintf('#/components/schemas/%s', $this->schemaName),
+            '$ref' => new Reference($this->schemaName),
         ];
     }
 }
