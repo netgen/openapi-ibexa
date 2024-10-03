@@ -14,6 +14,7 @@ final class StringSchema extends Schema
     public function __construct(
         private ?array $enum = null,
         private ?string $const = null,
+        private ?Format $format = null,
     ) {}
 
     public function getType(): string
@@ -32,5 +33,10 @@ final class StringSchema extends Schema
     public function getConst(): ?string
     {
         return $this->const;
+    }
+
+    public function getFormat(): ?Format
+    {
+        return $this->format;
     }
 }
