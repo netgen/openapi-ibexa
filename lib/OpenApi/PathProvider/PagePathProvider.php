@@ -29,7 +29,7 @@ final class PagePathProvider implements PathProviderInterface
                         'The page',
                         [],
                         [
-                            'application/json' => new MediaType(new ReferenceSchema('Default.Page')),
+                            'application/json' => new MediaType(new ReferenceSchema('Page')),
                         ],
                     ),
                 ],

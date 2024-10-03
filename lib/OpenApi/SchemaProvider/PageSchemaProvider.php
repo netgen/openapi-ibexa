@@ -27,6 +27,6 @@ final class PageSchemaProvider implements SchemaProviderInterface
             $required = [...$required, ...$pageSchemaPartProvider->getRequiredIdentifiers()];
         }
 
-        yield 'Default.Page' => new ObjectSchema($properties, null, $required);
+        yield 'Page' => new ObjectSchema($properties, null, $required);
     }
 }
