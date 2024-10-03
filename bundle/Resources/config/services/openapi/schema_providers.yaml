@@ -10,3 +10,10 @@ services:
         class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\LayoutsSchemaProvider
         tags:
             - { name: netgen.ibexa_openapi.schema_provider }
+
+    netgen.ibexa_openapi.openapi.schema_provider.site_api:
+        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\SiteApiSchemaProvider
+        arguments:
+            - '@ibexa.api.service.content_type'
+        tags:
+            - { name: netgen.ibexa_openapi.schema_provider }
