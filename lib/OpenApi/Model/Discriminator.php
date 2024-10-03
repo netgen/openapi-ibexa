@@ -24,10 +24,14 @@ class Discriminator
     }
 
     /**
-     * @return array<string, string>|null
+     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Util\Reference>|null
      */
     public function getMapping(): ?array
     {
+        if ($this->mapping === null) {
+            return null;
+        }
+
         return array_map(
             static fn (string $schemaName): Reference => new Reference($schemaName),
             $this->mapping,

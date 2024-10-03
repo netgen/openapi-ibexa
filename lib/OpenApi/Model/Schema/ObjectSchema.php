@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\IbexaOpenApi\OpenApi\Model\Schema;
 
 use InvalidArgumentException;
+use Netgen\IbexaOpenApi\OpenApi\Model\Discriminator;
 use Netgen\IbexaOpenApi\OpenApi\Model\Schema;
 
 use function array_unique;
