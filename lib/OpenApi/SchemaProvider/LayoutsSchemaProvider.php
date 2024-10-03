@@ -65,7 +65,6 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
             [
                 new Schema\ReferenceSchema('Layouts.Block.Title'),
                 new Schema\ReferenceSchema('Layouts.Block.List'),
-                new Schema\ReferenceSchema('Layouts.Block.Grid'),
                 new Schema\ReferenceSchema('Layouts.Block.Component'),
             ],
             new Discriminator(
@@ -73,7 +72,6 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
                 [
                     'title' => 'Layouts.Block.Title',
                     'list' => 'Layouts.Block.List',
-                    'grid' => 'Layouts.Block.Grid',
                     'component' => 'Layouts.Block.Component',
                 ],
             ),
