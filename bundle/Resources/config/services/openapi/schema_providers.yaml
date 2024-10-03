@@ -5,3 +5,8 @@ services:
             - !tagged_iterator netgen.ibexa_openapi.page_schema_part_provider
         tags:
             - { name: netgen.ibexa_openapi.schema_provider }
+
+    netgen.ibexa_openapi.openapi.schema_provider.layouts:
+        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\LayoutsSchemaProvider
+        tags:
+            - { name: netgen.ibexa_openapi.schema_provider }

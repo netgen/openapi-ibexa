@@ -1,0 +1,5 @@
+services:
+    netgen.ibexa_openapi.openapi.page_schema_part_provider.layouts:
+        class: Netgen\IbexaOpenApi\OpenApi\PageSchemaPartProvider\LayoutsPageSchemaPartProvider
+        tags:
+            - { name: netgen.ibexa_openapi.page_schema_part_provider }
