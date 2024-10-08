@@ -88,6 +88,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     {
         $properties = [
             'fieldType' => new Schema\StringSchema(null, $fieldDefinition->fieldTypeIdentifier),
+            'isEmpty' => new Schema\BooleanSchema(),
             'value' => new Schema\BasicSchema(),
         ];
 
@@ -126,6 +127,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     {
         $properties = [
             'id' => new Schema\IntegerSchema(),
+            'type' => new Schema\StringSchema(null, 'content'),
             'remoteId' => new Schema\StringSchema(),
             'mainLocationId' => new Schema\IntegerSchema(),
             'name' => new Schema\StringSchema(),
@@ -140,6 +142,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     {
         $properties = [
             'id' => new Schema\IntegerSchema(),
+            'type' => new Schema\StringSchema(null, 'location'),
             'remoteId' => new Schema\StringSchema(),
             'contentId' => new Schema\IntegerSchema(),
             'parentLocationId' => new Schema\IntegerSchema(),

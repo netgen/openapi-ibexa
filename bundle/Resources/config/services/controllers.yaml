@@ -20,6 +20,7 @@ services:
         parent: netgen.ibexa_openapi.controller.base
         arguments:
             - '@netgen.ibexa_site_api.load_service'
+            - '@netgen_layouts.layout.resolver'
             - '@netgen.ibexa_openapi.page.factory'
             - '@netgen.ibexa_openapi.page.output.visitor.output_visitor'
             - '@serializer'

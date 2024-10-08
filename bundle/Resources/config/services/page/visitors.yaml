@@ -8,3 +8,64 @@ services:
         class: Netgen\IbexaOpenApi\Page\Output\Visitor\PageVisitor
         tags:
             - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.layouts.layout:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\LayoutVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.layouts.zone:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\ZoneVisitor
+        arguments:
+            - '@netgen_layouts.api.service.block'
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.layouts.placeholder:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\PlaceholderVisitor
+        arguments:
+            - '@netgen_layouts.api.service.block'
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.layouts.block.title:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\Block\TitleBlockVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.layouts.block.list:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\Block\ListBlockVisitor
+        arguments:
+            - '@netgen_layouts.collection.result.pagerfanta.factory'
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.layouts.block.component:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\Block\ComponentBlockVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.layouts.block.placeholder:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\Block\PlaceholderBlockVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.content:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\ContentVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.location:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\LocationVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.text_line:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\TextLineFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }

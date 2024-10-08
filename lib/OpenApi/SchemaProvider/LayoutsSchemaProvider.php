@@ -16,9 +16,12 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     {
         return [
             'Layouts.Layout' => $this->buildLayoutSchema(),
+            'Layouts.Block' => $this->buildBlockSchema(),
+            'Layouts.BaseBlock' => $this->buildBaseBlockSchema(),
             'Layouts.Block.Title' => $this->buildTitleBlockSchema(),
             'Layouts.Block.List' => $this->buildListBlockSchema(),
             'Layouts.Block.Component' => $this->buildComponentBlockSchema(),
+            'Layouts.Block.Placeholder' => $this->buildPlaceholderBlockSchema(),
         ];
     }
 
@@ -52,8 +55,17 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     private function buildZoneSchema(): Schema\ObjectSchema
     {
         $properties = [
-            'identifier' => new Schema\StringSchema(),
-            'blocks' => new Schema\ArraySchema($this->buildBlockSchema()),
+            'blocks' => new Schema\ArraySchema(new Schema\ReferenceSchema('Layout.Block')),
+        ];
+
+        return new Schema\ObjectSchema($properties, null, array_keys($properties));
+    }
+
+    private function buildBaseBlockSchema(): Schema\ObjectSchema
+    {
+        $properties = [
+            'id' => new Schema\StringSchema(),
+            'type' => new Schema\StringSchema(),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
@@ -66,6 +78,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
                 new Schema\ReferenceSchema('Layouts.Block.Title'),
                 new Schema\ReferenceSchema('Layouts.Block.List'),
                 new Schema\ReferenceSchema('Layouts.Block.Component'),
+                new Schema\ReferenceSchema('Layouts.Block.Placeholder'),
             ],
             new Discriminator(
                 'type',
@@ -73,6 +86,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
                     'title' => 'Layouts.Block.Title',
                     'list' => 'Layouts.Block.List',
                     'component' => 'Layouts.Block.Component',
+                    'placeholder' => 'Layouts.Block.Placeholder',
                 ],
             ),
         );
@@ -95,36 +109,79 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         );
     }
 
-    private function buildTitleBlockSchema(): Schema\ObjectSchema
+    private function buildTitleBlockSchema(): Schema\AllOfSchema
     {
         $properties = [
-            'type' => new Schema\StringSchema(),
+            'type' => new Schema\StringSchema(null, 'title'),
             'tag' => new Schema\StringSchema(),
             'title' => new Schema\StringSchema(),
         ];
 
-        return new Schema\ObjectSchema($properties, null, array_keys($properties));
+        return new Schema\AllOfSchema(
+            [
+                new Schema\ReferenceSchema('Layouts.BaseBlock'),
+                new Schema\ObjectSchema($properties, null, array_keys($properties)),
+            ],
+        );
     }
 
-    private function buildListBlockSchema(): Schema\ObjectSchema
+    private function buildListBlockSchema(): Schema\AllOfSchema
     {
         $properties = [
-            'type' => new Schema\StringSchema(),
+            'type' => new Schema\StringSchema(null, 'list'),
             'columns' => new Schema\IntegerSchema(),
             'items' => new Schema\ArraySchema(
                 $this->buildBlockItemSchema(),
             ),
         ];
 
-        return new Schema\ObjectSchema($properties, null, array_keys($properties));
+        return new Schema\AllOfSchema(
+            [
+                new Schema\ReferenceSchema('Layouts.BaseBlock'),
+                new Schema\ObjectSchema($properties, null, array_keys($properties)),
+            ],
+        );
     }
 
-    private function buildComponentBlockSchema(): Schema\ObjectSchema
+    private function buildComponentBlockSchema(): Schema\AllOfSchema
     {
         $properties = [
-            'type' => new Schema\StringSchema(),
+            'type' => new Schema\StringSchema(null, 'component'),
             'componentType' => new Schema\StringSchema(),
             'content' => new Schema\ReferenceSchema('SiteApi.Content'),
+        ];
+
+        return new Schema\AllOfSchema(
+            [
+                new Schema\ReferenceSchema('Layouts.BaseBlock'),
+                new Schema\ObjectSchema($properties, null, array_keys($properties)),
+            ],
+        );
+    }
+
+    private function buildPlaceholderBlockSchema(): Schema\AllOfSchema
+    {
+        $properties = [
+            'type' => new Schema\StringSchema(null, 'placeholder'),
+            'placeholderType' => new Schema\StringSchema(),
+            'placeholders' => new Schema\ObjectSchema(
+                null,
+                ['^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$' => $this->buildPlaceholderSchema()],
+            ),
+        ];
+
+        return new Schema\AllOfSchema(
+            [
+                new Schema\ReferenceSchema('Layouts.BaseBlock'),
+                new Schema\ObjectSchema($properties, null, array_keys($properties)),
+            ],
+        );
+    }
+
+    private function buildPlaceholderSchema(): Schema\ObjectSchema
+    {
+        $properties = [
+            'blocks' => new Schema\ArraySchema(new Schema\ReferenceSchema('Layout.Block')),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));

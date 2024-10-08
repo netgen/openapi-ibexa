@@ -23,8 +23,9 @@ interface VisitorInterface
      * Visit the given $value into hash array representation.
      *
      * @param T $value
+     * @param array<string, mixed> $parameters
      *
      * @return array<string, mixed>
      */
-    public function visit(object $value, OutputVisitor $outputVisitor): iterable;
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable;
 }
