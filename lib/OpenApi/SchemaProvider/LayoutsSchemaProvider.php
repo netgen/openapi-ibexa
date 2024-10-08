@@ -55,7 +55,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     private function buildZoneSchema(): Schema\ObjectSchema
     {
         $properties = [
-            'blocks' => new Schema\ArraySchema(new Schema\ReferenceSchema('Layout.Block')),
+            'blocks' => new Schema\ArraySchema(new Schema\ReferenceSchema('Layouts.Block')),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
@@ -181,7 +181,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     private function buildPlaceholderSchema(): Schema\ObjectSchema
     {
         $properties = [
-            'blocks' => new Schema\ArraySchema(new Schema\ReferenceSchema('Layout.Block')),
+            'blocks' => new Schema\ArraySchema(new Schema\ReferenceSchema('Layouts.Block')),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
