@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue;
+
+use Ibexa\Core\FieldType\RelationList\Value as RelationListValue;
+use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
+use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
+
+/**
+ * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Ibexa\Core\FieldType\RelationList\Value>
+ */
+final class RelationListFieldValueVisitor implements VisitorInterface
+{
+    public function accept(object $value): bool
+    {
+        return $value instanceof RelationListValue;
+    }
+
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    {
+        return [
+            'destinationContentIds' => $value->destinationContentIds,
+        ];
+    }
+}

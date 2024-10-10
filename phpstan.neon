@@ -2,3 +2,11 @@ includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-symfony/extension.neon
     - vendor/phpstan/phpstan-symfony/rules.neon
+
+parameters:
+    ignoreErrors:
+        - '#Novactive\\Bundle\\eZSEOBundle\\Core\\FieldType\\Metas\\Value#'
+        - '#Netgen\\TagsBundle\\Core\\FieldType\\Tags\\Value#'
+        - '#Netgen\\Bundle\\EnhancedSelectionBundle\\Core\\FieldType\\EnhancedSelection\\Value#'
+        - '#Netgen\\IbexaFieldTypeEnhancedLink\\FieldType\\Value#'
+        - '#Netgen\\Bundle\\ContentTypeListBundle\\Core\\FieldType\\ContentTypeList\\Value#'

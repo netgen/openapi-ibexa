@@ -65,7 +65,94 @@ services:
         tags:
             - { name: netgen.ibexa_openapi.page.output.visitor }
 
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.binary_file:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\BinaryFileFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.checkbox:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\CheckboxFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.content_type_list:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\ContentTypeListFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.date_and_time:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\DateAndTimeFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.email_address:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\EmailAddressFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.enhanced_link:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\EnhancedLinkFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.enhanced_selection:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\EnhancedSelectionFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.image:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\ImageFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.integer:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\IntegerFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.media:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\MediaFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.metas:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\MetasFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.relation:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\RelationFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.relation_list:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\RelationListFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.rich_text:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\RichTextFieldValueVisitor
+        arguments:
+            - '@ibexa.richtext.converter.output.xhtml5'
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.tags:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\TagsFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.text_block:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\TextBlockFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
     netgen.ibexa_openapi.page.output.visitor.site_api.field_value.text_line:
         class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\TextLineFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.site_api.field_value.url:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue\UrlFieldValueVisitor
         tags:
             - { name: netgen.ibexa_openapi.page.output.visitor }
