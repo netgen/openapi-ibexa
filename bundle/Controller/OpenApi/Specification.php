@@ -13,7 +13,6 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function json_encode;
 
-use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 
@@ -33,7 +32,7 @@ final class Specification extends AbstractController
         );
 
         return new JsonResponse(
-            json_encode($data, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
+            json_encode($data, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
             Response::HTTP_OK,
             [],
             true,
