@@ -38,11 +38,15 @@ final class ListBlockVisitor implements VisitorInterface
             'columns' => (int) ($value->getParameter('number_of_columns')->getValue() ?? 1),
             'items' => (static function (ResultSet $resultSet) use ($outputVisitor) {
                 foreach ($resultSet->getResults() as $result) {
-                    if ($result->getItem()->getObject() !== null) {
-                        $result->getItem()->getObject() instanceof Location ?
-                            yield $outputVisitor->visit($result->getItem()->getObject()->content) :
-                            yield $outputVisitor->visit($result->getItem()->getObject());
+                    $valueObject = $result->getItem()->getObject();
+
+                    if ($valueObject === null) {
+                        continue;
                     }
+
+                    yield $valueObject instanceof Location ?
+                        $outputVisitor->visit($valueObject->content) :
+                        $outputVisitor->visit($valueObject);
                 }
             })($resultSet),
         ];
