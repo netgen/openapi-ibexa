@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue;
+namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
 
 use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
 use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;

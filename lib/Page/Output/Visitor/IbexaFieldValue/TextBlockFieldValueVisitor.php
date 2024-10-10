@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue;
+namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
 
-use Ibexa\Core\FieldType\TextLine\Value as TextLineValue;
+use Ibexa\Core\FieldType\TextBlock\Value as TextBlockValue;
 use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
 use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Ibexa\Core\FieldType\TextLine\Value>
+ * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Ibexa\Core\FieldType\TextBlock\Value>
  */
-final class TextLineFieldValueVisitor implements VisitorInterface
+final class TextBlockFieldValueVisitor implements VisitorInterface
 {
     public function accept(object $value): bool
     {
-        return $value instanceof TextLineValue;
+        return $value instanceof TextBlockValue;
     }
 
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable

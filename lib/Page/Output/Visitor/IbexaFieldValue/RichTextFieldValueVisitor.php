@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue;
+namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
 
 use Ibexa\Contracts\FieldTypeRichText\RichText\Converter;
 use Ibexa\FieldTypeRichText\FieldType\RichText\Value as RichTextValue;

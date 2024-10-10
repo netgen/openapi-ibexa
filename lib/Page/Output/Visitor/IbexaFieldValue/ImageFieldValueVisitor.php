@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi\FieldValue;
+namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
 
 use Ibexa\Core\FieldType\Image\Value as ImageValue;
 use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
