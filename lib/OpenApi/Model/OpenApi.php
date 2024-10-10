@@ -10,11 +10,7 @@ final class OpenApi
 {
     private const OPENAPI_VERSION = '3.1.0';
 
-    private const JSON_SCHEMA_DIALECT = 'https://json-schema.org/draft-07/schema#';
-
     private string $openapi = self::OPENAPI_VERSION;
-
-    private string $jsonSchemaDialect = self::JSON_SCHEMA_DIALECT;
 
     /**
      * @param \Netgen\IbexaOpenApi\OpenApi\Model\Server[] $servers
@@ -34,11 +30,6 @@ final class OpenApi
     public function getInfo(): Info
     {
         return $this->info;
-    }
-
-    public function getJsonSchemaDialect(): string
-    {
-        return $this->jsonSchemaDialect;
     }
 
     /**
