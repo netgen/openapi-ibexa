@@ -89,7 +89,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
         $properties = [
             'fieldType' => new Schema\StringSchema(null, $fieldDefinition->fieldTypeIdentifier),
             'isEmpty' => new Schema\BooleanSchema(),
-            'value' => new Schema\BasicSchema(),
+            'value' => new Schema\ObjectSchema(),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
