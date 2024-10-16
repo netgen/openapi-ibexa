@@ -16,7 +16,9 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     {
         return [
             'Layouts.Layout' => $this->buildLayoutSchema(),
+            'Layouts.Zone' => $this->buildZoneSchema(),
             'Layouts.Block' => $this->buildBlockSchema(),
+            'Layouts.Placeholder' => $this->buildPlaceholderSchema(),
             'Layouts.BaseBlock' => $this->buildBaseBlockSchema(),
             'Layouts.Block.Title' => $this->buildTitleBlockSchema(),
             'Layouts.Block.List' => $this->buildListBlockSchema(),
@@ -46,7 +48,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     private function buildZonesSchema(): Schema\ObjectSchema
     {
         $patternProperties = [
-            '^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$' => $this->buildZoneSchema(),
+            '^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$' => new Schema\ReferenceSchema('Layouts.Zone'),
         ];
 
         return new Schema\ObjectSchema(null, $patternProperties);
@@ -166,7 +168,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
             'placeholderType' => new Schema\StringSchema(),
             'placeholders' => new Schema\ObjectSchema(
                 null,
-                ['^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$' => $this->buildPlaceholderSchema()],
+                ['^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$' => new Schema\ReferenceSchema('Layouts.Placeholder')],
             ),
         ];
 
