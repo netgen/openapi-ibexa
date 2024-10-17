@@ -23,14 +23,14 @@ final class LayoutVisitor implements VisitorInterface
     {
         return [
             'id' => $value->getId()->toString(),
-            'type' => $value->getLayoutType()->getIdentifier(),
+            'layoutType' => $value->getLayoutType()->getIdentifier(),
             'name' => $value->getName(),
             'description' => $value->getDescription(),
-            'creation_date' => $value->getCreated()->format(DateTimeInterface::ATOM),
-            'modification_date' => $value->getModified()->format(DateTimeInterface::ATOM),
-            'is_shared' => $value->isShared(),
-            'main_locale' => $value->getMainLocale(),
-            'available_locales' => $value->getAvailableLocales(),
+            'creationDate' => $value->getCreated()->format(DateTimeInterface::ATOM),
+            'modificationDate' => $value->getModified()->format(DateTimeInterface::ATOM),
+            'isShared' => $value->isShared(),
+            'mainLocale' => $value->getMainLocale(),
+            'availableLocales' => $value->getAvailableLocales(),
             'zones' => (static function (Layout $layout) use ($outputVisitor) {
                 foreach ($layout->getZones() as $zone) {
                     yield $zone->getIdentifier() => $outputVisitor->visit($zone);

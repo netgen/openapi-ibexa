@@ -8,6 +8,8 @@ services:
 
     netgen.ibexa_openapi.openapi.schema_provider.layouts:
         class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\LayoutsSchemaProvider
+        arguments:
+            - '@netgen_layouts.layout.registry.layout_type'
         tags:
             - { name: netgen.ibexa_openapi.schema_provider }
 

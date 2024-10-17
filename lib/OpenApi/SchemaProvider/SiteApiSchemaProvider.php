@@ -24,15 +24,48 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
 
     public function provideSchemas(): iterable
     {
+        $innerContentTypeSchemas = $this->buildInnerContentTypeSchemas();
         $contentTypeSchemas = $this->buildContentTypeSchemas();
 
         yield from [
-            'SiteApi.Content' => $this->buildContentSchema($contentTypeSchemas),
             'SiteApi.BaseContent' => $this->buildBaseContentSchema(),
+            'SiteApi.Content' => $this->buildContentSchema($innerContentTypeSchemas, $contentTypeSchemas),
             'SiteApi.Location' => $this->buildLocationSchema(),
         ];
 
+        yield from $innerContentTypeSchemas;
+
         yield from $contentTypeSchemas;
+    }
+
+    /**
+     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema>
+     */
+    private function buildInnerContentTypeSchemas(): array
+    {
+        $contentTypeSchemas = [];
+
+        $contentTypeGroups = $this->contentTypeService->loadContentTypeGroups();
+
+        foreach ($contentTypeGroups as $contentTypeGroup) {
+            $contentTypes = $this->contentTypeService->loadContentTypes($contentTypeGroup);
+
+            foreach ($contentTypes as $contentType) {
+                $schemaName = sprintf('SiteApi.Content.%s.Inner', u($contentType->getName())->camel()->title());
+                $schema = new Schema\ObjectSchema(
+                    [
+                        'contentType' => new Schema\StringSchema(null, $contentType->identifier),
+                        'fields' => $this->buildFieldsSchema($contentType),
+                    ],
+                    null,
+                    ['contentType', 'fields'],
+                );
+
+                $contentTypeSchemas[$schemaName] = $schema;
+            }
+        }
+
+        return $contentTypeSchemas;
     }
 
     /**
@@ -52,14 +85,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
                 $schema = new Schema\AllOfSchema(
                     [
                         new Schema\ReferenceSchema('SiteApi.BaseContent'),
-                        new Schema\ObjectSchema(
-                            [
-                                'contentType' => new Schema\StringSchema(null, $contentType->identifier),
-                                'fields' => new Schema\ObjectSchema($this->buildFieldDefinitionSchemas($contentType)),
-                            ],
-                            null,
-                            ['contentType', 'fields'],
-                        ),
+                        new Schema\ReferenceSchema(sprintf('%s.Inner', $schemaName)),
                     ],
                 );
 
@@ -70,10 +96,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
         return $contentTypeSchemas;
     }
 
-    /**
-     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema>
-     */
-    private function buildFieldDefinitionSchemas(ContentType $contentType): array
+    private function buildFieldsSchema(ContentType $contentType): Schema\ObjectSchema
     {
         $fieldSchemas = [];
 
@@ -81,7 +104,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
             $fieldSchemas[$fieldDefinition->getIdentifier()] = $this->buildFieldDefinitionSchema($fieldDefinition);
         }
 
-        return $fieldSchemas;
+        return new Schema\ObjectSchema($fieldSchemas);
     }
 
     private function buildFieldDefinitionSchema(FieldDefinition $fieldDefinition): Schema\ObjectSchema
@@ -96,18 +119,18 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     }
 
     /**
+     * @param array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema> $innerContentTypeSchemas
      * @param array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\AllOfSchema> $contentTypeSchemas
      */
-    private function buildContentSchema(array $contentTypeSchemas): Schema\OneOfSchema
+    private function buildContentSchema(array $innerContentTypeSchemas, array $contentTypeSchemas): Schema\OneOfSchema
     {
         $discriminatorMappings = [];
 
         foreach ($contentTypeSchemas as $schemaName => $schema) {
-            /** @var \Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema $contentTypeSchema */
-            $contentTypeSchema = $schema->getAllOf()[1];
+            $innerSchema = $innerContentTypeSchemas[sprintf('%s.Inner', $schemaName)];
 
             /** @var \Netgen\IbexaOpenApi\OpenApi\Model\Schema\StringSchema $contentTypeFieldSchema */
-            $contentTypeFieldSchema = ($contentTypeSchema->getProperties() ?? [])['contentType'];
+            $contentTypeFieldSchema = ($innerSchema->getProperties() ?? [])['contentType'];
 
             $discriminatorMappings[$contentTypeFieldSchema->getConst()] = $schemaName;
         }
