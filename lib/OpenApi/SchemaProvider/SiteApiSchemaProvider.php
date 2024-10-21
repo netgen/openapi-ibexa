@@ -6,7 +6,6 @@ namespace Netgen\IbexaOpenApi\OpenApi\SchemaProvider;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Netgen\IbexaOpenApi\OpenApi\Model\Discriminator;
 use Netgen\IbexaOpenApi\OpenApi\Model\Schema;
 use Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface;
@@ -101,21 +100,13 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
         $fieldSchemas = [];
 
         foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
-            $fieldSchemas[$fieldDefinition->getIdentifier()] = $this->buildFieldDefinitionSchema($fieldDefinition);
+            $fieldName = u($fieldDefinition->getFieldTypeIdentifier())->camel()->title();
+            $fieldSchemas[$fieldDefinition->getIdentifier()] = new Schema\ReferenceSchema(
+                sprintf('Ibexa.Field.%s', $fieldName),
+            );
         }
 
         return new Schema\ObjectSchema($fieldSchemas);
-    }
-
-    private function buildFieldDefinitionSchema(FieldDefinition $fieldDefinition): Schema\ObjectSchema
-    {
-        $properties = [
-            'fieldType' => new Schema\StringSchema(null, $fieldDefinition->fieldTypeIdentifier),
-            'isEmpty' => new Schema\BooleanSchema(),
-            'value' => new Schema\ObjectSchema(),
-        ];
-
-        return new Schema\ObjectSchema($properties, null, array_keys($properties));
     }
 
     /**

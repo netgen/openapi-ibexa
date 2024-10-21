@@ -1,0 +1,5 @@
+services:
+    netgen.ibexa_openapi.ibexa.field_value_schema_provider.text_line:
+        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\TextLineFieldValueSchemaProvider
+        tags:
+            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezstring }

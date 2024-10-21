@@ -19,3 +19,13 @@ services:
             - '@ibexa.api.service.content_type'
         tags:
             - { name: netgen.ibexa_openapi.schema_provider }
+
+    netgen.ibexa_openapi.openapi.schema_provider.ibexa:
+        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\IbexaSchemaProvider
+        arguments:
+            - '@ibexa.api.service.field_type'
+            - !tagged_iterator
+                tag: netgen.ibexa_openapi.ibexa.field_value_schema_provider
+                index_by: identifier
+        tags:
+            - { name: netgen.ibexa_openapi.schema_provider }
