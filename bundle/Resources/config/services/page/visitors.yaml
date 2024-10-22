@@ -85,6 +85,11 @@ services:
         tags:
             - { name: netgen.ibexa_openapi.page.output.visitor }
 
+    netgen.ibexa_openapi.page.output.visitor.ibexa_field_value.date:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue\DateFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
     netgen.ibexa_openapi.page.output.visitor.ibexa_field_value.email_address:
         class: Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue\EmailAddressFieldValueVisitor
         tags:
@@ -97,6 +102,11 @@ services:
 
     netgen.ibexa_openapi.page.output.visitor.ibexa_field_value.enhanced_selection:
         class: Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue\EnhancedSelectionFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.ibexa_field_value.float:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue\FloatFieldValueVisitor
         tags:
             - { name: netgen.ibexa_openapi.page.output.visitor }
 
@@ -149,6 +159,11 @@ services:
 
     netgen.ibexa_openapi.page.output.visitor.ibexa_field_value.text_line:
         class: Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue\TextLineFieldValueVisitor
+        tags:
+            - { name: netgen.ibexa_openapi.page.output.visitor }
+
+    netgen.ibexa_openapi.page.output.visitor.ibexa_field_value.time:
+        class: Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue\TimeFieldValueVisitor
         tags:
             - { name: netgen.ibexa_openapi.page.output.visitor }
 
