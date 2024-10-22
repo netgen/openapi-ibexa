@@ -54,7 +54,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     private function buildBaseLayoutSchema(): Schema\ObjectSchema
     {
         $properties = [
-            'id' => new Schema\StringSchema(),
+            'id' => new Schema\StringSchema(null, null, Schema\Format::Uuid),
             'layoutType' => new Schema\StringSchema(),
             'name' => new Schema\StringSchema(),
             'description' => new Schema\StringSchema(),
@@ -165,7 +165,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     private function buildBaseBlockSchema(): Schema\ObjectSchema
     {
         $properties = [
-            'id' => new Schema\StringSchema(),
+            'id' => new Schema\StringSchema(null, null, Schema\Format::Uuid),
             'type' => new Schema\StringSchema(),
         ];
 

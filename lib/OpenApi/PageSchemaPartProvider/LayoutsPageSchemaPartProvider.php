@@ -11,7 +11,9 @@ final class LayoutsPageSchemaPartProvider implements PageSchemaPartProviderInter
 {
     public function providePageSchemaParts(): iterable
     {
-        yield 'layout' => new ReferenceSchema('Layouts.Layout');
+        return [
+            'layout' => new ReferenceSchema('Layouts.Layout'),
+        ];
     }
 
     public function getRequiredIdentifiers(): array
