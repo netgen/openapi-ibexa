@@ -4,29 +4,35 @@ declare(strict_types=1);
 
 namespace Netgen\IbexaOpenApi\OpenApi\SchemaProvider;
 
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema;
+use Netgen\IbexaOpenApi\OpenApi\Model\Schema\ReferenceSchema;
 use Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface;
 
 final class PageSchemaProvider implements SchemaProviderInterface
 {
-    /**
-     * @param iterable<\Netgen\IbexaOpenApi\OpenApi\PageSchemaPartProviderInterface> $pageSchemaPartProviders
-     */
     public function __construct(
-        private iterable $pageSchemaPartProviders,
+        private ConfigResolverInterface $configResolver,
     ) {}
 
     public function provideSchemas(): iterable
     {
-        $properties = [];
-        $required = [];
+        /** @var array<string, array{reference_name: string, required: bool, enabled: bool}> $pageSchemaConfig */
+        $pageSchemaConfig = $this->configResolver->getParameter('page_schema', 'netgen_ibexa_open_api');
 
-        foreach ($this->pageSchemaPartProviders as $pageSchemaPartProvider) {
-            $properties += [...$pageSchemaPartProvider->providePageSchemaParts()];
-            // Cannot use += here due to numeric keys
-            $required = [...$required, ...$pageSchemaPartProvider->getRequiredIdentifiers()];
+        $properties = [];
+        $requiredProperties = [];
+
+        foreach ($pageSchemaConfig as $identifier => $schemaConfig) {
+            if ($schemaConfig['enabled']) {
+                $properties[$identifier] = new ReferenceSchema($schemaConfig['reference_name']);
+
+                if ($schemaConfig['required']) {
+                    $requiredProperties[] = $identifier;
+                }
+            }
         }
 
-        yield 'Page' => new ObjectSchema($properties, null, $required);
+        yield 'Page' => new ObjectSchema($properties, null, $requiredProperties);
     }
 }

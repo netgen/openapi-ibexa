@@ -1,0 +1,9 @@
+system:
+    default:
+        page_schema:
+            layout:
+                reference_name: Layouts.Layout
+            content:
+                reference_name: SiteApi.Content
+            location:
+                reference_name: SiteApi.Location
