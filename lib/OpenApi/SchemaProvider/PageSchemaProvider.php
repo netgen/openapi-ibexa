@@ -9,6 +9,8 @@ use Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema;
 use Netgen\IbexaOpenApi\OpenApi\Model\Schema\ReferenceSchema;
 use Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface;
 
+use function count;
+
 final class PageSchemaProvider implements SchemaProviderInterface
 {
     public function __construct(
@@ -33,6 +35,6 @@ final class PageSchemaProvider implements SchemaProviderInterface
             }
         }
 
-        yield 'Page' => new ObjectSchema($properties, null, $requiredProperties);
+        yield 'Page' => new ObjectSchema($properties, null, count($requiredProperties) > 0 ? $requiredProperties : null);
     }
 }
