@@ -123,7 +123,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
             /** @var \Netgen\IbexaOpenApi\OpenApi\Model\Schema\StringSchema $contentTypeFieldSchema */
             $contentTypeFieldSchema = ($innerSchema->getProperties() ?? [])['contentType'];
 
-            $discriminatorMappings[$contentTypeFieldSchema->getConst()] = $schemaName;
+            $discriminatorMappings[$contentTypeFieldSchema->getConst() ?? ''] = $schemaName;
         }
 
         $discriminator = new Discriminator('contentType', $discriminatorMappings);

@@ -25,7 +25,7 @@ interface VisitorInterface
      * @param T $value
      * @param array<string, mixed> $parameters
      *
-     * @return array<string, mixed>
+     * @return iterable<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable;
 }

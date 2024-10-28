@@ -128,7 +128,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
             /** @var \Netgen\IbexaOpenApi\OpenApi\Model\Schema\StringSchema $layoutTypeFieldSchema */
             $layoutTypeFieldSchema = ($innerSchema->getProperties() ?? [])['layoutType'];
 
-            $discriminatorMappings[$layoutTypeFieldSchema->getConst()] = $schemaName;
+            $discriminatorMappings[$layoutTypeFieldSchema->getConst() ?? ''] = $schemaName;
         }
 
         $discriminator = new Discriminator('layoutType', $discriminatorMappings);

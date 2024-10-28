@@ -21,13 +21,13 @@ final class ComponentBlockVisitor implements VisitorInterface
 
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
+        $valueObject = $value->getParameter('content')->getValueObject();
+
         return [
             'id' => $value->getId()->toString(),
             'type' => 'component',
             'componentType' => $value->getDefinition()->getIdentifier(),
-            'content' => $value->getParameter('content')->getValueObject() !== null ?
-                $outputVisitor->visit($value->getParameter('content')->getValueObject()) :
-                null,
+            'content' => $valueObject !== null ? $outputVisitor->visit($valueObject) : null,
         ];
     }
 }
