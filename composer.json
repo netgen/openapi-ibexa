@@ -1,5 +1,5 @@
 {
-    "name": "netgen/ibexa-openapi",
+    "name": "netgen/openapi-ibexa",
     "description": "OpenAPI implementation for Ibexa CMS",
     "license": "GPL-2.0-only",
     "type": "symfony-bundle",

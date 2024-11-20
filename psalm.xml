@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="bundle" />
+        <directory name="lib" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin" />
+    </plugins>
+
+    <issueHandlers>
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Netgen\TagsBundle\Core\FieldType\Tags\Value" />
+                <referencedClass name="Novactive\Bundle\eZSEOBundle\Core\FieldType\Metas\Value" />
+                <referencedClass name="Netgen\Bundle\EnhancedSelectionBundle\Core\FieldType\EnhancedSelection\Value" />
+                <referencedClass name="Netgen\IbexaFieldTypeEnhancedLink\FieldType\Value" />
+                <referencedClass name="Netgen\Bundle\ContentTypeListBundle\Core\FieldType\ContentTypeList\Value" />
+            </errorLevel>
+        </UndefinedClass>
+
+        <UndefinedDocblockClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Netgen\TagsBundle\Core\FieldType\Tags\Value" />
+                <referencedClass name="Novactive\Bundle\eZSEOBundle\Core\FieldType\Metas\Value" />
+                <referencedClass name="Netgen\Bundle\EnhancedSelectionBundle\Core\FieldType\EnhancedSelection\Value" />
+                <referencedClass name="Netgen\IbexaFieldTypeEnhancedLink\FieldType\Value" />
+                <referencedClass name="Netgen\Bundle\ContentTypeListBundle\Core\FieldType\ContentTypeList\Value" />
+            </errorLevel>
+        </UndefinedDocblockClass>
+
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <file name="bundle/Command/DumpSpecificationCommand.php" />
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+
+        <PossiblyNullReference>
+            <errorLevel type="suppress">
+                <file name="bundle/DependencyInjection/Configuration.php" />
+            </errorLevel>
+        </PossiblyNullReference>
+
+        <UndefinedInterfaceMethod>
+            <errorLevel type="suppress">
+                <file name="bundle/DependencyInjection/Configuration.php" />
+            </errorLevel>
+        </UndefinedInterfaceMethod>
+    </issueHandlers>
+</psalm>

@@ -5,4 +5,4 @@ services:
             - '@netgen.ibexa_openapi.openapi.factory'
             - '@serializer'
         tags:
-            - { name: console.command, command: netgen:ibexa-openapi:dump-spec }
+            - { name: console.command, command: netgen:openapi-ibexa:dump-spec }
