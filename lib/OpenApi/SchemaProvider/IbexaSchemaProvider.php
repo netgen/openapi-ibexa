@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\OpenApi\SchemaProvider;
+namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider;
 
 use Ibexa\Contracts\Core\Repository\FieldTypeService;
-use Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface;
 use Netgen\OpenApi\Model\Schema;
+use Netgen\OpenApiIbexa\OpenApi\SchemaProviderInterface;
 use Traversable;
 
 use function array_keys;
@@ -17,12 +17,12 @@ use function Symfony\Component\String\u;
 final class IbexaSchemaProvider implements SchemaProviderInterface
 {
     /**
-     * @var array<string, \Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\FieldValueSchemaProviderInterface>
+     * @var array<string, \Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValueSchemaProviderInterface>
      */
     private array $fieldValueSchemaProviders;
 
     /**
-     * @param iterable<\Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\FieldValueSchemaProviderInterface> $fieldValueSchemaProviders
+     * @param iterable<\Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValueSchemaProviderInterface> $fieldValueSchemaProviders
      */
     public function __construct(
         private FieldTypeService $fieldTypeService,

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\Block;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\Block;
 
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\BlockVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
 use Netgen\IbexaSiteApi\API\Values\Location;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\Layouts\Collection\Result\ResultSet;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\BlockVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
  */
 final class ListBlockVisitor extends BlockVisitor implements VisitorInterface
 {

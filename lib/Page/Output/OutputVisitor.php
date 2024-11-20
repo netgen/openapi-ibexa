@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output;
+namespace Netgen\OpenApiIbexa\Page\Output;
 
 use RuntimeException;
 
@@ -12,7 +12,7 @@ use function sprintf;
 final class OutputVisitor
 {
     /**
-     * @param iterable<\Netgen\IbexaOpenApi\Page\Output\VisitorInterface<object>> $subVisitors
+     * @param iterable<\Netgen\OpenApiIbexa\Page\Output\VisitorInterface<object>> $subVisitors
      */
     public function __construct(
         private iterable $subVisitors,

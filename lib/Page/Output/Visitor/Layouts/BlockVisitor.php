@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts;
 
 use Netgen\Layouts\API\Values\Block\Block;
 

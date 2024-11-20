@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output;
+namespace Netgen\OpenApiIbexa\Page\Output;
 
 /**
  * Visits values into hash representation.

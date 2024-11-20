@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
 use Ibexa\Core\FieldType\BinaryFile\Value as BinaryFileValue;
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Ibexa\Core\FieldType\BinaryFile\Value>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Ibexa\Core\FieldType\BinaryFile\Value>
  */
 final class BinaryFileFieldValueVisitor implements VisitorInterface
 {

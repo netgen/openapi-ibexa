@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 use Novactive\Bundle\eZSEOBundle\Core\FieldType\Metas\Value as MetasValue;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Novactive\Bundle\eZSEOBundle\Core\FieldType\Metas\Value>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Novactive\Bundle\eZSEOBundle\Core\FieldType\Metas\Value>
  */
 final class MetasFieldValueVisitor implements VisitorInterface
 {

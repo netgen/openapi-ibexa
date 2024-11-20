@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor;
 
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
-use Netgen\IbexaOpenApi\Page\Page;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
+use Netgen\OpenApiIbexa\Page\Page;
 
 use function is_object;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\IbexaOpenApi\Page\Page>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\OpenApiIbexa\Page\Page>
  */
 final class PageVisitor implements VisitorInterface
 {

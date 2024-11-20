@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\OpenApi\SchemaProvider;
+namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider;
 
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
-use Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface;
 use Netgen\OpenApi\Model\Schema\ObjectSchema;
 use Netgen\OpenApi\Model\Schema\ReferenceSchema;
+use Netgen\OpenApiIbexa\OpenApi\SchemaProviderInterface;
 
 use function count;
 
@@ -20,7 +20,7 @@ final class PageSchemaProvider implements SchemaProviderInterface
     public function provideSchemas(): iterable
     {
         /** @var array<string, array{reference_name: string, required: bool, enabled: bool}> $pageSchemaConfig */
-        $pageSchemaConfig = $this->configResolver->getParameter('page_schema', 'netgen_ibexa_open_api');
+        $pageSchemaConfig = $this->configResolver->getParameter('page_schema', 'netgen_open_api_ibexa');
 
         $properties = [];
         $requiredProperties = [];

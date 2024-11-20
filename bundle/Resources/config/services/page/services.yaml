@@ -1,5 +1,5 @@
 services:
-    netgen.ibexa_openapi.page.factory:
-        class: Netgen\IbexaOpenApi\Page\PageFactory
+    netgen.openapi_ibexa.page.factory:
+        class: Netgen\OpenApiIbexa\Page\PageFactory
         arguments:
-            - !tagged_iterator netgen.ibexa_openapi.page.page_part_provider
+            - !tagged_iterator netgen.openapi_ibexa.page.page_part_provider

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\IbexaOpenApiBundle\Controller\OpenApi;
+namespace Netgen\Bundle\OpenApiIbexaBundle\Controller\OpenApi;
 
-use Netgen\IbexaOpenApi\OpenApi\OpenApiFactory;
+use Netgen\OpenApiIbexa\OpenApi\OpenApiFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

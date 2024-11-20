@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\Block;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\Block;
 
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\BlockVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Ibexa\Block\BlockDefinition\Handler\ComponentHandler;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\BlockVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
  */
 final class ComponentBlockVisitor extends BlockVisitor implements VisitorInterface
 {

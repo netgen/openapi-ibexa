@@ -1,105 +1,105 @@
 services:
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.binary_file:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\BinaryFileFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.binary_file:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\BinaryFileFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezbinaryfile }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezbinaryfile }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.checkbox:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\CheckboxFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.checkbox:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\CheckboxFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezboolean }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezboolean }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.content_type_list:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\ContentTypeListFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.content_type_list:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\ContentTypeListFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ngclasslist }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ngclasslist }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.date_and_time:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\DateAndTimeFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.date_and_time:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\DateAndTimeFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezdatetime }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezdatetime }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.date:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\DateFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.date:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\DateFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezdate }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezdate }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.email_address:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\EmailAddressFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.email_address:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\EmailAddressFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezemail }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezemail }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.enhanced_link:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\EnhancedLinkFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.enhanced_link:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\EnhancedLinkFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ngenhancedlink }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ngenhancedlink }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.enhanced_selection:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\EnhancedSelectionFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.enhanced_selection:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\EnhancedSelectionFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: sckenhancedselection }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: sckenhancedselection }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.float:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\FloatFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.float:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FloatFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezfloat }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezfloat }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.image:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\ImageFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.image:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\ImageFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezimage }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezimage }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.integer:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\IntegerFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.integer:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\IntegerFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezinteger }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezinteger }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.media:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\MediaFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.media:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\MediaFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezmedia }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezmedia }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.metas:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\MetasFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.metas:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\MetasFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: novaseometas }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: novaseometas }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.relation:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\RelationFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.relation:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\RelationFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezobjectrelation }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezobjectrelation }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.relation_list:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\RelationListFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.relation_list:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\RelationListFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezobjectrelationlist }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezobjectrelationlist }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.rich_text:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\RichTextFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.rich_text:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\RichTextFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezrichtext }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezrichtext }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.tags:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\TagsFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.tags:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\TagsFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: eztags }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: eztags }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.text_block:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\TextBlockFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.text_block:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\TextBlockFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: eztext }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: eztext }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.text_line:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\TextLineFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.text_line:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\TextLineFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezstring }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezstring }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.time:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\TimeFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.time:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\TimeFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: eztime }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: eztime }
 
-    netgen.ibexa_openapi.ibexa.field_value_schema_provider.url:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa\UrlFieldValueSchemaProvider
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.url:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\UrlFieldValueSchemaProvider
         tags:
-            - { name: netgen.ibexa_openapi.ibexa.field_value_schema_provider, identifier: ezurl }
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezurl }

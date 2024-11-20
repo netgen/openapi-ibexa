@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page;
+namespace Netgen\OpenApiIbexa\Page;
 
 use Netgen\IbexaSiteApi\API\Values\Content;
 use Netgen\Layouts\API\Values\Layout\Layout;
@@ -10,7 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 final class PageFactory
 {
     /**
-     * @param iterable<\Netgen\IbexaOpenApi\Page\PagePartProviderInterface> $pagePartProviders
+     * @param iterable<\Netgen\OpenApiIbexa\Page\PagePartProviderInterface> $pagePartProviders
      */
     public function __construct(
         private iterable $pagePartProviders,

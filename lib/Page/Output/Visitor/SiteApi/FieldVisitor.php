@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\SiteApi;
 
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
 use Netgen\IbexaSiteApi\API\Values\Field;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 use RuntimeException;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\IbexaSiteApi\API\Values\Field>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\IbexaSiteApi\API\Values\Field>
  */
 final class FieldVisitor implements VisitorInterface
 {

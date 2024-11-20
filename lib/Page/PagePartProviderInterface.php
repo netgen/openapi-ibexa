@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page;
+namespace Netgen\OpenApiIbexa\Page;
 
 interface PagePartProviderInterface
 {

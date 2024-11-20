@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\OpenApi;
+namespace Netgen\OpenApiIbexa\OpenApi;
 
 interface SchemaProviderInterface
 {

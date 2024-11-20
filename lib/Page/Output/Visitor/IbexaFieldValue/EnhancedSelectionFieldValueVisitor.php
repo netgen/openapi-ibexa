@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
 use Netgen\Bundle\EnhancedSelectionBundle\Core\FieldType\EnhancedSelection\Value as EnhancedSelectionValue;
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\Bundle\EnhancedSelectionBundle\Core\FieldType\EnhancedSelection\Value>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\Bundle\EnhancedSelectionBundle\Core\FieldType\EnhancedSelection\Value>
  */
 final class EnhancedSelectionFieldValueVisitor implements VisitorInterface
 {

@@ -1,2 +1,2 @@
 parameters:
-    netgen.ibexa_openapi.route_prefix: /ngopenapi
+    netgen.openapi_ibexa.route_prefix: /ngopenapi

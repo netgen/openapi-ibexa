@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 use Netgen\TagsBundle\Core\FieldType\Tags\Value as TagsValue;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\TagsBundle\Core\FieldType\Tags\Value>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\TagsBundle\Core\FieldType\Tags\Value>
  */
 final class TagsFieldValueVisitor implements VisitorInterface
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
 use Netgen\Bundle\ContentTypeListBundle\Core\FieldType\ContentTypeList\Value as ContentTypeListValue;
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\Bundle\ContentTypeListBundle\Core\FieldType\ContentTypeList\Value>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\Bundle\ContentTypeListBundle\Core\FieldType\ContentTypeList\Value>
  */
 final class ContentTypeListFieldValueVisitor implements VisitorInterface
 {

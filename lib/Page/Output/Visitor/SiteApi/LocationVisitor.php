@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\SiteApi;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\SiteApi;
 
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
 use Netgen\IbexaSiteApi\API\Values\Location;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
 use function array_map;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\IbexaSiteApi\API\Values\Location>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\IbexaSiteApi\API\Values\Location>
  */
 final class LocationVisitor implements VisitorInterface
 {

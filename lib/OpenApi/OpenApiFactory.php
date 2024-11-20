@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\OpenApi;
+namespace Netgen\OpenApiIbexa\OpenApi;
 
 use Netgen\OpenApi\Model\Components;
 use Netgen\OpenApi\Model\Info;
@@ -13,8 +13,8 @@ use Netgen\OpenApi\Model\Server;
 final class OpenApiFactory
 {
     /**
-     * @param iterable<\Netgen\IbexaOpenApi\OpenApi\PathProviderInterface> $pathProviders
-     * @param iterable<\Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface> $schemaProviders
+     * @param iterable<\Netgen\OpenApiIbexa\OpenApi\PathProviderInterface> $pathProviders
+     * @param iterable<\Netgen\OpenApiIbexa\OpenApi\SchemaProviderInterface> $schemaProviders
      */
     public function __construct(
         private iterable $pathProviders,

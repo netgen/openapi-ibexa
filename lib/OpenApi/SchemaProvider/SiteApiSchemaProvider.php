@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\OpenApi\SchemaProvider;
+namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface;
 use Netgen\OpenApi\Model\Discriminator;
 use Netgen\OpenApi\Model\Schema;
+use Netgen\OpenApiIbexa\OpenApi\SchemaProviderInterface;
 
 use function array_keys;
 use function array_map;

@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\OpenApi\PathProvider;
+namespace Netgen\OpenApiIbexa\OpenApi\PathProvider;
 
-use Netgen\IbexaOpenApi\OpenApi\PathProviderInterface;
 use Netgen\OpenApi\Model\MediaType;
 use Netgen\OpenApi\Model\Operation;
 use Netgen\OpenApi\Model\Parameter;
@@ -14,6 +13,7 @@ use Netgen\OpenApi\Model\Response;
 use Netgen\OpenApi\Model\Responses;
 use Netgen\OpenApi\Model\Schema\NumberSchema;
 use Netgen\OpenApi\Model\Schema\ReferenceSchema;
+use Netgen\OpenApiIbexa\OpenApi\PathProviderInterface;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 final class PagePathProvider implements PathProviderInterface

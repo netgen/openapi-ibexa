@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\OpenApi\SchemaProvider\Ibexa;
+namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa;
 
 use Netgen\OpenApi\Model\Schema;
 

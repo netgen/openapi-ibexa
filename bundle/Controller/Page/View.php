@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\IbexaOpenApiBundle\Controller\Page;
+namespace Netgen\Bundle\OpenApiIbexaBundle\Controller\Page;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
 use Netgen\Bundle\IbexaSiteApiBundle\View\ContentView;
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\PageFactory;
 use Netgen\IbexaSiteApi\API\LoadService;
 use Netgen\Layouts\Layout\Resolver\LayoutResolverInterface;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\PageFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

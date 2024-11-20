@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\IbexaOpenApiBundle\DependencyInjection;
+namespace Netgen\Bundle\OpenApiIbexaBundle\DependencyInjection;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
@@ -19,7 +19,7 @@ use Symfony\Component\Yaml\Yaml;
 
 use function file_get_contents;
 
-final class NetgenIbexaOpenApiExtension extends Extension implements PrependExtensionInterface
+final class NetgenOpenApiIbexaExtension extends Extension implements PrependExtensionInterface
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -44,7 +44,7 @@ final class NetgenIbexaOpenApiExtension extends Extension implements PrependExte
     public function prepend(ContainerBuilder $container): void
     {
         $configs = [
-            'default_settings.yaml' => 'netgen_ibexa_open_api',
+            'default_settings.yaml' => 'netgen_open_api_ibexa',
         ];
 
         foreach ($configs as $fileName => $extensionName) {
@@ -60,7 +60,7 @@ final class NetgenIbexaOpenApiExtension extends Extension implements PrependExte
      */
     private function processSemanticConfig(ContainerBuilder $container, array $config): void
     {
-        $processor = new ConfigurationProcessor($container, 'netgen_ibexa_open_api');
+        $processor = new ConfigurationProcessor($container, 'netgen_open_api_ibexa');
         $processor->mapConfigArray('page_schema', $config, ContextualizerInterface::MERGE_FROM_SECOND_LEVEL);
     }
 }

@@ -37,14 +37,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Netgen\\IbexaOpenApi\\": "lib/",
-            "Netgen\\Bundle\\IbexaOpenApiBundle\\": "bundle/"
+            "Netgen\\OpenApiIbexa\\": "lib/",
+            "Netgen\\Bundle\\OpenApiIbexaBundle\\": "bundle/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Netgen\\IbexaOpenApi\\Tests\\": "tests/lib/",
-            "Netgen\\Bundle\\IbexaOpenApiBundle\\Tests\\": "tests/bundle/"
+            "Netgen\\OpenApiIbexa\\Tests\\": "tests/lib/",
+            "Netgen\\Bundle\\OpenApiIbexaBundle\\Tests\\": "tests/bundle/"
         }
     },
     "minimum-stability": "dev",

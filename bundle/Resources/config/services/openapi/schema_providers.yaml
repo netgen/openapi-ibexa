@@ -1,31 +1,31 @@
 services:
-    netgen.ibexa_openapi.openapi.schema_provider.page:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\PageSchemaProvider
+    netgen.openapi_ibexa.openapi.schema_provider.page:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\PageSchemaProvider
         arguments:
             - '@ibexa.config.resolver'
         tags:
-            - { name: netgen.ibexa_openapi.schema_provider }
+            - { name: netgen.openapi_ibexa.schema_provider }
 
-    netgen.ibexa_openapi.openapi.schema_provider.layouts:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\LayoutsSchemaProvider
+    netgen.openapi_ibexa.openapi.schema_provider.layouts:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\LayoutsSchemaProvider
         arguments:
             - '@netgen_layouts.layout.registry.layout_type'
         tags:
-            - { name: netgen.ibexa_openapi.schema_provider }
+            - { name: netgen.openapi_ibexa.schema_provider }
 
-    netgen.ibexa_openapi.openapi.schema_provider.site_api:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\SiteApiSchemaProvider
+    netgen.openapi_ibexa.openapi.schema_provider.site_api:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\SiteApiSchemaProvider
         arguments:
             - '@ibexa.api.service.content_type'
         tags:
-            - { name: netgen.ibexa_openapi.schema_provider }
+            - { name: netgen.openapi_ibexa.schema_provider }
 
-    netgen.ibexa_openapi.openapi.schema_provider.ibexa:
-        class: Netgen\IbexaOpenApi\OpenApi\SchemaProvider\IbexaSchemaProvider
+    netgen.openapi_ibexa.openapi.schema_provider.ibexa:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\IbexaSchemaProvider
         arguments:
             - '@ibexa.api.service.field_type'
             - !tagged_iterator
-                tag: netgen.ibexa_openapi.ibexa.field_value_schema_provider
+                tag: netgen.openapi_ibexa.ibexa.field_value_schema_provider
                 index_by: identifier
         tags:
-            - { name: netgen.ibexa_openapi.schema_provider }
+            - { name: netgen.openapi_ibexa.schema_provider }

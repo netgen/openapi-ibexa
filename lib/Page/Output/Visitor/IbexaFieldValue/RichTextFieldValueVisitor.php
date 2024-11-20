@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\IbexaOpenApi\Page\Output\Visitor\IbexaFieldValue;
+namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
 use Ibexa\Contracts\FieldTypeRichText\RichText\Converter;
 use Ibexa\FieldTypeRichText\FieldType\RichText\Value as RichTextValue;
-use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
-use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
 /**
- * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Ibexa\FieldTypeRichText\FieldType\RichText\Value>
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Ibexa\FieldTypeRichText\FieldType\RichText\Value>
  */
 final class RichTextFieldValueVisitor implements VisitorInterface
 {
