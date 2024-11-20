@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\Block;
 
 use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
+use Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\BlockVisitor;
 use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Ibexa\Block\BlockDefinition\Handler\ComponentHandler;
@@ -12,7 +13,7 @@ use Netgen\Layouts\Ibexa\Block\BlockDefinition\Handler\ComponentHandler;
 /**
  * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
  */
-final class ComponentBlockVisitor implements VisitorInterface
+final class ComponentBlockVisitor extends BlockVisitor implements VisitorInterface
 {
     public function accept(object $value): bool
     {
@@ -24,10 +25,9 @@ final class ComponentBlockVisitor implements VisitorInterface
         $valueObject = $value->getParameter('content')->getValueObject();
 
         return [
-            'id' => $value->getId()->toString(),
             'type' => 'component',
             'componentType' => $value->getDefinition()->getIdentifier(),
             'content' => $valueObject !== null ? $outputVisitor->visit($valueObject) : null,
-        ];
+        ] + $this->visitBasicProperties($value);
     }
 }

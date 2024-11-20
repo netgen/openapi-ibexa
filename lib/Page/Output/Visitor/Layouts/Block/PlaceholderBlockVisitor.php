@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\Block;
 
 use Netgen\IbexaOpenApi\Page\Output\OutputVisitor;
+use Netgen\IbexaOpenApi\Page\Output\Visitor\Layouts\BlockVisitor;
 use Netgen\IbexaOpenApi\Page\Output\VisitorInterface;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
@@ -12,7 +13,7 @@ use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 /**
  * @implements \Netgen\IbexaOpenApi\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
  */
-final class PlaceholderBlockVisitor implements VisitorInterface
+final class PlaceholderBlockVisitor extends BlockVisitor implements VisitorInterface
 {
     public function accept(object $value): bool
     {
@@ -22,7 +23,6 @@ final class PlaceholderBlockVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [
-            'id' => $value->getId()->toString(),
             'type' => 'placeholder',
             'placeholderType' => $value->getDefinition()->getIdentifier(),
             'placeholders' => (static function (Block $block) use ($outputVisitor) {
@@ -30,6 +30,6 @@ final class PlaceholderBlockVisitor implements VisitorInterface
                     yield $placeholder->getIdentifier() => $outputVisitor->visit($placeholder, ['block' => $block]);
                 }
             })($value),
-        ];
+        ] + $this->visitBasicProperties($value);
     }
 }
