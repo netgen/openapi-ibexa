@@ -7,7 +7,7 @@ namespace Netgen\IbexaOpenApi\OpenApi;
 interface PathProviderInterface
 {
     /**
-     * @return iterable<string, \Netgen\IbexaOpenApi\OpenApi\Model\Path>
+     * @return iterable<string, \Netgen\OpenApi\Model\Path>
      */
     public function providePaths(): iterable;
 }

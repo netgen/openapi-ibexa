@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\IbexaOpenApi\OpenApi;
 
-use Netgen\IbexaOpenApi\OpenApi\Model\Components;
-use Netgen\IbexaOpenApi\OpenApi\Model\Info;
-use Netgen\IbexaOpenApi\OpenApi\Model\OpenApi;
-use Netgen\IbexaOpenApi\OpenApi\Model\Paths;
-use Netgen\IbexaOpenApi\OpenApi\Model\Server;
+use Netgen\OpenApi\Model\Components;
+use Netgen\OpenApi\Model\Info;
+use Netgen\OpenApi\Model\OpenApi;
+use Netgen\OpenApi\Model\Paths;
+use Netgen\OpenApi\Model\Server;
 
 final class OpenApiFactory
 {
@@ -34,7 +34,7 @@ final class OpenApiFactory
     }
 
     /**
-     * @return iterable<string, \Netgen\IbexaOpenApi\OpenApi\Model\Path>
+     * @return iterable<string, \Netgen\OpenApi\Model\Path>
      */
     private function getPaths(): iterable
     {
@@ -44,7 +44,7 @@ final class OpenApiFactory
     }
 
     /**
-     * @return iterable<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema>
+     * @return iterable<string, \Netgen\OpenApi\Model\Schema>
      */
     private function getSchemas(): iterable
     {

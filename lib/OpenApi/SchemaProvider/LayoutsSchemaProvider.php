@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\IbexaOpenApi\OpenApi\SchemaProvider;
 
-use Netgen\IbexaOpenApi\OpenApi\Model\Discriminator;
-use Netgen\IbexaOpenApi\OpenApi\Model\Schema;
 use Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\OpenApi\Model\Discriminator;
+use Netgen\OpenApi\Model\Schema;
 
 use function array_keys;
 use function array_map;
@@ -69,7 +69,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema>
+     * @return array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema>
      */
     private function buildInnerLayoutTypeSchemas(): array
     {
@@ -93,7 +93,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\AllOfSchema>
+     * @return array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema>
      */
     private function buildLayoutTypeSchemas(): array
     {
@@ -115,8 +115,8 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @param array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema> $innerLayoutTypeSchemas
-     * @param array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\AllOfSchema> $layoutTypeSchemas
+     * @param array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema> $innerLayoutTypeSchemas
+     * @param array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema> $layoutTypeSchemas
      */
     private function buildLayoutSchema(array $innerLayoutTypeSchemas, array $layoutTypeSchemas): Schema\OneOfSchema
     {
@@ -125,7 +125,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         foreach ($layoutTypeSchemas as $schemaName => $schema) {
             $innerSchema = $innerLayoutTypeSchemas[sprintf('%s.Inner', $schemaName)];
 
-            /** @var \Netgen\IbexaOpenApi\OpenApi\Model\Schema\StringSchema $layoutTypeFieldSchema */
+            /** @var \Netgen\OpenApi\Model\Schema\StringSchema $layoutTypeFieldSchema */
             $layoutTypeFieldSchema = ($innerSchema->getProperties() ?? [])['layoutType'];
 
             $discriminatorMappings[$layoutTypeFieldSchema->getConst() ?? ''] = $schemaName;
@@ -211,7 +211,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema>
+     * @return array<string, \Netgen\OpenApi\Model\Schema>
      */
     private function buildTitleBlockSchemas(): array
     {
@@ -233,7 +233,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema>
+     * @return array<string, \Netgen\OpenApi\Model\Schema>
      */
     private function buildListBlockSchemas(): array
     {
@@ -257,7 +257,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema>
+     * @return array<string, \Netgen\OpenApi\Model\Schema>
      */
     private function buildComponentBlockSchemas(): array
     {
@@ -279,7 +279,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema>
+     * @return array<string, \Netgen\OpenApi\Model\Schema>
      */
     private function buildPlaceholderBlockSchemas(): array
     {

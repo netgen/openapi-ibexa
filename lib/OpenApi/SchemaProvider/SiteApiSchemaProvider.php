@@ -6,9 +6,9 @@ namespace Netgen\IbexaOpenApi\OpenApi\SchemaProvider;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
-use Netgen\IbexaOpenApi\OpenApi\Model\Discriminator;
-use Netgen\IbexaOpenApi\OpenApi\Model\Schema;
 use Netgen\IbexaOpenApi\OpenApi\SchemaProviderInterface;
+use Netgen\OpenApi\Model\Discriminator;
+use Netgen\OpenApi\Model\Schema;
 
 use function array_keys;
 use function array_map;
@@ -38,7 +38,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema>
+     * @return array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema>
      */
     private function buildInnerContentTypeSchemas(): array
     {
@@ -68,7 +68,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @return array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\AllOfSchema>
+     * @return array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema>
      */
     private function buildContentTypeSchemas(): array
     {
@@ -110,8 +110,8 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @param array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\ObjectSchema> $innerContentTypeSchemas
-     * @param array<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema\AllOfSchema> $contentTypeSchemas
+     * @param array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema> $innerContentTypeSchemas
+     * @param array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema> $contentTypeSchemas
      */
     private function buildContentSchema(array $innerContentTypeSchemas, array $contentTypeSchemas): Schema\OneOfSchema
     {
@@ -120,7 +120,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
         foreach ($contentTypeSchemas as $schemaName => $schema) {
             $innerSchema = $innerContentTypeSchemas[sprintf('%s.Inner', $schemaName)];
 
-            /** @var \Netgen\IbexaOpenApi\OpenApi\Model\Schema\StringSchema $contentTypeFieldSchema */
+            /** @var \Netgen\OpenApi\Model\Schema\StringSchema $contentTypeFieldSchema */
             $contentTypeFieldSchema = ($innerSchema->getProperties() ?? [])['contentType'];
 
             $discriminatorMappings[$contentTypeFieldSchema->getConst() ?? ''] = $schemaName;

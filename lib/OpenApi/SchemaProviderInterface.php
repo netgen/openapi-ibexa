@@ -7,7 +7,7 @@ namespace Netgen\IbexaOpenApi\OpenApi;
 interface SchemaProviderInterface
 {
     /**
-     * @return iterable<string, \Netgen\IbexaOpenApi\OpenApi\Model\Schema>
+     * @return iterable<string, \Netgen\OpenApi\Model\Schema>
      */
     public function provideSchemas(): iterable;
 }
