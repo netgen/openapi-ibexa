@@ -10,6 +10,7 @@ services:
         class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\LayoutsSchemaProvider
         arguments:
             - '@netgen_layouts.layout.registry.layout_type'
+            - '@netgen_layouts.block.registry.block_definition'
         tags:
             - { name: netgen.openapi_ibexa.schema_provider }
 

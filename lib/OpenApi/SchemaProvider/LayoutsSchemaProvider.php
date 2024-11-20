@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider;
 
+use Netgen\Layouts\Block\ContainerDefinitionInterface;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\OpenApi\Model\Discriminator;
@@ -19,6 +21,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
 {
     public function __construct(
         private LayoutTypeRegistry $layoutTypeRegistry,
+        private BlockDefinitionRegistry $blockDefinitionRegistry,
     ) {}
 
     public function provideSchemas(): iterable
@@ -48,7 +51,16 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
 
         yield from $this->buildComponentBlockSchemas();
 
-        yield from $this->buildPlaceholderBlockSchemas();
+        $innerPlaceholderBlockSchemas = $this->buildInnerPlaceholderBlockSchemas();
+        $placeholderBlockSchemas = $this->buildPlaceholderBlockSchemas();
+
+        yield from [
+            'Layouts.Block.Placeholder' => $this->buildPlaceholderBlockMainSchema($innerPlaceholderBlockSchemas, $placeholderBlockSchemas),
+        ];
+
+        yield from $placeholderBlockSchemas;
+
+        yield from $innerPlaceholderBlockSchemas;
     }
 
     private function buildBaseLayoutSchema(): Schema\ObjectSchema
@@ -286,28 +298,97 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
     }
 
     /**
-     * @return array<string, \Netgen\OpenApi\Model\Schema>
+     * @return array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema>
+     */
+    private function buildInnerPlaceholderBlockSchemas(): array
+    {
+        $placeholderBlockSchemas = [];
+
+        foreach ($this->blockDefinitionRegistry->getBlockDefinitions() as $blockDefinition) {
+            if (!$blockDefinition instanceof ContainerDefinitionInterface) {
+                continue;
+            }
+
+            $schemaName = sprintf('Layouts.Block.Placeholder.%s.Inner', u($blockDefinition->getName())->camel()->title());
+            $schema = new Schema\ObjectSchema(
+                [
+                    'type' => new Schema\StringSchema(null, 'placeholder'),
+                    'placeholderType' => new Schema\StringSchema(null, $blockDefinition->getIdentifier()),
+                    'placeholders' => $this->buildPlaceholdersSchema($blockDefinition),
+                ],
+                null,
+                ['type', 'placeholderType', 'placeholders'],
+            );
+
+            $placeholderBlockSchemas[$schemaName] = $schema;
+        }
+
+        return $placeholderBlockSchemas;
+    }
+
+    /**
+     * @param array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema> $innerPlaceholderBlockSchemas
+     * @param array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema> $placeholderBlockSchemas
+     */
+    private function buildPlaceholderBlockMainSchema(array $innerPlaceholderBlockSchemas, array $placeholderBlockSchemas): Schema\OneOfSchema
+    {
+        $discriminatorMappings = [];
+
+        foreach ($placeholderBlockSchemas as $schemaName => $schema) {
+            $innerSchema = $innerPlaceholderBlockSchemas[sprintf('%s.Inner', $schemaName)];
+
+            /** @var \Netgen\OpenApi\Model\Schema\StringSchema $placeholderTypeFieldSchema */
+            $placeholderTypeFieldSchema = ($innerSchema->getProperties() ?? [])['placeholderType'];
+
+            $discriminatorMappings[$placeholderTypeFieldSchema->getConst() ?? ''] = $schemaName;
+        }
+
+        $discriminator = new Discriminator('placeholderType', $discriminatorMappings);
+
+        return new Schema\OneOfSchema(
+            array_map(
+                static fn (string $schemaName): Schema\ReferenceSchema => new Schema\ReferenceSchema($schemaName),
+                array_keys($placeholderBlockSchemas),
+            ),
+            $discriminator,
+        );
+    }
+
+    /**
+     * @return array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema>
      */
     private function buildPlaceholderBlockSchemas(): array
     {
-        $properties = [
-            'type' => new Schema\StringSchema(null, 'placeholder'),
-            'placeholderType' => new Schema\StringSchema(),
-            'placeholders' => new Schema\ObjectSchema(
-                null,
-                ['^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$' => new Schema\ReferenceSchema('Layouts.Placeholder')],
-            ),
-        ];
+        $placeholderBlockSchemas = [];
 
-        return [
-            'Layouts.Block.Placeholder.Inner' => new Schema\ObjectSchema($properties, null, array_keys($properties)),
-            'Layouts.Block.Placeholder' => new Schema\AllOfSchema(
+        foreach ($this->blockDefinitionRegistry->getBlockDefinitions() as $blockDefinition) {
+            if (!$blockDefinition instanceof ContainerDefinitionInterface) {
+                continue;
+            }
+
+            $schemaName = sprintf('Layouts.Block.Placeholder.%s', u($blockDefinition->getName())->camel()->title());
+            $schema = new Schema\AllOfSchema(
                 [
                     new Schema\ReferenceSchema('Layouts.BaseBlock'),
-                    new Schema\ReferenceSchema('Layouts.Block.Placeholder.Inner'),
+                    new Schema\ReferenceSchema(sprintf('%s.Inner', $schemaName)),
                 ],
-            ),
-        ];
+            );
+
+            $placeholderBlockSchemas[$schemaName] = $schema;
+        }
+
+        return $placeholderBlockSchemas;
+    }
+
+    private function buildPlaceholdersSchema(ContainerDefinitionInterface $containerDefinition): Schema\ObjectSchema
+    {
+        $placeholderSchemas = [];
+
+        foreach ($containerDefinition->getPlaceholders() as $placeholder) {
+            $placeholderSchemas[$placeholder] = new Schema\ReferenceSchema('Layouts.Placeholder');
+        }
+
+        return new Schema\ObjectSchema($placeholderSchemas, null, array_keys($placeholderSchemas));
     }
 
     private function buildPlaceholderSchema(): Schema\ObjectSchema
