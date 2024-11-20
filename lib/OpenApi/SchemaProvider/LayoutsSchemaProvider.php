@@ -167,13 +167,13 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         $properties = [
             'id' => new Schema\StringSchema(null, null, Schema\Format::Uuid),
             'type' => new Schema\StringSchema(),
-            'css_class' => new Schema\StringSchema(),
-            'css_id' => new Schema\StringSchema(),
-            'set_container' => new Schema\BooleanSchema(),
-            'set_container_size' => new Schema\StringSchema(),
-            'vertical_whitespace_enabled' => new Schema\BooleanSchema(),
-            'vertical_whitespace_top' => new Schema\StringSchema(),
-            'vertical_whitespace_bottom' => new Schema\StringSchema(),
+            'cssClass' => new Schema\StringSchema(),
+            'cssId' => new Schema\StringSchema(),
+            'setContainer' => new Schema\BooleanSchema(),
+            'setContainerSize' => new Schema\StringSchema(),
+            'verticalWhitespaceEnabled' => new Schema\BooleanSchema(),
+            'verticalWhitespaceTop' => new Schema\StringSchema(),
+            'verticalWhitespaceBottom' => new Schema\StringSchema(),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
