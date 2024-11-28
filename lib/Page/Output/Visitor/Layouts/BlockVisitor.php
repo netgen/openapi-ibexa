@@ -16,6 +16,8 @@ abstract class BlockVisitor
         $basicProperties = [
             'id' => $block->getId()->toString(),
             'type' => $block->getDefinition()->getIdentifier(),
+            'viewType' => $block->getViewType(),
+            'itemViewType' => $block->getItemViewType(),
         ];
 
         $basicProperties['cssClass'] = $block->hasParameter('css_class') ?

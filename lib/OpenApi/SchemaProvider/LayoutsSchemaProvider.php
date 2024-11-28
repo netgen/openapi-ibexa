@@ -179,6 +179,8 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         $properties = [
             'id' => new Schema\StringSchema(null, null, Schema\Format::Uuid),
             'type' => new Schema\StringSchema(),
+            'viewType' => new Schema\StringSchema(),
+            'itemViewType' => new Schema\StringSchema(),
             'cssClass' => new Schema\StringSchema(),
             'cssId' => new Schema\StringSchema(),
             'setContainer' => new Schema\BooleanSchema(),
