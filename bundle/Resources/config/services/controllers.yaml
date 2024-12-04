@@ -27,3 +27,15 @@ services:
         public: true
         tags:
             - { name: container.service_subscriber }
+
+    netgen.openapi_ibexa.controller.page.ibexa_view:
+        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\Page\IbexaView
+        parent: netgen.ibexa_site_api.controller.base
+        arguments:
+            - '@netgen_layouts.layout.resolver'
+            - '@netgen.openapi_ibexa.page.factory'
+            - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'
+            - '@serializer'
+        public: true
+        tags:
+            - { name: container.service_subscriber }
