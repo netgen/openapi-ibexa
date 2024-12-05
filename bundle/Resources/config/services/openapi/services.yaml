@@ -4,4 +4,3 @@ services:
         arguments:
             - !tagged_iterator netgen.openapi_ibexa.path_provider
             - !tagged_iterator netgen.openapi_ibexa.schema_provider
-            - '%netgen.openapi_ibexa.route_prefix%'

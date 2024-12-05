@@ -19,13 +19,12 @@ final class OpenApiFactory
     public function __construct(
         private iterable $pathProviders,
         private iterable $schemaProviders,
-        private string $routePrefix,
     ) {}
 
     public function buildModel(): OpenApi
     {
         $info = new Info();
-        $servers = [new Server($this->routePrefix)];
+        $servers = [new Server('/')];
 
         $paths = new Paths([...$this->getPaths()]);
         $components = new Components([...$this->getSchemas()]);

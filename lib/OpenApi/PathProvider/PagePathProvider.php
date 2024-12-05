@@ -21,7 +21,8 @@ use function trim;
 final class PagePathProvider implements PathProviderInterface
 {
     public function __construct(
-        private string $routePrefix,
+        private string $pathPrefix,
+        private bool $useIbexaFullView = false,
     ) {}
 
     public function providePaths(): iterable
@@ -42,6 +43,12 @@ final class PagePathProvider implements PathProviderInterface
             ),
         );
 
-        yield sprintf('/%s/page/{path}', trim($this->routePrefix, '/')) => new Path($getOperation);
+        $pagePath = sprintf('/%s/{path}', trim($this->pathPrefix, '/'));
+
+        if ($this->useIbexaFullView) {
+            $pagePath = '/{path}';
+        }
+
+        yield $pagePath => new Path($getOperation);
     }
 }
