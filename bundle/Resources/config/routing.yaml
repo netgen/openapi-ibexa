@@ -4,6 +4,8 @@ netgen_openapi_ibexa_openapi_specification:
     methods: [GET]
 
 netgen_openapi_ibexa_page_view:
-    path: /page/{id}
+    path: /page/{path}
     controller: netgen.openapi_ibexa.controller.page.view
     methods: [GET]
+    defaults:
+        path: ''

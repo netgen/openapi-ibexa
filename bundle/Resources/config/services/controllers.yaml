@@ -19,7 +19,7 @@ services:
         class: Netgen\Bundle\OpenApiIbexaBundle\Controller\Page\View
         parent: netgen.openapi_ibexa.controller.base
         arguments:
-            - '@netgen.ibexa_site_api.load_service'
+            - '@netgen.openapi_ibexa.ibexa.url_alias_location_resolver'
             - '@netgen_layouts.layout.resolver'
             - '@netgen.openapi_ibexa.page.factory'
             - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'

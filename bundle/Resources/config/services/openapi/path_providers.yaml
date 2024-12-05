@@ -1,5 +1,7 @@
 services:
     netgen.openapi_ibexa.openapi.path_provider.page:
         class: Netgen\OpenApiIbexa\OpenApi\PathProvider\PagePathProvider
+        arguments:
+            - '%netgen.openapi_ibexa.route_prefix%'
         tags:
             - { name: netgen.openapi_ibexa.path_provider }

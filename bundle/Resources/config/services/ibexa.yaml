@@ -1,0 +1,8 @@
+services:
+    netgen.openapi_ibexa.ibexa.url_alias_location_resolver:
+        class: Netgen\OpenApiIbexa\Ibexa\UrlAliasLocationResolver
+        arguments:
+            - '@ibexa.api.service.url_alias'
+            - '@Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator'
+            - '@netgen.ibexa_site_api.load_service'
+            - '@ibexa.config.resolver'
