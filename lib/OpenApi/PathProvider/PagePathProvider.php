@@ -30,6 +30,8 @@ final class PagePathProvider implements PathProviderInterface
         yield from $this->buildPageOperation();
 
         yield from $this->buildLocationChildrenOperation();
+
+        yield from $this->buildContentRelationsOperation();
     }
 
     /**
@@ -88,6 +90,37 @@ final class PagePathProvider implements PathProviderInterface
         );
 
         $pagePath = sprintf('/%s/location/{locationId}/children/{maxPerPage}/{currentPage}', trim($this->pathPrefix, '/'));
+
+        yield $pagePath => new Path($getOperation);
+    }
+
+    /**
+     * @return iterable<string, \Netgen\OpenApi\Model\Path>
+     */
+    private function buildContentRelationsOperation(): iterable
+    {
+        $getOperation = new Operation(
+            [
+                new Parameter('contentId', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('fieldIdentifier', ParameterIn::Path, new Schema\StringSchema()),
+                new Parameter('maxPerPage', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('currentPage', ParameterIn::Path, new Schema\IntegerSchema()),
+            ],
+            null,
+            new Responses(
+                [
+                    SymfonyResponse::HTTP_OK => new Response(
+                        'Content relations',
+                        [],
+                        [
+                            'application/json' => new MediaType(new Schema\ReferenceSchema('SiteApi.ContentList')),
+                        ],
+                    ),
+                ],
+            ),
+        );
+
+        $pagePath = sprintf('/%s/content/{contentId}/relations/{fieldIdentifier}/{maxPerPage}/{currentPage}', trim($this->pathPrefix, '/'));
 
         yield $pagePath => new Path($getOperation);
     }
