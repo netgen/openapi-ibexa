@@ -1,5 +1,4 @@
 parameters:
     netgen.openapi_ibexa.route_prefix: /ngopenapi
-    netgen.openapi_ibexa.page_path_prefix: '%netgen.openapi_ibexa.route_prefix%/page'
     netgen.openapi_ibexa.use_ibexa_full_view: false
     netgen.openapi_ibexa.default_limit: 25

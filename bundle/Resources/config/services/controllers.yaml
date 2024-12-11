@@ -15,8 +15,8 @@ services:
         tags:
             - { name: container.service_subscriber }
 
-    netgen.openapi_ibexa.controller.page.view:
-        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\Page\View
+    netgen.openapi_ibexa.controller.page_view:
+        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\PageView
         parent: netgen.openapi_ibexa.controller.base
         arguments:
             - '@netgen.openapi_ibexa.ibexa.url_alias_location_resolver'
@@ -28,8 +28,8 @@ services:
         tags:
             - { name: container.service_subscriber }
 
-    netgen.openapi_ibexa.controller.page.ibexa_view:
-        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\Page\IbexaView
+    netgen.openapi_ibexa.controller.ibexa_page_view:
+        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\IbexaPageView
         parent: netgen.ibexa_site_api.controller.base
         arguments:
             - '@netgen_layouts.layout.resolver'
@@ -40,8 +40,8 @@ services:
         tags:
             - { name: container.service_subscriber }
 
-    netgen.openapi_ibexa.controller.page.location_children:
-        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\Page\LocationChildren
+    netgen.openapi_ibexa.controller.location_children:
+        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\LocationChildren
         parent: netgen.openapi_ibexa.controller.base
         arguments:
             - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'
@@ -51,8 +51,8 @@ services:
         tags:
             - { name: container.service_subscriber }
 
-    netgen.openapi_ibexa.controller.page.content_relations:
-        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\Page\ContentRelations
+    netgen.openapi_ibexa.controller.content_relations:
+        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\ContentRelations
         parent: netgen.openapi_ibexa.controller.base
         arguments:
             - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'

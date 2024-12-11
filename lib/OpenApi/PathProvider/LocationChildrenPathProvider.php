@@ -18,36 +18,35 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use function sprintf;
 use function trim;
 
-final class PagePathProvider implements PathProviderInterface
+final class LocationChildrenPathProvider implements PathProviderInterface
 {
     public function __construct(
         private string $routePrefix,
-        private bool $useIbexaFullView = false,
     ) {}
 
     public function providePaths(): iterable
     {
         $getOperation = new Operation(
-            [new Parameter('path', ParameterIn::Path, new Schema\StringSchema())],
+            [
+                new Parameter('locationId', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('maxPerPage', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('currentPage', ParameterIn::Path, new Schema\IntegerSchema()),
+            ],
             null,
             new Responses(
                 [
                     SymfonyResponse::HTTP_OK => new Response(
-                        'The page',
+                        'Location children',
                         [],
                         [
-                            'application/json' => new MediaType(new Schema\ReferenceSchema('Page')),
+                            'application/json' => new MediaType(new Schema\ReferenceSchema('SiteApi.LocationList')),
                         ],
                     ),
                 ],
             ),
         );
 
-        $pagePath = sprintf('/%s/page/{path}', trim($this->routePrefix, '/'));
-
-        if ($this->useIbexaFullView) {
-            $pagePath = '/{path}';
-        }
+        $pagePath = sprintf('/%s/location/{locationId}/children/{maxPerPage}/{currentPage}', trim($this->routePrefix, '/'));
 
         yield $pagePath => new Path($getOperation);
     }

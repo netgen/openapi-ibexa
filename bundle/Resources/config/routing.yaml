@@ -3,25 +3,25 @@ netgen_openapi_ibexa_openapi_specification:
     controller: netgen.openapi_ibexa.controller.openapi.specification
     methods: [GET]
 
+netgen_openapi_ibexa_page_view:
+    path: /page/{path}
+    controller: netgen.openapi_ibexa.controller.page_view
+    methods: [GET]
+    defaults:
+        path: ''
+
 netgen_openapi_ibexa_location_children:
-    path: /page/location/{locationId}/children/{maxPerPage}/{currentPage}
-    controller: netgen.openapi_ibexa.controller.page.location_children
+    path: /location/{locationId}/children/{maxPerPage}/{currentPage}
+    controller: netgen.openapi_ibexa.controller.location_children
     methods: [GET]
     defaults:
         maxPerPage: '%netgen.openapi_ibexa.default_limit%'
         currentPage: 1
 
 netgen_openapi_ibexa_content_relations:
-    path: /page/content/{contentId}/relations/{fieldIdentifier}/{maxPerPage}/{currentPage}
-    controller: netgen.openapi_ibexa.controller.page.content_relations
+    path: /content/{contentId}/relations/{fieldIdentifier}/{maxPerPage}/{currentPage}
+    controller: netgen.openapi_ibexa.controller.content_relations
     methods: [GET]
     defaults:
         maxPerPage: '%netgen.openapi_ibexa.default_limit%'
         currentPage: 1
-
-netgen_openapi_ibexa_page_view:
-    path: /page/{path}
-    controller: netgen.openapi_ibexa.controller.page.view
-    methods: [GET]
-    defaults:
-        path: ''

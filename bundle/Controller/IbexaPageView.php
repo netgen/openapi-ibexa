@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\OpenApiIbexaBundle\Controller\Page;
+namespace Netgen\Bundle\OpenApiIbexaBundle\Controller;
 
 use Netgen\Bundle\IbexaSiteApiBundle\Controller\Controller as BaseController;
 use Netgen\Bundle\IbexaSiteApiBundle\View\ContentView;
@@ -19,7 +19,7 @@ use function json_encode;
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 
-final class IbexaView extends BaseController
+final class IbexaPageView extends BaseController
 {
     public function __construct(
         private LayoutResolverInterface $layoutResolver,

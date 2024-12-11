@@ -18,36 +18,36 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use function sprintf;
 use function trim;
 
-final class PagePathProvider implements PathProviderInterface
+final class ContentRelationsPathProvider implements PathProviderInterface
 {
     public function __construct(
         private string $routePrefix,
-        private bool $useIbexaFullView = false,
     ) {}
 
     public function providePaths(): iterable
     {
         $getOperation = new Operation(
-            [new Parameter('path', ParameterIn::Path, new Schema\StringSchema())],
+            [
+                new Parameter('contentId', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('fieldIdentifier', ParameterIn::Path, new Schema\StringSchema()),
+                new Parameter('maxPerPage', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('currentPage', ParameterIn::Path, new Schema\IntegerSchema()),
+            ],
             null,
             new Responses(
                 [
                     SymfonyResponse::HTTP_OK => new Response(
-                        'The page',
+                        'Content relations',
                         [],
                         [
-                            'application/json' => new MediaType(new Schema\ReferenceSchema('Page')),
+                            'application/json' => new MediaType(new Schema\ReferenceSchema('SiteApi.ContentList')),
                         ],
                     ),
                 ],
             ),
         );
 
-        $pagePath = sprintf('/%s/page/{path}', trim($this->routePrefix, '/'));
-
-        if ($this->useIbexaFullView) {
-            $pagePath = '/{path}';
-        }
+        $pagePath = sprintf('/%s/content/{contentId}/relations/{fieldIdentifier}/{maxPerPage}/{currentPage}', trim($this->routePrefix, '/'));
 
         yield $pagePath => new Path($getOperation);
     }

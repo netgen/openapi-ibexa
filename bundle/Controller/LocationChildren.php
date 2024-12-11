@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\OpenApiIbexaBundle\Controller\Page;
+namespace Netgen\Bundle\OpenApiIbexaBundle\Controller;
 
-use Netgen\IbexaSiteApi\API\Values\Content;
-use Netgen\OpenApiIbexa\Page\ContentList;
+use Netgen\IbexaSiteApi\API\Values\Location;
+use Netgen\OpenApiIbexa\Page\LocationList;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,7 +19,7 @@ use function max;
 use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 
-final class ContentRelations extends AbstractController
+final class LocationChildren extends AbstractController
 {
     public function __construct(
         private OutputVisitor $outputVisitor,
@@ -27,7 +27,7 @@ final class ContentRelations extends AbstractController
         private int $defaultLimit,
     ) {}
 
-    public function __invoke(Content $content, string $fieldIdentifier, int $maxPerPage, int $currentPage): JsonResponse
+    public function __invoke(Location $location, int $maxPerPage, int $currentPage): JsonResponse
     {
         $currentPage = max($currentPage, 1);
 
@@ -35,10 +35,10 @@ final class ContentRelations extends AbstractController
             $maxPerPage = $this->defaultLimit;
         }
 
-        $relatedContent = $content->filterFieldRelations($fieldIdentifier, [], $maxPerPage, $currentPage);
+        $children = $location->filterChildren([], $maxPerPage, $currentPage);
 
         $data = $this->normalizer->normalize(
-            $this->outputVisitor->visit(new ContentList($relatedContent)),
+            $this->outputVisitor->visit(new LocationList($children)),
             'json',
             [AbstractObjectNormalizer::SKIP_NULL_VALUES => true],
         );
