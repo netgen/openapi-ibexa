@@ -2,7 +2,7 @@ services:
     netgen.openapi_ibexa.openapi.path_provider.page:
         class: Netgen\OpenApiIbexa\OpenApi\PathProvider\PagePathProvider
         arguments:
-            - '%netgen.openapi_ibexa.route_prefix%'
+            - '@router'
             - '%netgen.openapi_ibexa.use_ibexa_full_view%'
         tags:
             - { name: netgen.openapi_ibexa.path_provider }
@@ -10,13 +10,13 @@ services:
     netgen.openapi_ibexa.openapi.path_provider.location_children:
         class: Netgen\OpenApiIbexa\OpenApi\PathProvider\LocationChildrenPathProvider
         arguments:
-            - '%netgen.openapi_ibexa.route_prefix%'
+            - '@router'
         tags:
             - { name: netgen.openapi_ibexa.path_provider }
 
     netgen.openapi_ibexa.openapi.path_provider.content_relations:
         class: Netgen\OpenApiIbexa\OpenApi\PathProvider\ContentRelationsPathProvider
         arguments:
-            - '%netgen.openapi_ibexa.route_prefix%'
+            - '@router'
         tags:
             - { name: netgen.openapi_ibexa.path_provider }

@@ -14,14 +14,12 @@ use Netgen\OpenApi\Model\Responses;
 use Netgen\OpenApi\Model\Schema;
 use Netgen\OpenApiIbexa\OpenApi\PathProviderInterface;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
-
-use function sprintf;
-use function trim;
+use Symfony\Component\Routing\RouterInterface;
 
 final class PagePathProvider implements PathProviderInterface
 {
     public function __construct(
-        private string $routePrefix,
+        private RouterInterface $router,
         private bool $useIbexaFullView = false,
     ) {}
 
@@ -43,12 +41,12 @@ final class PagePathProvider implements PathProviderInterface
             ),
         );
 
-        $pagePath = sprintf('/%s/page/{path}', trim($this->routePrefix, '/'));
+        $routePath = $this->router->getRouteCollection()->get('netgen_openapi_ibexa_page_view')?->getPath() ?? '';
 
         if ($this->useIbexaFullView) {
-            $pagePath = '/{path}';
+            $routePath = '/{path}';
         }
 
-        yield $pagePath => new Path($getOperation);
+        yield $routePath => new Path($getOperation);
     }
 }

@@ -14,14 +14,12 @@ use Netgen\OpenApi\Model\Responses;
 use Netgen\OpenApi\Model\Schema;
 use Netgen\OpenApiIbexa\OpenApi\PathProviderInterface;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
-
-use function sprintf;
-use function trim;
+use Symfony\Component\Routing\RouterInterface;
 
 final class ContentRelationsPathProvider implements PathProviderInterface
 {
     public function __construct(
-        private string $routePrefix,
+        private RouterInterface $router,
     ) {}
 
     public function providePaths(): iterable
@@ -47,8 +45,8 @@ final class ContentRelationsPathProvider implements PathProviderInterface
             ),
         );
 
-        $pagePath = sprintf('/%s/content/{contentId}/relations/{fieldIdentifier}/{maxPerPage}/{currentPage}', trim($this->routePrefix, '/'));
+        $routePath = $this->router->getRouteCollection()->get('netgen_openapi_ibexa_content_relations')?->getPath() ?? '';
 
-        yield $pagePath => new Path($getOperation);
+        yield $routePath => new Path($getOperation);
     }
 }

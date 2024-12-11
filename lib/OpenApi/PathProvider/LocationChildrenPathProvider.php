@@ -14,14 +14,12 @@ use Netgen\OpenApi\Model\Responses;
 use Netgen\OpenApi\Model\Schema;
 use Netgen\OpenApiIbexa\OpenApi\PathProviderInterface;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
-
-use function sprintf;
-use function trim;
+use Symfony\Component\Routing\RouterInterface;
 
 final class LocationChildrenPathProvider implements PathProviderInterface
 {
     public function __construct(
-        private string $routePrefix,
+        private RouterInterface $router,
     ) {}
 
     public function providePaths(): iterable
@@ -46,8 +44,8 @@ final class LocationChildrenPathProvider implements PathProviderInterface
             ),
         );
 
-        $pagePath = sprintf('/%s/location/{locationId}/children/{maxPerPage}/{currentPage}', trim($this->routePrefix, '/'));
+        $routePath = $this->router->getRouteCollection()->get('netgen_openapi_ibexa_location_children')?->getPath() ?? '';
 
-        yield $pagePath => new Path($getOperation);
+        yield $routePath => new Path($getOperation);
     }
 }
