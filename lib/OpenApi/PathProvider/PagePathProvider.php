@@ -27,6 +27,16 @@ final class PagePathProvider implements PathProviderInterface
 
     public function providePaths(): iterable
     {
+        yield from $this->buildPageOperation();
+
+        yield from $this->buildLocationChildrenOperation();
+    }
+
+    /**
+     * @return iterable<string, \Netgen\OpenApi\Model\Path>
+     */
+    private function buildPageOperation(): iterable
+    {
         $getOperation = new Operation(
             [new Parameter('path', ParameterIn::Path, new Schema\StringSchema())],
             null,
@@ -48,6 +58,36 @@ final class PagePathProvider implements PathProviderInterface
         if ($this->useIbexaFullView) {
             $pagePath = '/{path}';
         }
+
+        yield $pagePath => new Path($getOperation);
+    }
+
+    /**
+     * @return iterable<string, \Netgen\OpenApi\Model\Path>
+     */
+    private function buildLocationChildrenOperation(): iterable
+    {
+        $getOperation = new Operation(
+            [
+                new Parameter('locationId', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('maxPerPage', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('currentPage', ParameterIn::Path, new Schema\IntegerSchema()),
+            ],
+            null,
+            new Responses(
+                [
+                    SymfonyResponse::HTTP_OK => new Response(
+                        'Location children',
+                        [],
+                        [
+                            'application/json' => new MediaType(new Schema\ReferenceSchema('SiteApi.LocationList')),
+                        ],
+                    ),
+                ],
+            ),
+        );
+
+        $pagePath = sprintf('/%s/location/{locationId}/children/{maxPerPage}/{currentPage}', trim($this->pathPrefix, '/'));
 
         yield $pagePath => new Path($getOperation);
     }

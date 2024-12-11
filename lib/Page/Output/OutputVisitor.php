@@ -25,7 +25,7 @@ final class OutputVisitor
      *
      * @throws \RuntimeException if no sub-visitor is available for provided value
      *
-     * @return array<string, mixed>
+     * @return array<int|string, mixed>
      */
     public function visit(object $value, array $parameters = []): array
     {

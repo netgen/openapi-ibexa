@@ -9,6 +9,11 @@ services:
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
 
+    netgen.openapi_ibexa.page.output.visitor.location_list:
+        class: Netgen\OpenApiIbexa\Page\Output\Visitor\LocationListVisitor
+        tags:
+            - { name: netgen.openapi_ibexa.page.output.visitor }
+
     netgen.openapi_ibexa.page.output.visitor.layouts.layout:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\LayoutVisitor
         tags:

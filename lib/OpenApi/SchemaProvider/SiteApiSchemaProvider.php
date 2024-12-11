@@ -30,6 +30,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
             'SiteApi.BaseContent' => $this->buildBaseContentSchema(),
             'SiteApi.Content' => $this->buildContentSchema($innerContentTypeSchemas, $contentTypeSchemas),
             'SiteApi.Location' => $this->buildLocationSchema(),
+            'SiteApi.LocationList' => $this->buildLocationListSchema(),
         ];
 
         yield from $innerContentTypeSchemas;
@@ -166,5 +167,17 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
+    }
+
+    private function buildLocationListSchema(): Schema\ArraySchema
+    {
+        $properties = [
+            'content' => new Schema\ReferenceSchema('SiteApi.Content'),
+            'location' => new Schema\ReferenceSchema('SiteApi.Location'),
+        ];
+
+        return new Schema\ArraySchema(
+            new Schema\ObjectSchema($properties, null, array_keys($properties)),
+        );
     }
 }
