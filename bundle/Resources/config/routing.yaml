@@ -25,3 +25,11 @@ netgen_openapi_ibexa_content_relations:
     defaults:
         maxPerPage: '%netgen.openapi_ibexa.default_limit%'
         currentPage: 1
+
+netgen_openapi_ibexa_content_reverse_relations:
+    path: /content/{contentId}/reverse_relations/{fieldIdentifier}/{maxPerPage}/{currentPage}
+    controller: netgen.openapi_ibexa.controller.content_reverse_relations
+    methods: [GET]
+    defaults:
+        maxPerPage: '%netgen.openapi_ibexa.default_limit%'
+        currentPage: 1

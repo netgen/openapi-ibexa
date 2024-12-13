@@ -20,3 +20,10 @@ services:
             - '@router'
         tags:
             - { name: netgen.openapi_ibexa.path_provider }
+
+    netgen.openapi_ibexa.openapi.path_provider.content_reverse_relations:
+        class: Netgen\OpenApiIbexa\OpenApi\PathProvider\ContentReverseRelationsPathProvider
+        arguments:
+            - '@router'
+        tags:
+            - { name: netgen.openapi_ibexa.path_provider }
