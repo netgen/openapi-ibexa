@@ -11,8 +11,6 @@ use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\PageFactory;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function json_encode;
 
@@ -25,19 +23,14 @@ final class IbexaPageView extends BaseController
         private LayoutResolverInterface $layoutResolver,
         private PageFactory $pageFactory,
         private OutputVisitor $outputVisitor,
-        private NormalizerInterface $normalizer,
     ) {}
 
     public function __invoke(ContentView $view): JsonResponse
     {
         $rule = $this->layoutResolver->resolveRule();
 
-        $data = $this->normalizer->normalize(
-            $this->outputVisitor->visit(
-                $this->pageFactory->buildPage($view->getSiteContent(), $rule?->getLayout()),
-            ),
-            'json',
-            [AbstractObjectNormalizer::SKIP_NULL_VALUES => true],
+        $data = $this->outputVisitor->visit(
+            $this->pageFactory->buildPage($view->getSiteContent(), $rule?->getLayout()),
         );
 
         return new JsonResponse(

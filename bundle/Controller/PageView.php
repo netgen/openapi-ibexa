@@ -15,8 +15,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function json_encode;
 
@@ -30,7 +28,6 @@ final class PageView extends AbstractController
         private LayoutResolverInterface $layoutResolver,
         private PageFactory $pageFactory,
         private OutputVisitor $outputVisitor,
-        private NormalizerInterface $normalizer,
     ) {}
 
     public function __invoke(Request $request, string $path): JsonResponse
@@ -49,12 +46,8 @@ final class PageView extends AbstractController
 
         $rule = $this->layoutResolver->resolveRule();
 
-        $data = $this->normalizer->normalize(
-            $this->outputVisitor->visit(
-                $this->pageFactory->buildPage($location->content, $rule?->getLayout()),
-            ),
-            'json',
-            [AbstractObjectNormalizer::SKIP_NULL_VALUES => true],
+        $data = $this->outputVisitor->visit(
+            $this->pageFactory->buildPage($location->content, $rule?->getLayout()),
         );
 
         return new JsonResponse(

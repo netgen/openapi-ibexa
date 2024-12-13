@@ -10,8 +10,6 @@ use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function json_encode;
 use function max;
@@ -23,7 +21,6 @@ final class LocationChildren extends AbstractController
 {
     public function __construct(
         private OutputVisitor $outputVisitor,
-        private NormalizerInterface $normalizer,
         private int $defaultLimit,
     ) {}
 
@@ -37,11 +34,7 @@ final class LocationChildren extends AbstractController
 
         $children = $location->filterChildren([], $maxPerPage, $currentPage);
 
-        $data = $this->normalizer->normalize(
-            $this->outputVisitor->visit(new LocationList($children)),
-            'json',
-            [AbstractObjectNormalizer::SKIP_NULL_VALUES => true],
-        );
+        $data = $this->outputVisitor->visit(new LocationList($children));
 
         return new JsonResponse(
             json_encode($data, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),

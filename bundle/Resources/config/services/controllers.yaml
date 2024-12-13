@@ -23,7 +23,6 @@ services:
             - '@netgen_layouts.layout.resolver'
             - '@netgen.openapi_ibexa.page.factory'
             - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'
-            - '@serializer'
         public: true
         tags:
             - { name: container.service_subscriber }
@@ -35,7 +34,6 @@ services:
             - '@netgen_layouts.layout.resolver'
             - '@netgen.openapi_ibexa.page.factory'
             - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'
-            - '@serializer'
         public: true
         tags:
             - { name: container.service_subscriber }
@@ -45,7 +43,6 @@ services:
         parent: netgen.openapi_ibexa.controller.base
         arguments:
             - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'
-            - '@serializer'
             - '%netgen.openapi_ibexa.default_limit%'
         public: true
         tags:
@@ -56,7 +53,6 @@ services:
         parent: netgen.openapi_ibexa.controller.base
         arguments:
             - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'
-            - '@serializer'
             - '%netgen.openapi_ibexa.default_limit%'
         public: true
         tags:
@@ -67,7 +63,6 @@ services:
         parent: netgen.openapi_ibexa.controller.base
         arguments:
             - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'
-            - '@serializer'
             - '%netgen.openapi_ibexa.default_limit%'
         public: true
         tags:
