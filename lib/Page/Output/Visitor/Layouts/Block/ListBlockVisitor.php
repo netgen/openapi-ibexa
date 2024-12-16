@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\Block;
 
+use Netgen\IbexaSiteApi\API\Values\Content;
 use Netgen\IbexaSiteApi\API\Values\Location;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
@@ -35,19 +36,23 @@ final class ListBlockVisitor extends BlockVisitor implements VisitorInterface
 
         return [
             'columns' => (int) ($value->getParameter('number_of_columns')->getValue() ?? 1),
-            'items' => (static function (ResultSet $resultSet) use ($outputVisitor) {
-                foreach ($resultSet->getResults() as $result) {
-                    $valueObject = $result->getItem()->getObject();
-
-                    if ($valueObject === null) {
-                        continue;
-                    }
-
-                    yield $valueObject instanceof Location ?
-                        $outputVisitor->visit($valueObject->content) :
-                        $outputVisitor->visit($valueObject);
-                }
-            })($resultSet),
+            'items' => [...$this->visitItems($resultSet, $outputVisitor)],
         ] + $this->visitBasicProperties($value);
+    }
+
+    /**
+     * @return iterable<int, array<array-key, mixed>>
+     */
+    private function visitItems(ResultSet $resultSet, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($resultSet->getResults() as $result) {
+            $valueObject = $result->getItem()->getObject();
+
+            if ($valueObject instanceof Location) {
+                yield $outputVisitor->visit($valueObject->content);
+            } elseif ($valueObject instanceof Content) {
+                yield $outputVisitor->visit($valueObject);
+            }
+        }
     }
 }

@@ -28,11 +28,17 @@ final class ContentVisitor implements VisitorInterface
             'name' => $value->contentInfo->name,
             'languageCode' => $value->contentInfo->languageCode,
             'contentType' => $value->contentInfo->contentTypeIdentifier,
-            'fields' => (static function (Content $content) use ($outputVisitor) {
-                foreach ($content->fields as $fieldIdentifier => $field) {
-                    yield $fieldIdentifier => $outputVisitor->visit($field);
-                }
-            })($value),
+            'fields' => [...$this->visitFields($value, $outputVisitor)],
         ];
+    }
+
+    /**
+     * @return iterable<string, array<array-key, mixed>>
+     */
+    private function visitFields(Content $content, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($content->fields as $fieldIdentifier => $field) {
+            yield $fieldIdentifier => $outputVisitor->visit($field);
+        }
     }
 }

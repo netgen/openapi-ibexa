@@ -27,15 +27,21 @@ final class ZoneVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [
-            'blocks' => (function (Zone $zone) use ($outputVisitor) {
-                foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
-                    try {
-                        yield $outputVisitor->visit($block);
-                    } catch (RuntimeException) {
-                        // Do nothing
-                    }
-                }
-            })($value->getLinkedZone() ?? $value),
+            'blocks' => [...$this->visitBlocks($value->getLinkedZone() ?? $value, $outputVisitor)],
         ];
+    }
+
+    /**
+     * @return iterable<int, array<array-key, mixed>>
+     */
+    private function visitBlocks(Zone $zone, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
+            try {
+                yield $outputVisitor->visit($block);
+            } catch (RuntimeException) {
+                // Do nothing
+            }
+        }
     }
 }

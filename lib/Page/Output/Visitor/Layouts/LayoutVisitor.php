@@ -31,11 +31,17 @@ final class LayoutVisitor implements VisitorInterface
             'isShared' => $value->isShared(),
             'mainLocale' => $value->getMainLocale(),
             'availableLocales' => $value->getAvailableLocales(),
-            'zones' => (static function (Layout $layout) use ($outputVisitor) {
-                foreach ($layout->getZones() as $zone) {
-                    yield $zone->getIdentifier() => $outputVisitor->visit($zone);
-                }
-            })($value),
+            'zones' => [...$this->visitZones($value, $outputVisitor)],
         ];
+    }
+
+    /**
+     * @return iterable<string, array<array-key, mixed>>
+     */
+    private function visitZones(Layout $layout, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($layout->getZones() as $zone) {
+            yield $zone->getIdentifier() => $outputVisitor->visit($zone);
+        }
     }
 }

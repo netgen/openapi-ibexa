@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts;
 
 use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
@@ -27,15 +28,21 @@ final class PlaceholderVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [
-            'blocks' => (function (Placeholder $placeholder) use ($outputVisitor, $parameters) {
-                foreach ($this->blockService->loadPlaceholderBlocks($parameters['block'], $placeholder->getIdentifier()) as $block) {
-                    try {
-                        yield $outputVisitor->visit($block);
-                    } catch (RuntimeException) {
-                        // Do nothing
-                    }
-                }
-            })($value),
+            'blocks' => [...$this->visitBlocks($parameters['block'], $value, $outputVisitor)],
         ];
+    }
+
+    /**
+     * @return iterable<int, array<array-key, mixed>>
+     */
+    private function visitBlocks(Block $block, Placeholder $placeholder, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($this->blockService->loadPlaceholderBlocks($block, $placeholder->getIdentifier()) as $placeholderBlock) {
+            try {
+                yield $outputVisitor->visit($placeholderBlock);
+            } catch (RuntimeException) {
+                // Do nothing
+            }
+        }
     }
 }

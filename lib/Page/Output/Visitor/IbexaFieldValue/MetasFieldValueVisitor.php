@@ -21,18 +21,24 @@ final class MetasFieldValueVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [
-            'metas' => (static function (MetasValue $value) {
-                foreach ($value->metas as $meta) {
-                    yield [
-                        'name' => $meta->getName(),
-                        'content' => $meta->getContent(),
-                        'fieldType' => $meta->getFieldType(),
-                        'required' => $meta->getRequired(),
-                        'minLength' => $meta->getMinLength(),
-                        'maxLength' => $meta->getMaxLength(),
-                    ];
-                }
-            })($value),
+            'metas' => [...$this->visitMetas($value)],
         ];
+    }
+
+    /**
+     * @return iterable<int, array<string, mixed>>
+     */
+    private function visitMetas(MetasValue $metasValue): iterable
+    {
+        foreach ($metasValue->metas as $meta) {
+            yield [
+                'name' => $meta->getName(),
+                'content' => $meta->getContent(),
+                'fieldType' => $meta->getFieldType(),
+                'required' => $meta->getRequired(),
+                'minLength' => $meta->getMinLength(),
+                'maxLength' => $meta->getMaxLength(),
+            ];
+        }
     }
 }

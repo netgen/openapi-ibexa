@@ -25,11 +25,17 @@ final class PlaceholderBlockVisitor extends BlockVisitor implements VisitorInter
         return [
             'type' => 'placeholder',
             'placeholderType' => $value->getDefinition()->getIdentifier(),
-            'placeholders' => (static function (Block $block) use ($outputVisitor) {
-                foreach ($block->getPlaceholders() as $placeholder) {
-                    yield $placeholder->getIdentifier() => $outputVisitor->visit($placeholder, ['block' => $block]);
-                }
-            })($value),
+            'placeholders' => [...$this->visitPlaceholders($value, $outputVisitor)],
         ] + $this->visitBasicProperties($value);
+    }
+
+    /**
+     * @return iterable<string, array<array-key, mixed>>
+     */
+    private function visitPlaceholders(Block $block, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($block->getPlaceholders() as $placeholder) {
+            yield $placeholder->getIdentifier() => $outputVisitor->visit($placeholder, ['block' => $block]);
+        }
     }
 }

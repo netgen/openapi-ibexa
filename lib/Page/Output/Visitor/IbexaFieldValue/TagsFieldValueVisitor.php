@@ -21,16 +21,22 @@ final class TagsFieldValueVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [
-            'tags' => (static function (TagsValue $value) {
-                foreach ($value->tags as $tag) {
-                    yield [
-                        'id' => $tag->id,
-                        'remoteId' => $tag->remoteId,
-                        'parentTagId' => $tag->parentTagId,
-                        'keyword' => $tag->keyword,
-                    ];
-                }
-            })($value),
+            'tags' => [...$this->visitTags($value)],
         ];
+    }
+
+    /**
+     * @return iterable<int, array<string, mixed>>
+     */
+    private function visitTags(TagsValue $tagsValue): iterable
+    {
+        foreach ($tagsValue->tags as $tag) {
+            yield [
+                'id' => $tag->id,
+                'remoteId' => $tag->remoteId,
+                'parentTagId' => $tag->parentTagId,
+                'keyword' => $tag->keyword,
+            ];
+        }
     }
 }
