@@ -11,6 +11,7 @@ services:
         arguments:
             - '@netgen.openapi_ibexa.openapi.factory'
             - '@serializer'
+            - '%kernel.debug%'
         public: true
         tags:
             - { name: container.service_subscriber }

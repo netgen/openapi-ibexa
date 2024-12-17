@@ -21,10 +21,15 @@ final class Specification extends AbstractController
     public function __construct(
         private OpenApiFactory $openApiFactory,
         private NormalizerInterface $normalizer,
+        private bool $isDebug,
     ) {}
 
     public function __invoke(): JsonResponse
     {
+        if (!$this->isDebug) {
+            throw $this->createNotFoundException();
+        }
+
         $data = $this->normalizer->normalize(
             $this->openApiFactory->buildModel(),
             'json',
