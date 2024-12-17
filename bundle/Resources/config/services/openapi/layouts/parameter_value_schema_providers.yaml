@@ -1,0 +1,110 @@
+services:
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.boolean:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\BooleanParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: boolean }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.choice:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\ChoiceParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: choice }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.compound_boolean:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\CompoundBooleanParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: compound_boolean }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.datetime:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\DateTimeParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: datetime }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.email:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\EmailParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: email }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.hidden:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\HiddenParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: hidden }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.html:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\HtmlParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: html }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.identifier:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\IdentifierParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: identifier }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.integer:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\IntegerParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: integer }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.item_link:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\ItemLinkParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: item_link }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.link:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\LinkParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: link }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.number:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\NumberParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: number }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.range:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\RangeParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: range }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.text_line:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\TextLineParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: text_line }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.text:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\TextParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: text }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.url:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\UrlParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: url }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.ibexa_content:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\IbexaContentParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: ibexa_content }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.ibexa_content_type:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\IbexaContentTypeParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: ibexa_content_type }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.ibexa_location:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\IbexaLocationParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: ibexa_location }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.ibexa_object_state:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\IbexaObjectStateParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: ibexa_object_state }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.ibexa_section:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\IbexaSectionParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: ibexa_section }
+
+    netgen.openapi_ibexa.layouts.parameter_value_schema_provider.netgen_tags:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\NetgenTagsParameterValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.layouts.parameter_value_schema_provider, parameter_type: netgen_tags }

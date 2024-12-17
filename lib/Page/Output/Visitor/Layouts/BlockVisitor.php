@@ -4,50 +4,88 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts;
 
+use Netgen\IbexaSiteApi\API\Values\Content;
+use Netgen\IbexaSiteApi\API\Values\Location;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\ContainerDefinitionInterface;
+use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
+use Netgen\Layouts\Collection\Result\ResultSet;
+use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
-abstract class BlockVisitor
+/**
+ * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
+ */
+final class BlockVisitor implements VisitorInterface
 {
-    /**
-     * @return array<string, mixed>
-     */
-    protected function visitBasicProperties(Block $block): array
+    public function __construct(
+        private PagerFactory $pagerFactory,
+    ) {}
+
+    public function accept(object $value): bool
     {
-        $basicProperties = [
-            'id' => $block->getId()->toString(),
-            'type' => $block->getDefinition()->getIdentifier(),
-            'viewType' => $block->getViewType(),
-            'itemViewType' => $block->getItemViewType(),
+        return $value instanceof Block;
+    }
+
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    {
+        $properties = [
+            'id' => $value->getId()->toString(),
+            'definitionIdentifier' => $value->getDefinition()->getIdentifier(),
+            'viewType' => $value->getViewType(),
+            'itemViewType' => $value->getItemViewType(),
+            'parameters' => [...$this->visitParameters($value, $outputVisitor)],
         ];
 
-        $basicProperties['cssClass'] = $block->hasParameter('css_class') ?
-            $block->getParameter('css_class')->getValue() ?? '' :
-            '';
+        if ($value->hasCollection('default')) {
+            /** @var \Netgen\Layouts\Collection\Result\ResultSet $resultSet */
+            $resultSet = $this->pagerFactory
+                ->getPager($value->getCollection('default'), 1)
+                ->getCurrentPageResults();
 
-        $basicProperties['cssId'] = $block->hasParameter('css_id') ?
-            $block->getParameter('css_id')->getValue() ?? '' :
-            '';
+            $properties['items'] = [...$this->visitItems($resultSet, $outputVisitor)];
+        }
 
-        $basicProperties['setContainer'] = $block->hasParameter('set_container') ?
-            $block->getParameter('set_container')->getValue() ?? false :
-            false;
+        if ($value->getDefinition() instanceof ContainerDefinitionInterface) {
+            $properties['placeholders'] = [...$this->visitPlaceholders($value, $outputVisitor)];
+        }
 
-        $basicProperties['setContainerSize'] = $block->hasParameter('set_container_size') ?
-            $block->getParameter('set_container_size')->getValue() ?? '' :
-            '';
+        return $properties;
+    }
 
-        $basicProperties['verticalWhitespaceEnabled'] = $block->hasParameter('vertical_whitespace:enabled') ?
-            $block->getParameter('vertical_whitespace:enabled')->getValue() ?? false :
-            false;
+    /**
+     * @return iterable<string, array<array-key, mixed>>
+     */
+    private function visitParameters(Block $block, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($block->getParameters() as $identifier => $parameter) {
+            yield $identifier => $outputVisitor->visit($parameter);
+        }
+    }
 
-        $basicProperties['verticalWhitespaceTop'] = $block->hasParameter('vertical_whitespace:top') ?
-            $block->getParameter('vertical_whitespace:top')->getValue() ?? '' :
-            '';
+    /**
+     * @return iterable<int, array<array-key, mixed>>
+     */
+    private function visitItems(ResultSet $resultSet, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($resultSet->getResults() as $result) {
+            $valueObject = $result->getItem()->getObject();
 
-        $basicProperties['verticalWhitespaceBottom'] = $block->hasParameter('vertical_whitespace:bottom') ?
-            $block->getParameter('vertical_whitespace:bottom')->getValue() ?? '' :
-            '';
+            if ($valueObject instanceof Location) {
+                yield $outputVisitor->visit($valueObject->content);
+            } elseif ($valueObject instanceof Content) {
+                yield $outputVisitor->visit($valueObject);
+            }
+        }
+    }
 
-        return $basicProperties;
+    /**
+     * @return iterable<string, array<array-key, mixed>>
+     */
+    private function visitPlaceholders(Block $block, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($block->getPlaceholders() as $placeholder) {
+            yield $placeholder->getIdentifier() => $outputVisitor->visit($placeholder, ['block' => $block]);
+        }
     }
 }

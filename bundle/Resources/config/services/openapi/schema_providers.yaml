@@ -11,6 +11,10 @@ services:
         arguments:
             - '@netgen_layouts.layout.registry.layout_type'
             - '@netgen_layouts.block.registry.block_definition'
+            - '@netgen_layouts.parameters.registry.parameter_type'
+            - !tagged_iterator
+                tag: netgen.openapi_ibexa.layouts.parameter_value_schema_provider
+                index_by: parameter_type
         tags:
             - { name: netgen.openapi_ibexa.schema_provider }
 

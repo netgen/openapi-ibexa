@@ -38,25 +38,15 @@ services:
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
 
-    netgen.openapi_ibexa.page.output.visitor.layouts.block.title:
-        class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\Block\TitleBlockVisitor
-        tags:
-            - { name: netgen.openapi_ibexa.page.output.visitor }
-
-    netgen.openapi_ibexa.page.output.visitor.layouts.block.list:
-        class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\Block\ListBlockVisitor
+    netgen.openapi_ibexa.page.output.visitor.layouts.block:
+        class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\BlockVisitor
         arguments:
             - '@netgen_layouts.collection.result.pagerfanta.factory'
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
 
-    netgen.openapi_ibexa.page.output.visitor.layouts.block.component:
-        class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\Block\ComponentBlockVisitor
-        tags:
-            - { name: netgen.openapi_ibexa.page.output.visitor }
-
-    netgen.openapi_ibexa.page.output.visitor.layouts.block.placeholder:
-        class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\Block\PlaceholderBlockVisitor
+    netgen.openapi_ibexa.page.output.visitor.layouts.parameter:
+        class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\ParameterVisitor
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
 

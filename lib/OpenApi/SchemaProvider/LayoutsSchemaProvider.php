@@ -4,25 +4,45 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider;
 
+use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterTypeInterface;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\OpenApi\Model\Discriminator;
 use Netgen\OpenApi\Model\Schema;
 use Netgen\OpenApiIbexa\OpenApi\SchemaProviderInterface;
+use Traversable;
 
 use function array_keys;
 use function array_map;
+use function iterator_to_array;
 use function sprintf;
 use function Symfony\Component\String\u;
 
 final class LayoutsSchemaProvider implements SchemaProviderInterface
 {
+    /**
+     * @var array<string, \Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\ParameterValueSchemaProviderInterface>
+     */
+    private array $parameterValueSchemaProviders;
+
+    /**
+     * @param iterable<\Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts\ParameterValueSchemaProviderInterface> $parameterValueSchemaProviders
+     */
     public function __construct(
         private LayoutTypeRegistry $layoutTypeRegistry,
         private BlockDefinitionRegistry $blockDefinitionRegistry,
-    ) {}
+        private ParameterTypeRegistry $parameterTypeRegistry,
+        iterable $parameterValueSchemaProviders,
+    ) {
+        $this->parameterValueSchemaProviders = $parameterValueSchemaProviders instanceof Traversable ?
+            iterator_to_array($parameterValueSchemaProviders) :
+            $parameterValueSchemaProviders;
+    }
 
     public function provideSchemas(): iterable
     {
@@ -38,29 +58,23 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
 
         yield from $layoutTypeSchemas;
 
+        yield 'Layouts.Zone' => $this->buildZoneSchema();
+
+        $innerBlockDefinitionSchemas = $this->buildInnerBlockDefinitionSchemas();
+        $blockDefinitionSchemas = $this->buildBlockDefinitionSchemas();
+
         yield from [
-            'Layouts.Zone' => $this->buildZoneSchema(),
             'Layouts.BaseBlock' => $this->buildBaseBlockSchema(),
-            'Layouts.Block' => $this->buildBlockSchema(),
-            'Layouts.Placeholder' => $this->buildPlaceholderSchema(),
+            'Layouts.Block' => $this->buildBlockSchema($innerBlockDefinitionSchemas, $blockDefinitionSchemas),
         ];
 
-        yield from $this->buildTitleBlockSchemas();
+        yield from $innerBlockDefinitionSchemas;
 
-        yield from $this->buildListBlockSchemas();
+        yield from $blockDefinitionSchemas;
 
-        yield from $this->buildComponentBlockSchemas();
+        yield 'Layouts.Placeholder' => $this->buildPlaceholderSchema();
 
-        $innerPlaceholderBlockSchemas = $this->buildInnerPlaceholderBlockSchemas();
-        $placeholderBlockSchemas = $this->buildPlaceholderBlockSchemas();
-
-        yield from [
-            'Layouts.Block.Placeholder' => $this->buildPlaceholderBlockMainSchema($innerPlaceholderBlockSchemas, $placeholderBlockSchemas),
-        ];
-
-        yield from $placeholderBlockSchemas;
-
-        yield from $innerPlaceholderBlockSchemas;
+        yield from $this->buildParameterTypeSchemas();
     }
 
     private function buildBaseLayoutSchema(): Schema\ObjectSchema
@@ -174,43 +188,124 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
     }
 
+    /**
+     * @return array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema>
+     */
+    private function buildInnerBlockDefinitionSchemas(): array
+    {
+        $blockDefinitionSchemas = [];
+
+        $blockDefinitions = $this->blockDefinitionRegistry->getBlockDefinitions();
+
+        foreach ($blockDefinitions as $blockDefinition) {
+            $properties = [
+                'definitionIdentifier' => new Schema\StringSchema(null, $blockDefinition->getIdentifier()),
+                'parameters' => $this->buildParametersSchema($blockDefinition),
+            ];
+
+            if ($blockDefinition->hasCollection('default')) {
+                $properties['items'] = new Schema\ArraySchema(
+                    $this->buildBlockItemSchema(),
+                );
+            }
+
+            if ($blockDefinition instanceof ContainerDefinitionInterface) {
+                $properties['placeholders'] = $this->buildPlaceholdersSchema($blockDefinition);
+            }
+
+            $schemaName = sprintf('Layouts.Block.%s.Inner', u($blockDefinition->getIdentifier())->camel()->title());
+            $schema = new Schema\ObjectSchema($properties, null, array_keys($properties));
+
+            $blockDefinitionSchemas[$schemaName] = $schema;
+        }
+
+        return $blockDefinitionSchemas;
+    }
+
+    /**
+     * @return array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema>
+     */
+    private function buildBlockDefinitionSchemas(): array
+    {
+        $blockDefinitionSchemas = [];
+
+        $blockDefinitions = $this->blockDefinitionRegistry->getBlockDefinitions();
+
+        foreach ($blockDefinitions as $blockDefinition) {
+            $schemaName = sprintf('Layouts.Block.%s', u($blockDefinition->getIdentifier())->camel()->title());
+            $schema = new Schema\AllOfSchema(
+                [
+                    new Schema\ReferenceSchema('Layouts.BaseBlock'),
+                    new Schema\ReferenceSchema(sprintf('%s.Inner', $schemaName)),
+                ],
+            );
+
+            $blockDefinitionSchemas[$schemaName] = $schema;
+        }
+
+        return $blockDefinitionSchemas;
+    }
+
+    private function buildParametersSchema(BlockDefinitionInterface $blockDefinition): Schema\ObjectSchema
+    {
+        $parameterSchemas = [];
+
+        foreach ($blockDefinition->getParameterDefinitions() as $parameterDefinition) {
+            $parameterName = u($parameterDefinition->getType()::getIdentifier())->camel()->title();
+            $parameterSchemas[$parameterDefinition->getName()] = new Schema\ReferenceSchema(
+                sprintf('Layouts.Parameter.%s', $parameterName),
+            );
+
+            if ($parameterDefinition instanceof CompoundParameterDefinition) {
+                foreach ($parameterDefinition->getParameterDefinitions() as $innerParameterDefinition) {
+                    $innerParameterName = u($innerParameterDefinition->getType()::getIdentifier())->camel()->title();
+                    $parameterSchemas[$innerParameterDefinition->getName()] = new Schema\ReferenceSchema(
+                        sprintf('Layouts.Parameter.%s', $innerParameterName),
+                    );
+                }
+            }
+        }
+
+        return new Schema\ObjectSchema($parameterSchemas);
+    }
+
     private function buildBaseBlockSchema(): Schema\ObjectSchema
     {
         $properties = [
             'id' => new Schema\StringSchema(null, null, Schema\Format::Uuid),
-            'type' => new Schema\StringSchema(),
+            'definitionIdentifier' => new Schema\StringSchema(),
             'viewType' => new Schema\StringSchema(),
             'itemViewType' => new Schema\StringSchema(),
-            'cssClass' => new Schema\StringSchema(),
-            'cssId' => new Schema\StringSchema(),
-            'setContainer' => new Schema\BooleanSchema(),
-            'setContainerSize' => new Schema\StringSchema(),
-            'verticalWhitespaceEnabled' => new Schema\BooleanSchema(),
-            'verticalWhitespaceTop' => new Schema\StringSchema(),
-            'verticalWhitespaceBottom' => new Schema\StringSchema(),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
     }
 
-    private function buildBlockSchema(): Schema\OneOfSchema
+    /**
+     * @param array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema> $innerBlockDefinitionSchemas
+     * @param array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema> $blockDefinitionSchemas
+     */
+    private function buildBlockSchema(array $innerBlockDefinitionSchemas, array $blockDefinitionSchemas): Schema\OneOfSchema
     {
+        $discriminatorMappings = [];
+
+        foreach ($blockDefinitionSchemas as $schemaName => $schema) {
+            $innerSchema = $innerBlockDefinitionSchemas[sprintf('%s.Inner', $schemaName)];
+
+            /** @var \Netgen\OpenApi\Model\Schema\StringSchema $definitionIdentifierFieldSchema */
+            $definitionIdentifierFieldSchema = ($innerSchema->getProperties() ?? [])['definitionIdentifier'];
+
+            $discriminatorMappings[$definitionIdentifierFieldSchema->getConst() ?? ''] = $schemaName;
+        }
+
+        $discriminator = new Discriminator('definitionIdentifier', $discriminatorMappings);
+
         return new Schema\OneOfSchema(
-            [
-                new Schema\ReferenceSchema('Layouts.Block.Title'),
-                new Schema\ReferenceSchema('Layouts.Block.List'),
-                new Schema\ReferenceSchema('Layouts.Block.Component'),
-                new Schema\ReferenceSchema('Layouts.Block.Placeholder'),
-            ],
-            new Discriminator(
-                'type',
-                [
-                    'title' => 'Layouts.Block.Title',
-                    'list' => 'Layouts.Block.List',
-                    'component' => 'Layouts.Block.Component',
-                    'placeholder' => 'Layouts.Block.Placeholder',
-                ],
+            array_map(
+                static fn (string $schemaName): Schema\ReferenceSchema => new Schema\ReferenceSchema($schemaName),
+                array_keys($blockDefinitionSchemas),
             ),
+            $discriminator,
         );
     }
 
@@ -231,157 +326,6 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         );
     }
 
-    /**
-     * @return array<string, \Netgen\OpenApi\Model\Schema>
-     */
-    private function buildTitleBlockSchemas(): array
-    {
-        $properties = [
-            'type' => new Schema\StringSchema(null, 'title'),
-            'tag' => new Schema\StringSchema(),
-            'title' => new Schema\StringSchema(),
-        ];
-
-        return [
-            'Layouts.Block.Title.Inner' => new Schema\ObjectSchema($properties, null, array_keys($properties)),
-            'Layouts.Block.Title' => new Schema\AllOfSchema(
-                [
-                    new Schema\ReferenceSchema('Layouts.BaseBlock'),
-                    new Schema\ReferenceSchema('Layouts.Block.Title.Inner'),
-                ],
-            ),
-        ];
-    }
-
-    /**
-     * @return array<string, \Netgen\OpenApi\Model\Schema>
-     */
-    private function buildListBlockSchemas(): array
-    {
-        $properties = [
-            'type' => new Schema\StringSchema(null, 'list'),
-            'columns' => new Schema\IntegerSchema(),
-            'items' => new Schema\ArraySchema(
-                $this->buildBlockItemSchema(),
-            ),
-        ];
-
-        return [
-            'Layouts.Block.List.Inner' => new Schema\ObjectSchema($properties, null, array_keys($properties)),
-            'Layouts.Block.List' => new Schema\AllOfSchema(
-                [
-                    new Schema\ReferenceSchema('Layouts.BaseBlock'),
-                    new Schema\ReferenceSchema('Layouts.Block.List.Inner'),
-                ],
-            ),
-        ];
-    }
-
-    /**
-     * @return array<string, \Netgen\OpenApi\Model\Schema>
-     */
-    private function buildComponentBlockSchemas(): array
-    {
-        $properties = [
-            'type' => new Schema\StringSchema(null, 'component'),
-            'componentType' => new Schema\StringSchema(),
-            'content' => new Schema\ReferenceSchema('SiteApi.Content'),
-        ];
-
-        return [
-            'Layouts.Block.Component.Inner' => new Schema\ObjectSchema($properties, null, array_keys($properties)),
-            'Layouts.Block.Component' => new Schema\AllOfSchema(
-                [
-                    new Schema\ReferenceSchema('Layouts.BaseBlock'),
-                    new Schema\ReferenceSchema('Layouts.Block.Component.Inner'),
-                ],
-            ),
-        ];
-    }
-
-    /**
-     * @return array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema>
-     */
-    private function buildInnerPlaceholderBlockSchemas(): array
-    {
-        $placeholderBlockSchemas = [];
-
-        foreach ($this->blockDefinitionRegistry->getBlockDefinitions() as $blockDefinition) {
-            if (!$blockDefinition instanceof ContainerDefinitionInterface) {
-                continue;
-            }
-
-            $schemaName = sprintf('Layouts.Block.Placeholder.%s.Inner', u($blockDefinition->getName())->camel()->title());
-            $schema = new Schema\ObjectSchema(
-                [
-                    'type' => new Schema\StringSchema(null, 'placeholder'),
-                    'placeholderType' => new Schema\StringSchema(null, $blockDefinition->getIdentifier()),
-                    'placeholders' => $this->buildPlaceholdersSchema($blockDefinition),
-                ],
-                null,
-                ['type', 'placeholderType', 'placeholders'],
-            );
-
-            $placeholderBlockSchemas[$schemaName] = $schema;
-        }
-
-        return $placeholderBlockSchemas;
-    }
-
-    /**
-     * @param array<string, \Netgen\OpenApi\Model\Schema\ObjectSchema> $innerPlaceholderBlockSchemas
-     * @param array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema> $placeholderBlockSchemas
-     */
-    private function buildPlaceholderBlockMainSchema(array $innerPlaceholderBlockSchemas, array $placeholderBlockSchemas): Schema\OneOfSchema
-    {
-        $discriminatorMappings = [];
-
-        foreach ($placeholderBlockSchemas as $schemaName => $schema) {
-            $innerSchema = $innerPlaceholderBlockSchemas[sprintf('%s.Inner', $schemaName)];
-
-            /** @var \Netgen\OpenApi\Model\Schema\StringSchema $placeholderTypeFieldSchema */
-            $placeholderTypeFieldSchema = ($innerSchema->getProperties() ?? [])['placeholderType'];
-
-            $discriminatorMappings[$placeholderTypeFieldSchema->getConst() ?? ''] = $schemaName;
-        }
-
-        $discriminator = new Discriminator('placeholderType', $discriminatorMappings);
-
-        return new Schema\OneOfSchema(
-            array_map(
-                static fn (string $schemaName): Schema\ReferenceSchema => new Schema\ReferenceSchema($schemaName),
-                array_keys($placeholderBlockSchemas),
-            ),
-            $discriminator,
-        );
-    }
-
-    /**
-     * @return array<string, \Netgen\OpenApi\Model\Schema\AllOfSchema>
-     */
-    private function buildPlaceholderBlockSchemas(): array
-    {
-        $placeholderBlockSchemas = [];
-
-        foreach ($this->blockDefinitionRegistry->getBlockDefinitions() as $blockDefinition) {
-            if (!$blockDefinition instanceof ContainerDefinitionInterface) {
-                continue;
-            }
-
-            $schemaName = sprintf('Layouts.Block.Placeholder.%s', u($blockDefinition->getName())->camel()->title());
-            $schema = new Schema\AllOfSchema(
-                [
-                    new Schema\ReferenceSchema('Layouts.BaseBlock'),
-                    new Schema\ReferenceSchema(sprintf('%s.Inner', $schemaName)),
-                ],
-            );
-
-            $placeholderBlockSchemas[$schemaName] = $schema;
-        }
-
-        return $placeholderBlockSchemas;
-    }
-
     private function buildPlaceholdersSchema(ContainerDefinitionInterface $containerDefinition): Schema\ObjectSchema
     {
         $placeholderSchemas = [];
@@ -400,5 +344,35 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
+    }
+
+    /**
+     * @return iterable<string, \Netgen\OpenApi\Model\Schema\ObjectSchema>
+     */
+    private function buildParameterTypeSchemas(): iterable
+    {
+        foreach ($this->parameterTypeRegistry->getParameterTypes() as $parameterType) {
+            $parameterTypeName = u($parameterType::getIdentifier())->camel()->title();
+
+            yield sprintf('Layouts.Parameter.%s', $parameterTypeName) => $this->buildParameterTypeSchema($parameterType);
+        }
+    }
+
+    private function buildParameterTypeSchema(ParameterTypeInterface $parameterType): Schema\ObjectSchema
+    {
+        $properties = [
+            'parameterType' => new Schema\StringSchema(null, $parameterType::getIdentifier()),
+            'isEmpty' => new Schema\BooleanSchema(),
+            'value' => $this->buildParameterValueSchema($parameterType),
+        ];
+
+        return new Schema\ObjectSchema($properties, null, array_keys($properties));
+    }
+
+    private function buildParameterValueSchema(ParameterTypeInterface $parameterType): Schema\ObjectSchema
+    {
+        $parameterValueSchemaProvider = $this->parameterValueSchemaProviders[$parameterType::getIdentifier()] ?? null;
+
+        return $parameterValueSchemaProvider?->provideParameterValueSchema() ?? new Schema\ObjectSchema();
     }
 }
