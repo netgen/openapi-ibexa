@@ -6,21 +6,15 @@ namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Layouts;
 
 use Netgen\OpenApi\Model\Schema;
 
-use function array_keys;
-
 final class HtmlParameterValueSchemaProvider implements ParameterValueSchemaProviderInterface
 {
-    public function provideParameterValueSchema(): Schema\ObjectSchema
+    public function provideParameterValueSchema(): Schema
     {
-        $properties = [
-            'value' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-        ];
-
-        return new Schema\ObjectSchema($properties, null, array_keys($properties));
+        return new Schema\OneOfSchema(
+            [
+                new Schema\StringSchema(),
+                new Schema\NullSchema(),
+            ],
+        );
     }
 }

@@ -369,7 +369,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
     }
 
-    private function buildParameterValueSchema(ParameterTypeInterface $parameterType): Schema\ObjectSchema
+    private function buildParameterValueSchema(ParameterTypeInterface $parameterType): Schema
     {
         $parameterValueSchemaProvider = $this->parameterValueSchemaProviders[$parameterType::getIdentifier()] ?? null;
 

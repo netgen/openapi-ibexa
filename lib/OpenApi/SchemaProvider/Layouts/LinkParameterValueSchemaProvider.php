@@ -10,7 +10,7 @@ use function array_keys;
 
 final class LinkParameterValueSchemaProvider implements ParameterValueSchemaProviderInterface
 {
-    public function provideParameterValueSchema(): Schema\ObjectSchema
+    public function provideParameterValueSchema(): Schema
     {
         $properties = [
             'link_type' => new Schema\OneOfSchema(

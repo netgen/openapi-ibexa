@@ -10,7 +10,7 @@ use function array_keys;
 
 final class DateTimeParameterValueSchemaProvider implements ParameterValueSchemaProviderInterface
 {
-    public function provideParameterValueSchema(): Schema\ObjectSchema
+    public function provideParameterValueSchema(): Schema
     {
         $properties = [
             'datetime' => new Schema\OneOfSchema(
