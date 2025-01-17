@@ -19,6 +19,9 @@ final class FieldVisitor implements VisitorInterface
         return $value instanceof Field;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         try {

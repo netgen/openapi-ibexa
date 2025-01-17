@@ -6,16 +6,10 @@ namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa;
 
 use Netgen\OpenApi\Model\Schema;
 
-use function array_keys;
-
 final class EnhancedSelectionFieldValueSchemaProvider implements FieldValueSchemaProviderInterface
 {
-    public function provideFieldValueSchema(): Schema\ObjectSchema
+    public function provideFieldValueSchema(): Schema
     {
-        $properties = [
-            'identifiers' => new Schema\ArraySchema(new Schema\StringSchema()),
-        ];
-
-        return new Schema\ObjectSchema($properties, null, array_keys($properties));
+        return new Schema\ArraySchema(new Schema\StringSchema());
     }
 }

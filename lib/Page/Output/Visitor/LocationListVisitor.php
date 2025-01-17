@@ -18,6 +18,9 @@ final class LocationListVisitor implements VisitorInterface
         return $value instanceof LocationList;
     }
 
+    /**
+     * @return iterable<int, iterable<string, mixed>>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         foreach ($value->getLocations() as $location) {

@@ -18,10 +18,11 @@ final class EnhancedSelectionFieldValueVisitor implements VisitorInterface
         return $value instanceof EnhancedSelectionValue;
     }
 
+    /**
+     * @return iterable<int, string>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
-        return [
-            'identifiers' => $value->identifiers,
-        ];
+        return $value->identifiers;
     }
 }

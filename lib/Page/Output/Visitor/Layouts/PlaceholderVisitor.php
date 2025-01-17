@@ -25,6 +25,9 @@ final class PlaceholderVisitor implements VisitorInterface
         return $value instanceof Placeholder;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [
@@ -33,7 +36,7 @@ final class PlaceholderVisitor implements VisitorInterface
     }
 
     /**
-     * @return iterable<int, array<array-key, mixed>>
+     * @return iterable<int, mixed>
      */
     private function visitBlocks(Block $block, Placeholder $placeholder, OutputVisitor $outputVisitor): iterable
     {

@@ -18,10 +18,8 @@ final class CheckboxFieldValueVisitor implements VisitorInterface
         return $value instanceof CheckboxValue;
     }
 
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): bool
     {
-        return [
-            'bool' => $value->bool,
-        ];
+        return $value->bool;
     }
 }

@@ -18,11 +18,12 @@ final class MetasFieldValueVisitor implements VisitorInterface
         return $value instanceof MetasValue;
     }
 
+    /**
+     * @return iterable<int, iterable<string, mixed>>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
-        return [
-            'metas' => [...$this->visitMetas($value)],
-        ];
+        return [...$this->visitMetas($value)];
     }
 
     /**

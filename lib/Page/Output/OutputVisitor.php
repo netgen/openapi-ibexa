@@ -7,6 +7,7 @@ namespace Netgen\OpenApiIbexa\Page\Output;
 use RuntimeException;
 
 use function get_debug_type;
+use function is_iterable;
 use function sprintf;
 
 final class OutputVisitor
@@ -25,13 +26,15 @@ final class OutputVisitor
      *
      * @throws \RuntimeException if no sub-visitor is available for provided value
      *
-     * @return array<int|string, mixed>
+     * @return iterable<array-key, mixed>|int|string|bool|float|null
      */
-    public function visit(object $value, array $parameters = []): array
+    public function visit(object $value, array $parameters = []): iterable|int|string|bool|float|null
     {
         foreach ($this->subVisitors as $subVisitor) {
             if ($subVisitor->accept($value)) {
-                return [...$subVisitor->visit($value, $this, $parameters)];
+                $visitedData = $subVisitor->visit($value, $this, $parameters);
+
+                return is_iterable($visitedData) ? [...$visitedData] : $visitedData;
             }
         }
 

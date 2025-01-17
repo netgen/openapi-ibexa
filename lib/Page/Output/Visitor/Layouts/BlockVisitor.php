@@ -27,6 +27,9 @@ final class BlockVisitor implements VisitorInterface
         return $value instanceof Block;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         $properties = [
@@ -54,7 +57,7 @@ final class BlockVisitor implements VisitorInterface
     }
 
     /**
-     * @return iterable<string, array<array-key, mixed>>
+     * @return iterable<string, mixed>
      */
     private function visitParameters(Block $block, OutputVisitor $outputVisitor): iterable
     {
@@ -64,7 +67,7 @@ final class BlockVisitor implements VisitorInterface
     }
 
     /**
-     * @return iterable<int, array<array-key, mixed>>
+     * @return iterable<int, mixed>
      */
     private function visitItems(ResultSet $resultSet, OutputVisitor $outputVisitor): iterable
     {
@@ -80,7 +83,7 @@ final class BlockVisitor implements VisitorInterface
     }
 
     /**
-     * @return iterable<string, array<array-key, mixed>>
+     * @return iterable<string, mixed>
      */
     private function visitPlaceholders(Block $block, OutputVisitor $outputVisitor): iterable
     {

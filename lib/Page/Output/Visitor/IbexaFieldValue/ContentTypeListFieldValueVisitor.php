@@ -18,10 +18,11 @@ final class ContentTypeListFieldValueVisitor implements VisitorInterface
         return $value instanceof ContentTypeListValue;
     }
 
+    /**
+     * @return iterable<int, string>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
-        return [
-            'identifiers' => $value->identifiers,
-        ];
+        return $value->identifiers;
     }
 }

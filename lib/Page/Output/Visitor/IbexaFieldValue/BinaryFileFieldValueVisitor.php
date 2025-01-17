@@ -18,6 +18,9 @@ final class BinaryFileFieldValueVisitor implements VisitorInterface
         return $value instanceof BinaryFileValue;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [

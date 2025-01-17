@@ -18,10 +18,8 @@ final class IntegerFieldValueVisitor implements VisitorInterface
         return $value instanceof IntegerValue;
     }
 
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): ?int
     {
-        return [
-            'value' => $value->value,
-        ];
+        return $value->value;
     }
 }

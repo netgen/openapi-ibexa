@@ -19,10 +19,8 @@ final class DateAndTimeFieldValueVisitor implements VisitorInterface
         return $value instanceof DateAndTimeValue;
     }
 
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): ?string
     {
-        return [
-            'value' => $value->value?->format(DateTimeInterface::ATOM),
-        ];
+        return $value->value?->format(DateTimeInterface::ATOM);
     }
 }

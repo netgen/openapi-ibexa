@@ -18,11 +18,12 @@ final class TagsFieldValueVisitor implements VisitorInterface
         return $value instanceof TagsValue;
     }
 
+    /**
+     * @return iterable<int, iterable<string, mixed>>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
-        return [
-            'tags' => [...$this->visitTags($value)],
-        ];
+        return [...$this->visitTags($value)];
     }
 
     /**

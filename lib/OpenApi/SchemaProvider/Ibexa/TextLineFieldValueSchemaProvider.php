@@ -6,16 +6,10 @@ namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa;
 
 use Netgen\OpenApi\Model\Schema;
 
-use function array_keys;
-
 final class TextLineFieldValueSchemaProvider implements FieldValueSchemaProviderInterface
 {
-    public function provideFieldValueSchema(): Schema\ObjectSchema
+    public function provideFieldValueSchema(): Schema
     {
-        $properties = [
-            'text' => new Schema\StringSchema(),
-        ];
-
-        return new Schema\ObjectSchema($properties, null, array_keys($properties));
+        return new Schema\StringSchema();
     }
 }

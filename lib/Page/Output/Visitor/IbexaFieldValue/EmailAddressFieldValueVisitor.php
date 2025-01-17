@@ -18,10 +18,8 @@ final class EmailAddressFieldValueVisitor implements VisitorInterface
         return $value instanceof EmailAddressValue;
     }
 
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): string
     {
-        return [
-            'email' => $value->email,
-        ];
+        return $value->email;
     }
 }

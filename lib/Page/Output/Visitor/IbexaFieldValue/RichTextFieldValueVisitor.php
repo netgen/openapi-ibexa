@@ -23,11 +23,8 @@ final class RichTextFieldValueVisitor implements VisitorInterface
         return $value instanceof RichTextValue;
     }
 
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): string
     {
-        return [
-            'xml' => (string) $value->xml->saveXML(),
-            'html' => (string) $this->richTextConverter->convert($value->xml)->saveHTML(),
-        ];
+        return (string) $this->richTextConverter->convert($value->xml)->saveHTML();
     }
 }

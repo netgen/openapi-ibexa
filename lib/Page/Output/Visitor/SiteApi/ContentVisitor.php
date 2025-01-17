@@ -18,6 +18,9 @@ final class ContentVisitor implements VisitorInterface
         return $value instanceof Content;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [
@@ -33,7 +36,7 @@ final class ContentVisitor implements VisitorInterface
     }
 
     /**
-     * @return iterable<string, array<array-key, mixed>>
+     * @return iterable<string, mixed>
      */
     private function visitFields(Content $content, OutputVisitor $outputVisitor): iterable
     {

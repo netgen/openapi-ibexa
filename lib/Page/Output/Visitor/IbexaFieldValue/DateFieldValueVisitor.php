@@ -18,10 +18,8 @@ final class DateFieldValueVisitor implements VisitorInterface
         return $value instanceof DateValue;
     }
 
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): ?string
     {
-        return [
-            'value' => $value->date?->format('Y-m-d'),
-        ];
+        return $value->date?->format('Y-m-d');
     }
 }

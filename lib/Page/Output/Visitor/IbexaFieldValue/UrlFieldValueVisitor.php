@@ -18,6 +18,9 @@ final class UrlFieldValueVisitor implements VisitorInterface
         return $value instanceof UrlValue;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [

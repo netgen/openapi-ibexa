@@ -10,7 +10,7 @@ use function array_keys;
 
 final class UrlFieldValueSchemaProvider implements FieldValueSchemaProviderInterface
 {
-    public function provideFieldValueSchema(): Schema\ObjectSchema
+    public function provideFieldValueSchema(): Schema
     {
         $properties = [
             'link' => new Schema\OneOfSchema(

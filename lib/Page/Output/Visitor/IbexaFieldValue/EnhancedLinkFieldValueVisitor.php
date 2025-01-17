@@ -18,6 +18,9 @@ final class EnhancedLinkFieldValueVisitor implements VisitorInterface
         return $value instanceof EnhancedLinkValue;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [

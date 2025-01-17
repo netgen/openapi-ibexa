@@ -20,6 +20,9 @@ final class PageVisitor implements VisitorInterface
         return $value instanceof Page;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         if ($value->getContent() !== null) {

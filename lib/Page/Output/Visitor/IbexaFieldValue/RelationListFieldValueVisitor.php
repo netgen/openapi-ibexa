@@ -18,10 +18,11 @@ final class RelationListFieldValueVisitor implements VisitorInterface
         return $value instanceof RelationListValue;
     }
 
+    /**
+     * @return iterable<int, int>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
-        return [
-            'destinationContentIds' => $value->destinationContentIds,
-        ];
+        return $value->destinationContentIds;
     }
 }

@@ -18,6 +18,9 @@ final class ImageFieldValueVisitor implements VisitorInterface
         return $value instanceof ImageValue;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [

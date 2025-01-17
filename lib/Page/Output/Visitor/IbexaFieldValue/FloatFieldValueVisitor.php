@@ -18,10 +18,8 @@ final class FloatFieldValueVisitor implements VisitorInterface
         return $value instanceof FloatValue;
     }
 
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): ?float
     {
-        return [
-            'value' => $value->value,
-        ];
+        return $value->value;
     }
 }

@@ -19,6 +19,9 @@ final class LayoutVisitor implements VisitorInterface
         return $value instanceof Layout;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [
@@ -36,7 +39,7 @@ final class LayoutVisitor implements VisitorInterface
     }
 
     /**
-     * @return iterable<string, array<array-key, mixed>>
+     * @return iterable<string, mixed>
      */
     private function visitZones(Layout $layout, OutputVisitor $outputVisitor): iterable
     {

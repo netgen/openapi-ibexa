@@ -20,12 +20,12 @@ interface VisitorInterface
     public function accept(object $value): bool;
 
     /**
-     * Visit the given $value into hash array representation.
+     * Visit the given $value into hash array or scalar representation.
      *
      * @param T $value
      * @param array<string, mixed> $parameters
      *
-     * @return iterable<int|string, mixed>
+     * @return iterable<array-key, mixed>|int|string|bool|float|null
      */
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable;
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable|int|string|bool|float|null;
 }

@@ -18,6 +18,9 @@ final class MediaFieldValueVisitor implements VisitorInterface
         return $value instanceof MediaValue;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [

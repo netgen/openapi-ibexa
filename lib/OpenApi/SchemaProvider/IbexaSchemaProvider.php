@@ -53,7 +53,7 @@ final class IbexaSchemaProvider implements SchemaProviderInterface
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
     }
 
-    private function buildFieldValueSchema(string $fieldTypeIdentifier): Schema\ObjectSchema
+    private function buildFieldValueSchema(string $fieldTypeIdentifier): Schema
     {
         $fieldValueSchemaProvider = $this->fieldValueSchemaProviders[$fieldTypeIdentifier] ?? null;
 

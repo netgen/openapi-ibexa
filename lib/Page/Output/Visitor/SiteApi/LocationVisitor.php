@@ -20,6 +20,9 @@ final class LocationVisitor implements VisitorInterface
         return $value instanceof Location;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         return [

@@ -18,6 +18,9 @@ final class ContentListVisitor implements VisitorInterface
         return $value instanceof ContentList;
     }
 
+    /**
+     * @return iterable<int, iterable<string, mixed>>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         foreach ($value->getContentItems() as $content) {

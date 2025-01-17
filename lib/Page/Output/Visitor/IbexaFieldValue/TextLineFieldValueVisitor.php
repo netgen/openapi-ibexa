@@ -18,10 +18,8 @@ final class TextLineFieldValueVisitor implements VisitorInterface
         return $value instanceof TextLineValue;
     }
 
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): string
     {
-        return [
-            'text' => $value->text,
-        ];
+        return $value->text;
     }
 }

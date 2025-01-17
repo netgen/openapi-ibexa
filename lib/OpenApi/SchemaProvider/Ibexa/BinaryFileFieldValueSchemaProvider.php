@@ -10,7 +10,7 @@ use function array_keys;
 
 final class BinaryFileFieldValueSchemaProvider implements FieldValueSchemaProviderInterface
 {
-    public function provideFieldValueSchema(): Schema\ObjectSchema
+    public function provideFieldValueSchema(): Schema
     {
         $properties = [
             'id' => new Schema\OneOfSchema(

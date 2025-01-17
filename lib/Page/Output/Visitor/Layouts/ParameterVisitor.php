@@ -22,6 +22,9 @@ final class ParameterVisitor implements VisitorInterface
         return $value instanceof Parameter;
     }
 
+    /**
+     * @return iterable<string, mixed>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         $parameterDefinition = $value->getParameterDefinition();

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa;
 
-use Netgen\OpenApi\Model\Schema\ObjectSchema;
+use Netgen\OpenApi\Model\Schema;
 
 interface FieldValueSchemaProviderInterface
 {
-    public function provideFieldValueSchema(): ObjectSchema;
+    public function provideFieldValueSchema(): Schema;
 }

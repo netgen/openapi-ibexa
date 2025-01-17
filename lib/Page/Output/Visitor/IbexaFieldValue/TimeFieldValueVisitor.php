@@ -18,10 +18,8 @@ final class TimeFieldValueVisitor implements VisitorInterface
         return $value instanceof TimeValue;
     }
 
-    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
+    public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): ?int
     {
-        return [
-            'time' => $value->time,
-        ];
+        return $value->time;
     }
 }
