@@ -6,6 +6,8 @@ services:
 
     netgen.openapi_ibexa.page.output.visitor.page:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\PageVisitor
+        arguments:
+            - '@ibexa.config.resolver'
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
 
