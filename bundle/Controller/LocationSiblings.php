@@ -32,9 +32,9 @@ final class LocationSiblings extends AbstractController
             $maxPerPage = $this->defaultLimit;
         }
 
-        $children = $location->filterSiblings([], $maxPerPage, $currentPage);
+        $siblings = $location->filterSiblings([], $maxPerPage, $currentPage);
 
-        $data = $this->outputVisitor->visit(new LocationList($children));
+        $data = $this->outputVisitor->visit(new LocationList($siblings));
 
         return new JsonResponse(
             json_encode($data, JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES),
