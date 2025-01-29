@@ -31,9 +31,9 @@ final class LocationVisitor implements VisitorInterface
             'remoteId' => $value->remoteId,
             'contentId' => $value->contentId,
             'parentLocationId' => $value->parentLocationId,
+            'path' => $value->path->getRelative(),
             'pathString' => $value->pathString,
             'pathArray' => array_map('intval', $value->pathArray),
-            'pathRelative' => $value->path->getRelative(),
             'depth' => $value->depth,
         ];
     }
