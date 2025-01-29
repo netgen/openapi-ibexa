@@ -33,6 +33,7 @@ final class LocationVisitor implements VisitorInterface
             'parentLocationId' => $value->parentLocationId,
             'pathString' => $value->pathString,
             'pathArray' => array_map('intval', $value->pathArray),
+            'pathRelative' => $value->path->getRelative(),
             'depth' => $value->depth,
         ];
     }

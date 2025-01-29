@@ -164,6 +164,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
             'parentLocationId' => new Schema\IntegerSchema(),
             'pathString' => new Schema\StringSchema(),
             'pathArray' => new Schema\ArraySchema(new Schema\IntegerSchema()),
+            'pathRelative' => new Schema\StringSchema(),
             'depth' => new Schema\IntegerSchema(),
         ];
 
