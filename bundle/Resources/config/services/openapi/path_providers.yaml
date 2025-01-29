@@ -14,6 +14,13 @@ services:
         tags:
             - { name: netgen.openapi_ibexa.path_provider }
 
+    netgen.openapi_ibexa.openapi.path_provider.location_siblings:
+        class: Netgen\OpenApiIbexa\OpenApi\PathProvider\LocationSiblingsPathProvider
+        arguments:
+            - '@router'
+        tags:
+            - { name: netgen.openapi_ibexa.path_provider }
+
     netgen.openapi_ibexa.openapi.path_provider.content_relations:
         class: Netgen\OpenApiIbexa\OpenApi\PathProvider\ContentRelationsPathProvider
         arguments:

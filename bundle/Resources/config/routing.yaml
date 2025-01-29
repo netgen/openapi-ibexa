@@ -18,6 +18,14 @@ netgen_openapi_ibexa_location_children:
         maxPerPage: '%netgen.openapi_ibexa.default_limit%'
         currentPage: 1
 
+netgen_openapi_ibexa_location_siblings:
+    path: /location/{locationId}/siblings/{maxPerPage}/{currentPage}
+    controller: netgen.openapi_ibexa.controller.location_siblings
+    methods: [GET]
+    defaults:
+        maxPerPage: '%netgen.openapi_ibexa.default_limit%'
+        currentPage: 1
+
 netgen_openapi_ibexa_content_relations:
     path: /content/{contentId}/relations/{fieldIdentifier}/{maxPerPage}/{currentPage}
     controller: netgen.openapi_ibexa.controller.content_relations
