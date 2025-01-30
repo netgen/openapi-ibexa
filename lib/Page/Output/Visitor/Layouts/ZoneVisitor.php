@@ -6,9 +6,12 @@ namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts;
 
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Enterprise\Block\ConfigDefinition\Handler\VisibilityConfigHandler;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 use RuntimeException;
+
+use function class_exists;
 
 /**
  * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Layout\Zone>
@@ -40,6 +43,14 @@ final class ZoneVisitor implements VisitorInterface
     private function visitBlocks(Zone $zone, OutputVisitor $outputVisitor): iterable
     {
         foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
+            if (class_exists(VisibilityConfigHandler::class)) {
+                $visibilityStatus = $block->getConfig('visibility')->getParameter('visibility_status')->getValue();
+
+                if ($visibilityStatus === VisibilityConfigHandler::VISIBILITY_HIDDEN) {
+                    continue;
+                }
+            }
+
             try {
                 yield $outputVisitor->visit($block);
             } catch (RuntimeException) {
