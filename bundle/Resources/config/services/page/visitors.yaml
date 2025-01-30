@@ -21,6 +21,11 @@ services:
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
 
+    netgen.openapi_ibexa.page.output.visitor.content_and_location:
+        class: Netgen\OpenApiIbexa\Page\Output\Visitor\ContentAndLocationVisitor
+        tags:
+            - { name: netgen.openapi_ibexa.page.output.visitor }
+
     netgen.openapi_ibexa.page.output.visitor.layouts.layout:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\LayoutVisitor
         tags:

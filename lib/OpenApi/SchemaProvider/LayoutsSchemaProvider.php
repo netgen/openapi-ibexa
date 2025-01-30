@@ -205,7 +205,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
 
             if ($blockDefinition->hasCollection('default')) {
                 $properties['items'] = new Schema\ArraySchema(
-                    $this->buildBlockItemSchema(),
+                    new Schema\ReferenceSchema('SiteApi.ContentAndLocation'),
                 );
             }
 
@@ -306,23 +306,6 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
                 array_keys($blockDefinitionSchemas),
             ),
             $discriminator,
-        );
-    }
-
-    private function buildBlockItemSchema(): Schema\OneOfSchema
-    {
-        return new Schema\OneOfSchema(
-            [
-                new Schema\ReferenceSchema('SiteApi.Content'),
-                new Schema\ReferenceSchema('SiteApi.Location'),
-            ],
-            new Discriminator(
-                'type',
-                [
-                    'content' => 'SiteApi.Content',
-                    'location' => 'SiteApi.Location',
-                ],
-            ),
         );
     }
 

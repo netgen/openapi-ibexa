@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor;
 
+use Netgen\OpenApiIbexa\Page\ContentAndLocation;
 use Netgen\OpenApiIbexa\Page\LocationList;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
@@ -19,15 +20,12 @@ final class LocationListVisitor implements VisitorInterface
     }
 
     /**
-     * @return iterable<int, iterable<string, mixed>>
+     * @return iterable<int, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         foreach ($value->getLocations() as $location) {
-            yield [
-                'content' => $outputVisitor->visit($location->content, $parameters),
-                'location' => $outputVisitor->visit($location, $parameters),
-            ];
+            yield $outputVisitor->visit(new ContentAndLocation($location->content, $location), $parameters);
         }
     }
 }

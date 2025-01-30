@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor;
 
+use Netgen\OpenApiIbexa\Page\ContentAndLocation;
 use Netgen\OpenApiIbexa\Page\ContentList;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
@@ -19,17 +20,12 @@ final class ContentListVisitor implements VisitorInterface
     }
 
     /**
-     * @return iterable<int, iterable<string, mixed>>
+     * @return iterable<int, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         foreach ($value->getContentItems() as $content) {
-            yield [
-                'content' => $outputVisitor->visit($content, $parameters),
-                'location' => $content->mainLocation !== null ?
-                    $outputVisitor->visit($content->mainLocation, $parameters) :
-                    null,
-            ];
+            yield $outputVisitor->visit(new ContentAndLocation($content, $content->mainLocation), $parameters);
         }
     }
 }

@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\Layouts\Collection\Result\ResultSet;
+use Netgen\OpenApiIbexa\Page\ContentAndLocation;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
@@ -75,9 +76,9 @@ final class BlockVisitor implements VisitorInterface
             $valueObject = $result->getItem()->getObject();
 
             if ($valueObject instanceof Location) {
-                yield $outputVisitor->visit($valueObject->content);
+                yield $outputVisitor->visit(new ContentAndLocation($valueObject->content, $valueObject));
             } elseif ($valueObject instanceof Content) {
-                yield $outputVisitor->visit($valueObject);
+                yield $outputVisitor->visit(new ContentAndLocation($valueObject, $valueObject->mainLocation));
             }
         }
     }
