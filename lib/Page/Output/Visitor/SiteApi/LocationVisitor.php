@@ -25,6 +25,7 @@ final class LocationVisitor implements VisitorInterface
      */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
+        /** @var \Netgen\IbexaSiteApi\API\Values\Location $value */
         return [
             'id' => $value->id,
             'type' => 'location',
@@ -35,6 +36,7 @@ final class LocationVisitor implements VisitorInterface
             'pathString' => $value->pathString,
             'pathArray' => array_map('intval', $value->pathArray),
             'depth' => $value->depth,
+            'url' => $value->path->getAbsolute(),
         ];
     }
 }

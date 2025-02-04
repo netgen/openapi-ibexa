@@ -167,6 +167,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
             'pathString' => new Schema\StringSchema(),
             'pathArray' => new Schema\ArraySchema(new Schema\IntegerSchema()),
             'depth' => new Schema\IntegerSchema(),
+            'url' => new Schema\StringSchema(),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
