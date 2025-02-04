@@ -10,11 +10,6 @@ final class FloatFieldValueSchemaProvider implements FieldValueSchemaProviderInt
 {
     public function provideFieldValueSchema(): Schema
     {
-        return new Schema\OneOfSchema(
-            [
-                new Schema\NumberSchema(),
-                new Schema\NullSchema(),
-            ],
-        );
+        return new Schema\OneOfSchema([new Schema\NumberSchema(), new Schema\NullSchema()]);
     }
 }

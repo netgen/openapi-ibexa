@@ -13,105 +13,25 @@ final class RemoteMediaFieldValueSchemaProvider implements FieldValueSchemaProvi
     public function provideFieldValueSchema(): Schema
     {
         $properties = [
-            'remoteId' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'type' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'url' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'md5' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'id' => new Schema\OneOfSchema(
-                [
-                    new Schema\IntegerSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'name' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'originalFilename' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'version' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'visibility' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'folder' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'size' => new Schema\OneOfSchema(
-                [
-                    new Schema\IntegerSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'altText' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'caption' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
+            'remoteId' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'type' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'url' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'md5' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'id' => new Schema\OneOfSchema([new Schema\IntegerSchema(), new Schema\NullSchema()]),
+            'name' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'originalFilename' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'version' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'visibility' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'folder' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'size' => new Schema\OneOfSchema([new Schema\IntegerSchema(), new Schema\NullSchema()]),
+            'altText' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'caption' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
             'tags' => new Schema\ArraySchema(new Schema\StringSchema()),
             'metadata' => new Schema\ObjectSchema(),
             'context' => new Schema\ObjectSchema(),
-            'locationId' => new Schema\OneOfSchema(
-                [
-                    new Schema\IntegerSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'locationSource' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'locationWatermarkText' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
+            'locationId' => new Schema\OneOfSchema([new Schema\IntegerSchema(), new Schema\NullSchema()]),
+            'locationSource' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'locationWatermarkText' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
             'locationCropSettings' => new Schema\ArraySchema(
                 new Schema\ObjectSchema(
                     [

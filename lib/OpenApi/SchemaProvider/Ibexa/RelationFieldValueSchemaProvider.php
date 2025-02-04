@@ -10,11 +10,6 @@ final class RelationFieldValueSchemaProvider implements FieldValueSchemaProvider
 {
     public function provideFieldValueSchema(): Schema
     {
-        return new Schema\OneOfSchema(
-            [
-                new Schema\IntegerSchema(),
-                new Schema\NullSchema(),
-            ],
-        );
+        return new Schema\OneOfSchema([new Schema\IntegerSchema(), new Schema\NullSchema()]);
     }
 }

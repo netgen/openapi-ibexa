@@ -10,11 +10,6 @@ final class CompoundBooleanParameterValueSchemaProvider implements ParameterValu
 {
     public function provideParameterValueSchema(): Schema
     {
-        return new Schema\OneOfSchema(
-            [
-                new Schema\BooleanSchema(),
-                new Schema\NullSchema(),
-            ],
-        );
+        return new Schema\OneOfSchema([new Schema\BooleanSchema(), new Schema\NullSchema()]);
     }
 }

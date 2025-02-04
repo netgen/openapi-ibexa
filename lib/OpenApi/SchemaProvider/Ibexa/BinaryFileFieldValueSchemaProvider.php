@@ -13,42 +13,12 @@ final class BinaryFileFieldValueSchemaProvider implements FieldValueSchemaProvid
     public function provideFieldValueSchema(): Schema
     {
         $properties = [
-            'id' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'fileName' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'fileSize' => new Schema\OneOfSchema(
-                [
-                    new Schema\IntegerSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'uri' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'inputUri' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'mimeType' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
+            'id' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'fileName' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'fileSize' => new Schema\OneOfSchema([new Schema\IntegerSchema(), new Schema\NullSchema()]),
+            'uri' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'inputUri' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'mimeType' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
             'downloadCount' => new Schema\IntegerSchema(),
         ];
 

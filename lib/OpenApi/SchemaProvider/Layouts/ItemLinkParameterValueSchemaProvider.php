@@ -10,11 +10,6 @@ final class ItemLinkParameterValueSchemaProvider implements ParameterValueSchema
 {
     public function provideParameterValueSchema(): Schema
     {
-        return new Schema\OneOfSchema(
-            [
-                new Schema\StringSchema(),
-                new Schema\NullSchema(),
-            ],
-        );
+        return new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]);
     }
 }

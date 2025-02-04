@@ -13,30 +13,10 @@ final class LinkParameterValueSchemaProvider implements ParameterValueSchemaProv
     public function provideParameterValueSchema(): Schema
     {
         $properties = [
-            'link_type' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'link' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'link_suffix' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
-            'new_window' => new Schema\OneOfSchema(
-                [
-                    new Schema\BooleanSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
+            'link_type' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'link' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'link_suffix' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'new_window' => new Schema\OneOfSchema([new Schema\BooleanSchema(), new Schema\NullSchema()]),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));

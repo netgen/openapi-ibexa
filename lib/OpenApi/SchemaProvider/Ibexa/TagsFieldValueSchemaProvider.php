@@ -16,12 +16,7 @@ final class TagsFieldValueSchemaProvider implements FieldValueSchemaProviderInte
                     'id' => new Schema\IntegerSchema(),
                     'remoteId' => new Schema\StringSchema(),
                     'parentTagId' => new Schema\IntegerSchema(),
-                    'keyword' => new Schema\OneOfSchema(
-                        [
-                            new Schema\StringSchema(),
-                            new Schema\NullSchema(),
-                        ],
-                    ),
+                    'keyword' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
                 ],
                 null,
                 ['id', 'remoteId', 'parentTagId', 'keyword'],

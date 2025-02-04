@@ -19,12 +19,7 @@ final class DateTimeParameterValueSchemaProvider implements ParameterValueSchema
                     new Schema\NullSchema(),
                 ],
             ),
-            'timezone' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
+            'timezone' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));

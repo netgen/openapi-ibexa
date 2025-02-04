@@ -19,12 +19,7 @@ final class UrlFieldValueSchemaProvider implements FieldValueSchemaProviderInter
                     new Schema\NullSchema(),
                 ],
             ),
-            'text' => new Schema\OneOfSchema(
-                [
-                    new Schema\StringSchema(),
-                    new Schema\NullSchema(),
-                ],
-            ),
+            'text' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));

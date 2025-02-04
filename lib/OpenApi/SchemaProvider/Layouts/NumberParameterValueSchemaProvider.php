@@ -10,11 +10,6 @@ final class NumberParameterValueSchemaProvider implements ParameterValueSchemaPr
 {
     public function provideParameterValueSchema(): Schema
     {
-        return new Schema\OneOfSchema(
-            [
-                new Schema\NumberSchema(),
-                new Schema\NullSchema(),
-            ],
-        );
+        return new Schema\OneOfSchema([new Schema\NumberSchema(), new Schema\NullSchema()]);
     }
 }
