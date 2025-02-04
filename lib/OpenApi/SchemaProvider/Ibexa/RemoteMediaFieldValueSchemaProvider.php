@@ -13,10 +13,30 @@ final class RemoteMediaFieldValueSchemaProvider implements FieldValueSchemaProvi
     public function provideFieldValueSchema(): Schema
     {
         $properties = [
-            'remoteId' => new Schema\StringSchema(),
-            'type' => new Schema\StringSchema(),
-            'url' => new Schema\StringSchema(),
-            'md5' => new Schema\StringSchema(),
+            'remoteId' => new Schema\OneOfSchema(
+                [
+                    new Schema\StringSchema(),
+                    new Schema\NullSchema(),
+                ],
+            ),
+            'type' => new Schema\OneOfSchema(
+                [
+                    new Schema\StringSchema(),
+                    new Schema\NullSchema(),
+                ],
+            ),
+            'url' => new Schema\OneOfSchema(
+                [
+                    new Schema\StringSchema(),
+                    new Schema\NullSchema(),
+                ],
+            ),
+            'md5' => new Schema\OneOfSchema(
+                [
+                    new Schema\StringSchema(),
+                    new Schema\NullSchema(),
+                ],
+            ),
             'id' => new Schema\OneOfSchema(
                 [
                     new Schema\IntegerSchema(),
@@ -41,14 +61,24 @@ final class RemoteMediaFieldValueSchemaProvider implements FieldValueSchemaProvi
                     new Schema\NullSchema(),
                 ],
             ),
-            'visibility' => new Schema\StringSchema(),
+            'visibility' => new Schema\OneOfSchema(
+                [
+                    new Schema\StringSchema(),
+                    new Schema\NullSchema(),
+                ],
+            ),
             'folder' => new Schema\OneOfSchema(
                 [
                     new Schema\StringSchema(),
                     new Schema\NullSchema(),
                 ],
             ),
-            'size' => new Schema\IntegerSchema(),
+            'size' => new Schema\OneOfSchema(
+                [
+                    new Schema\IntegerSchema(),
+                    new Schema\NullSchema(),
+                ],
+            ),
             'altText' => new Schema\OneOfSchema(
                 [
                     new Schema\StringSchema(),
@@ -62,6 +92,8 @@ final class RemoteMediaFieldValueSchemaProvider implements FieldValueSchemaProvi
                 ],
             ),
             'tags' => new Schema\ArraySchema(new Schema\StringSchema()),
+            'metadata' => new Schema\ObjectSchema(),
+            'context' => new Schema\ObjectSchema(),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));

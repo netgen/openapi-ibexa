@@ -40,9 +40,9 @@ final class RemoteMediaFieldValueVisitor implements VisitorInterface
             'size' => $remoteResource?->getSize(),
             'altText' => $remoteResource?->getAltText(),
             'caption' => $remoteResource?->getCaption(),
-            'tags' => $remoteResource?->getTags(),
-            'metadata' => $remoteResource?->getMetadata(),
-            'context' => $remoteResource?->getContext(),
+            'tags' => $remoteResource?->getTags() ?? [],
+            'metadata' => $remoteResource?->getMetadata() ?? [],
+            'context' => $remoteResource?->getContext() ?? [],
         ];
     }
 }
