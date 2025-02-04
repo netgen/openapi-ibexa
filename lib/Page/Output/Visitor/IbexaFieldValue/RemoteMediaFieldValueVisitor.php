@@ -23,8 +23,7 @@ final class RemoteMediaFieldValueVisitor implements VisitorInterface
      */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
-        $resourceLocation = $value->remoteResourceLocation;
-        $remoteResource = $resourceLocation?->getRemoteResource();
+        $remoteResource = $value->remoteResourceLocation?->getRemoteResource();
 
         return [
             'remoteId' => $remoteResource?->getRemoteId(),
