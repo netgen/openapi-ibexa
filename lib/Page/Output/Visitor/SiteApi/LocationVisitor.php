@@ -25,7 +25,6 @@ final class LocationVisitor implements VisitorInterface
      */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
-        /** @var \Netgen\IbexaSiteApi\API\Values\Location $value */
         return [
             'id' => $value->id,
             'type' => 'location',

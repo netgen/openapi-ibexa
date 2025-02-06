@@ -27,13 +27,16 @@ final class RemoteMediaFieldValueVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         $remoteResourceLocation = $value->getRemoteResourceLocation();
-        $remoteResourceLocationCropSettings = array_map(static fn (CropSettings $setting): array => [
-            'variationName' => $setting->getVariationName(),
-            'x' => $setting->getX(),
-            'y' => $setting->getY(),
-            'width' => $setting->getWidth(),
-            'height' => $setting->getHeight(),
-        ], $remoteResourceLocation?->getCropSettings() ?? []);
+        $remoteResourceLocationCropSettings = array_map(
+            static fn (CropSettings $setting): array => [
+                'variationName' => $setting->getVariationName(),
+                'x' => $setting->getX(),
+                'y' => $setting->getY(),
+                'width' => $setting->getWidth(),
+                'height' => $setting->getHeight(),
+            ],
+            $remoteResourceLocation?->getCropSettings() ?? [],
+        );
 
         $remoteResource = $remoteResourceLocation?->getRemoteResource();
 
