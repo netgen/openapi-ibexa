@@ -8,6 +8,8 @@ use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 use Netgen\RemoteMediaIbexa\FieldType\Value as RemoteMediaValue;
 
+use function array_map;
+
 /**
  * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\RemoteMediaIbexa\FieldType\Value>
  */
@@ -23,7 +25,16 @@ final class RemoteMediaFieldValueVisitor implements VisitorInterface
      */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
-        $remoteResource = $value->remoteResourceLocation?->getRemoteResource();
+        $remoteResourceLocation = $value->getRemoteResourceLocation();
+        $remoteResourceLocationCropSettings = array_map(static fn ($setting) => [
+            'variationName' => $setting->getVariationName(),
+            'x' => $setting->getX(),
+            'y' => $setting->getY(),
+            'width' => $setting->getWidth(),
+            'height' => $setting->getHeight(),
+        ], $remoteResourceLocation?->getCropSettings() ?? []);
+
+        $remoteResource = $remoteResourceLocation?->getRemoteResource();
 
         return [
             'remoteId' => $remoteResource?->getRemoteId(),
@@ -42,6 +53,10 @@ final class RemoteMediaFieldValueVisitor implements VisitorInterface
             'tags' => $remoteResource?->getTags() ?? [],
             'metadata' => $remoteResource?->getMetadata() ?? [],
             'context' => $remoteResource?->getContext() ?? [],
+            'locationId' => $remoteResourceLocation?->getId(),
+            'locationSource' => $remoteResourceLocation?->getSource(),
+            'locationWatermarkText' => $remoteResourceLocation?->getWatermarkText(),
+            'locationCropSettings' => $remoteResourceLocationCropSettings,
         ];
     }
 }

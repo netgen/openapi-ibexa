@@ -94,6 +94,37 @@ final class RemoteMediaFieldValueSchemaProvider implements FieldValueSchemaProvi
             'tags' => new Schema\ArraySchema(new Schema\StringSchema()),
             'metadata' => new Schema\ObjectSchema(),
             'context' => new Schema\ObjectSchema(),
+            'locationId' => new Schema\OneOfSchema(
+                [
+                    new Schema\IntegerSchema(),
+                    new Schema\NullSchema(),
+                ],
+            ),
+            'locationSource' => new Schema\OneOfSchema(
+                [
+                    new Schema\StringSchema(),
+                    new Schema\NullSchema(),
+                ],
+            ),
+            'locationWatermarkText' => new Schema\OneOfSchema(
+                [
+                    new Schema\StringSchema(),
+                    new Schema\NullSchema(),
+                ],
+            ),
+            'locationCropSettings' => new Schema\ArraySchema(
+                new Schema\ObjectSchema(
+                    [
+                        'variationName' => new Schema\StringSchema(),
+                        'x' => new Schema\IntegerSchema(),
+                        'y' => new Schema\IntegerSchema(),
+                        'width' => new Schema\IntegerSchema(),
+                        'height' => new Schema\IntegerSchema(),
+                    ],
+                    null,
+                    ['variationName', 'x', 'y', 'width', 'height'],
+                ),
+            ),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
