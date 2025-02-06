@@ -74,6 +74,11 @@ services:
         tags:
             - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezobjectrelationlist }
 
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.remote_media:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\RemoteMediaFieldValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ngremotemedia }
+
     netgen.openapi_ibexa.ibexa.field_value_schema_provider.rich_text:
         class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\RichTextFieldValueSchemaProvider
         tags:

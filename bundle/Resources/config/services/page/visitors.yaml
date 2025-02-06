@@ -146,6 +146,11 @@ services:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue\RelationListFieldValueVisitor
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
+    
+    netgen.openapi_ibexa.page.output.visitor.ibexa_field_value.remote_media:
+        class: Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue\RemoteMediaFieldValueVisitor
+        tags:
+            - { name: netgen.openapi_ibexa.page.output.visitor }
 
     netgen.openapi_ibexa.page.output.visitor.ibexa_field_value.rich_text:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue\RichTextFieldValueVisitor
