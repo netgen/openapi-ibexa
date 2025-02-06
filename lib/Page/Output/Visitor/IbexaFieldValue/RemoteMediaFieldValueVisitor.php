@@ -6,6 +6,7 @@ namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
+use Netgen\RemoteMedia\API\Values\CropSettings;
 use Netgen\RemoteMediaIbexa\FieldType\Value as RemoteMediaValue;
 
 use function array_map;
@@ -26,7 +27,7 @@ final class RemoteMediaFieldValueVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         $remoteResourceLocation = $value->getRemoteResourceLocation();
-        $remoteResourceLocationCropSettings = array_map(static fn ($setting) => [
+        $remoteResourceLocationCropSettings = array_map(static fn (CropSettings $setting): array => [
             'variationName' => $setting->getVariationName(),
             'x' => $setting->getX(),
             'y' => $setting->getY(),
