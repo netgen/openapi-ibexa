@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts;
 
+use Closure;
 use Netgen\IbexaSiteApi\API\Values\Content;
 use Netgen\IbexaSiteApi\API\Values\Location;
 use Netgen\Layouts\API\Values\Block\Block;
@@ -13,6 +14,8 @@ use Netgen\Layouts\Collection\Result\ResultSet;
 use Netgen\OpenApiIbexa\Page\ContentAndLocation;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
+
+use function is_object;
 
 /**
  * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
@@ -39,6 +42,7 @@ final class BlockVisitor implements VisitorInterface
             'viewType' => $value->getViewType(),
             'itemViewType' => $value->getItemViewType(),
             'parameters' => [...$this->visitParameters($value, $outputVisitor)],
+            'dynamicParameters' => [...$this->visitDynamicParameters($value, $outputVisitor)],
         ];
 
         if ($value->hasCollection('default')) {
@@ -64,6 +68,22 @@ final class BlockVisitor implements VisitorInterface
     {
         foreach ($block->getParameters() as $identifier => $parameter) {
             yield $identifier => $outputVisitor->visit($parameter);
+        }
+    }
+
+    /**
+     * @return iterable<string, mixed>
+     */
+    private function visitDynamicParameters(Block $block, OutputVisitor $outputVisitor): iterable
+    {
+        foreach ($block->getDefinition()->getDynamicParameters($block) as $identifier => $parameter) {
+            if ($parameter instanceof Closure) {
+                $parameter = $parameter();
+            }
+
+            yield $identifier => is_object($parameter) ?
+                $outputVisitor->visit($parameter) :
+                $parameter;
         }
     }
 

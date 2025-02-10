@@ -12,6 +12,7 @@ services:
             - '@netgen_layouts.layout.registry.layout_type'
             - '@netgen_layouts.block.registry.block_definition'
             - '@netgen_layouts.parameters.registry.parameter_type'
+            - '@ibexa.config.resolver'
             - !tagged_iterator
                 tag: netgen.openapi_ibexa.layouts.parameter_value_schema_provider
                 index_by: parameter_type

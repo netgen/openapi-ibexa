@@ -1,0 +1,3 @@
+parameters:
+    netgen_open_api_ibexa.default.page_schema: []
+    netgen_open_api_ibexa.default.layouts_dynamic_parameters_schema: []

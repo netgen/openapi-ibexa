@@ -62,5 +62,6 @@ final class NetgenOpenApiIbexaExtension extends Extension implements PrependExte
     {
         $processor = new ConfigurationProcessor($container, 'netgen_open_api_ibexa');
         $processor->mapConfigArray('page_schema', $config, ContextualizerInterface::MERGE_FROM_SECOND_LEVEL);
+        $processor->mapConfigArray('layouts_dynamic_parameters_schema', $config, ContextualizerInterface::MERGE_FROM_SECOND_LEVEL);
     }
 }

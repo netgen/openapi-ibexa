@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider;
 
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Netgen\Layouts\Block\BlockDefinition\Handler\DynamicParameter;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
@@ -15,6 +17,7 @@ use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\OpenApi\Model\Discriminator;
 use Netgen\OpenApi\Model\Schema;
 use Netgen\OpenApiIbexa\OpenApi\SchemaProviderInterface;
+use ReflectionClass;
 use Traversable;
 
 use function array_keys;
@@ -37,6 +40,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         private LayoutTypeRegistry $layoutTypeRegistry,
         private BlockDefinitionRegistry $blockDefinitionRegistry,
         private ParameterTypeRegistry $parameterTypeRegistry,
+        private ConfigResolverInterface $configResolver,
         iterable $parameterValueSchemaProviders,
     ) {
         $this->parameterValueSchemaProviders = $parameterValueSchemaProviders instanceof Traversable ?
@@ -201,6 +205,7 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
             $properties = [
                 'definitionIdentifier' => new Schema\StringSchema(null, $blockDefinition->getIdentifier()),
                 'parameters' => $this->buildParametersSchema($blockDefinition),
+                'dynamicParameters' => $this->buildDynamicParametersSchema($blockDefinition),
             ];
 
             if ($blockDefinition->hasCollection('default')) {
@@ -267,6 +272,49 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
         }
 
         return new Schema\ObjectSchema($parameterSchemas);
+    }
+
+    private function buildDynamicParametersSchema(BlockDefinitionInterface $blockDefinition): Schema\ObjectSchema
+    {
+        $schemaNames = $this->configResolver->getParameter(
+            'layouts_dynamic_parameters_schema',
+            'netgen_open_api_ibexa',
+        )[$blockDefinition->getIdentifier()] ?? [];
+
+        $parameterSchemas = [
+            ...$this->getClassDynamicParameterSchemas($blockDefinition->getHandler()::class, $schemaNames),
+        ];
+
+        foreach ($blockDefinition->getPlugins() as $plugin) {
+            $parameterSchemas += [
+                ...$this->getClassDynamicParameterSchemas($plugin::class, $schemaNames),
+            ];
+        }
+
+        return new Schema\ObjectSchema($parameterSchemas);
+    }
+
+    /**
+     * @param class-string $className
+     * @param array<string, array{reference_name: string}> $schemaNames
+     *
+     * @return iterable<string, \Netgen\OpenApi\Model\Schema\ObjectSchema|\Netgen\OpenApi\Model\Schema\ReferenceSchema>
+     */
+    private function getClassDynamicParameterSchemas(string $className, array $schemaNames): iterable
+    {
+        $reflectionClass = new ReflectionClass($className);
+        $reflectionAttributes = $reflectionClass->getAttributes(DynamicParameter::class);
+
+        foreach ($reflectionAttributes as $reflectionAttribute) {
+            /** @var \Netgen\Layouts\Block\BlockDefinition\Handler\DynamicParameter $attribute */
+            $attribute = $reflectionAttribute->newInstance();
+
+            $schema = isset($schemaNames[$attribute->parameterName]['reference_name']) ?
+                new Schema\ReferenceSchema($schemaNames[$attribute->parameterName]['reference_name']) :
+                new Schema\ObjectSchema();
+
+            yield $attribute->parameterName => $schema;
+        }
     }
 
     private function buildBaseBlockSchema(): Schema\ObjectSchema
