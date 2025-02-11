@@ -104,6 +104,8 @@ services:
 
     netgen.openapi_ibexa.page.output.visitor.ibexa_field_value.enhanced_link:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue\EnhancedLinkFieldValueVisitor
+        arguments:
+            - '@netgen.ibexa_site_api.load_service'
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
 
@@ -146,7 +148,7 @@ services:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue\RelationListFieldValueVisitor
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
-    
+
     netgen.openapi_ibexa.page.output.visitor.ibexa_field_value.remote_media:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue\RemoteMediaFieldValueVisitor
         tags:
