@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Ibexa\Contracts\Core\Repository\Exceptions\UnauthorizedException;
 use Netgen\IbexaFieldTypeEnhancedLink\FieldType\Type as EnhancedLinkType;
 use Netgen\IbexaFieldTypeEnhancedLink\FieldType\Value as EnhancedLinkValue;
 use Netgen\IbexaSiteApi\API\LoadService;
@@ -38,7 +39,7 @@ final class EnhancedLinkFieldValueVisitor implements VisitorInterface
                 $location = $this->loadService->loadContent($value->reference)->mainLocation;
                 $url = $location?->url->get();
                 $path = $location?->path->getAbsolute();
-            } catch (NotFoundException) {
+            } catch (NotFoundException|UnauthorizedException) {
                 $url = null;
             }
         }
