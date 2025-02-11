@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
 use Ibexa\Contracts\Core\Repository\Exceptions\NotFoundException;
+use Netgen\IbexaFieldTypeEnhancedLink\FieldType\Type as EnhancedLinkType;
 use Netgen\IbexaFieldTypeEnhancedLink\FieldType\Value as EnhancedLinkValue;
 use Netgen\IbexaSiteApi\API\LoadService;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
@@ -29,22 +30,28 @@ final class EnhancedLinkFieldValueVisitor implements VisitorInterface
      */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
-        $reference = $value->isTypeInternal() ? $this->resolveInternalReference($value->reference) : $value->reference;
+        $url = $value->reference;
+        $path = null;
+
+        if ($value->isTypeInternal()) {
+            try {
+                $location = $this->loadService->loadContent($value->reference)->mainLocation;
+                $url = $location?->url->get();
+                $path = $location?->path->getAbsolute();
+            } catch (NotFoundException) {
+                $url = null;
+            }
+        }
 
         return [
+            'type' => $value->isTypeInternal()
+                ? EnhancedLinkType::LINK_TYPE_INTERNAL
+                : EnhancedLinkType::LINK_TYPE_EXTERNAL,
             'target' => $value->target,
             'label' => $value->label,
-            'reference' => $reference,
+            'url' => $url,
+            'path' => $path,
             'suffix' => $value->suffix,
         ];
-    }
-
-    private function resolveInternalReference(int $reference): ?string
-    {
-        try {
-            return $this->loadService->loadContent($reference)->mainLocation?->url->get();
-        } catch (NotFoundException) {
-            return null;
-        }
     }
 }

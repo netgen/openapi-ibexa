@@ -13,9 +13,11 @@ final class EnhancedLinkFieldValueSchemaProvider implements FieldValueSchemaProv
     public function provideFieldValueSchema(): Schema
     {
         $properties = [
+            'type' => new Schema\StringSchema(),
             'target' => new Schema\StringSchema(),
             'label' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
-            'reference' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'url' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
+            'path' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
             'suffix' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
         ];
 
