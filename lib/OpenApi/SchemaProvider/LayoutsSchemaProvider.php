@@ -22,6 +22,7 @@ use Traversable;
 
 use function array_keys;
 use function array_map;
+use function count;
 use function iterator_to_array;
 use function sprintf;
 use function Symfony\Component\String\u;
@@ -291,7 +292,9 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
             ];
         }
 
-        return new Schema\ObjectSchema($parameterSchemas);
+        return new Schema\ObjectSchema(
+            count($parameterSchemas) > 0 ? $parameterSchemas : null,
+        );
     }
 
     /**
