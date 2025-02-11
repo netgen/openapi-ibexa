@@ -10,6 +10,8 @@ use Netgen\RemoteMedia\API\Values\CropSettings;
 use Netgen\RemoteMediaIbexa\FieldType\Value as RemoteMediaValue;
 
 use function array_map;
+use function count;
+use function is_array;
 
 /**
  * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\RemoteMediaIbexa\FieldType\Value>
@@ -40,6 +42,9 @@ final class RemoteMediaFieldValueVisitor implements VisitorInterface
 
         $remoteResource = $remoteResourceLocation?->getRemoteResource();
 
+        $metadata = $remoteResource?->getMetadata();
+        $context = $remoteResource?->getContext();
+
         return [
             'remoteId' => $remoteResource?->getRemoteId(),
             'type' => $remoteResource?->getType(),
@@ -55,8 +60,8 @@ final class RemoteMediaFieldValueVisitor implements VisitorInterface
             'altText' => $remoteResource?->getAltText(),
             'caption' => $remoteResource?->getCaption(),
             'tags' => $remoteResource?->getTags() ?? [],
-            'metadata' => $remoteResource?->getMetadata() ?? [],
-            'context' => $remoteResource?->getContext() ?? [],
+            'metadata' => is_array($metadata) && count($metadata) > 0 ? $metadata : null,
+            'context' => is_array($context) && count($context) > 0 ? $context : null,
             'locationId' => $remoteResourceLocation?->getId(),
             'locationSource' => $remoteResourceLocation?->getSource(),
             'locationWatermarkText' => $remoteResourceLocation?->getWatermarkText(),
