@@ -49,6 +49,7 @@ services:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\BlockVisitor
         arguments:
             - '@netgen_layouts.collection.result.pagerfanta.factory'
+            - '@ibexa.config.resolver'
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
 

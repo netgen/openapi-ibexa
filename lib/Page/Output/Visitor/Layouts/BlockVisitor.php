@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts;
 
-use Closure;
+use Generator;
+use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
 use Netgen\IbexaSiteApi\API\Values\Content;
 use Netgen\IbexaSiteApi\API\Values\Location;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\Handler\DynamicParameter;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\Layouts\Collection\Result\ResultSet;
 use Netgen\OpenApiIbexa\Page\ContentAndLocation;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
+use ReflectionClass;
 
 use function is_object;
 
@@ -24,6 +27,7 @@ final class BlockVisitor implements VisitorInterface
 {
     public function __construct(
         private PagerFactory $pagerFactory,
+        private ConfigResolverInterface $configResolver,
     ) {}
 
     public function accept(object $value): bool
@@ -76,14 +80,49 @@ final class BlockVisitor implements VisitorInterface
      */
     private function visitDynamicParameters(Block $block, OutputVisitor $outputVisitor): iterable
     {
-        foreach ($block->getDefinition()->getDynamicParameters($block) as $identifier => $parameter) {
-            if ($parameter instanceof Closure) {
-                $parameter = $parameter();
-            }
+        foreach ($this->getDynamicParametersList($block) as $identifier) {
+            $parameter = $block->getDynamicParameter($identifier);
 
             yield $identifier => is_object($parameter) ?
                 $outputVisitor->visit($parameter) :
                 $parameter;
+        }
+    }
+
+    /**
+     * @return \Generator<string>
+     */
+    private function getDynamicParametersList(Block $block): Generator
+    {
+        $schemaNames = $this->configResolver->getParameter(
+            'layouts_dynamic_parameters_schema',
+            'netgen_open_api_ibexa',
+        )[$block->getDefinition()->getIdentifier()] ?? [];
+
+        $reflectionClass = new ReflectionClass($block->getDefinition()->getHandler()::class);
+        $reflectionAttributes = $reflectionClass->getAttributes(DynamicParameter::class);
+
+        foreach ($reflectionAttributes as $reflectionAttribute) {
+            /** @var \Netgen\Layouts\Block\BlockDefinition\Handler\DynamicParameter $attribute */
+            $attribute = $reflectionAttribute->newInstance();
+
+            if (isset($schemaNames[$attribute->parameterName]['reference_name'])) {
+                yield $attribute->parameterName;
+            }
+        }
+
+        foreach ($block->getDefinition()->getPlugins() as $plugin) {
+            $reflectionClass = new ReflectionClass($plugin::class);
+            $reflectionAttributes = $reflectionClass->getAttributes(DynamicParameter::class);
+
+            foreach ($reflectionAttributes as $reflectionAttribute) {
+                /** @var \Netgen\Layouts\Block\BlockDefinition\Handler\DynamicParameter $attribute */
+                $attribute = $reflectionAttribute->newInstance();
+
+                if (isset($schemaNames[$attribute->parameterName]['reference_name'])) {
+                    yield $attribute->parameterName;
+                }
+            }
         }
     }
 

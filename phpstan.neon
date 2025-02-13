@@ -8,5 +8,4 @@ parameters:
         - '#Novactive\\Bundle\\eZSEOBundle\\Core\\FieldType\\Metas\\Value#'
         - '#Netgen\\TagsBundle\\Core\\FieldType\\Tags\\Value#'
         - '#Netgen\\Bundle\\EnhancedSelectionBundle\\Core\\FieldType\\EnhancedSelection\\Value#'
-        - '#Netgen\\IbexaFieldTypeEnhancedLink\\FieldType\\Value#'
         - '#Netgen\\Bundle\\ContentTypeListBundle\\Core\\FieldType\\ContentTypeList\\Value#'

@@ -27,7 +27,8 @@
         "vimeo/psalm": "^5.4",
         "psalm/plugin-symfony": "^5.0",
         "netgen/remote-media-ibexa": "^1.0",
-        "netgen/remote-media-bundle": "^3.0"
+        "netgen/remote-media-bundle": "^3.0",
+        "netgen/ibexa-fieldtype-enhanced-link": "^1.1"
     },
     "config": {
         "allow-plugins": false

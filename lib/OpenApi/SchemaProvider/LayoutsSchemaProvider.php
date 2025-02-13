@@ -312,11 +312,11 @@ final class LayoutsSchemaProvider implements SchemaProviderInterface
             /** @var \Netgen\Layouts\Block\BlockDefinition\Handler\DynamicParameter $attribute */
             $attribute = $reflectionAttribute->newInstance();
 
-            $schema = isset($schemaNames[$attribute->parameterName]['reference_name']) ?
-                new Schema\ReferenceSchema($schemaNames[$attribute->parameterName]['reference_name']) :
-                new Schema\ObjectSchema();
-
-            yield $attribute->parameterName => $schema;
+            if (isset($schemaNames[$attribute->parameterName]['reference_name'])) {
+                yield $attribute->parameterName => new Schema\ReferenceSchema(
+                    $schemaNames[$attribute->parameterName]['reference_name'],
+                );
+            }
         }
     }
 
