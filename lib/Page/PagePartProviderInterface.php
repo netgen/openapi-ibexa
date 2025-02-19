@@ -9,5 +9,5 @@ interface PagePartProviderInterface
     /**
      * @return iterable<string, object|scalar>
      */
-    public function providePageParts(): iterable;
+    public function providePageParts(Page $page): iterable;
 }

@@ -21,7 +21,7 @@ final class PageFactory
         $page = new Page($content, $layout);
 
         foreach ($this->pagePartProviders as $pagePartProvider) {
-            foreach ($pagePartProvider->providePageParts() as $identifier => $pagePart) {
+            foreach ($pagePartProvider->providePageParts($page) as $identifier => $pagePart) {
                 $page->addPagePart($identifier, $pagePart);
             }
         }
