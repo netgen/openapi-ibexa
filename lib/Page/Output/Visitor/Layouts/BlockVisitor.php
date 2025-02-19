@@ -18,8 +18,6 @@ use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 use ReflectionClass;
 
-use function is_object;
-
 /**
  * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
  */
@@ -83,9 +81,7 @@ final class BlockVisitor implements VisitorInterface
         foreach ($this->getDynamicParametersList($block) as $identifier) {
             $parameter = $block->getDynamicParameter($identifier);
 
-            yield $identifier => is_object($parameter) ?
-                $outputVisitor->visit($parameter) :
-                $parameter;
+            yield $identifier => $outputVisitor->visit($parameter);
         }
     }
 

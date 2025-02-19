@@ -9,8 +9,6 @@ use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 use Netgen\OpenApiIbexa\Page\Page;
 
-use function is_object;
-
 /**
  * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\OpenApiIbexa\Page\Page>
  */
@@ -46,9 +44,7 @@ final class PageVisitor implements VisitorInterface
         }
 
         foreach ($value->getPageParts() as $identifier => $pagePart) {
-            yield $identifier => is_object($pagePart) ?
-                $outputVisitor->visit($pagePart) :
-                $pagePart;
+            yield $identifier => $outputVisitor->visit($pagePart);
         }
     }
 }

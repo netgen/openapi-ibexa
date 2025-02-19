@@ -25,9 +25,7 @@ final class ContentAndLocationVisitor implements VisitorInterface
     {
         yield from [
             'content' => $outputVisitor->visit($value->getContent(), $parameters),
-            'location' => $value->getLocation() !== null ?
-                $outputVisitor->visit($value->getLocation(), $parameters) :
-                null,
+            'location' => $outputVisitor->visit($value->getLocation(), $parameters),
         ];
     }
 }
