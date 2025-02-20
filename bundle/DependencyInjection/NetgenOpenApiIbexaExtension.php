@@ -6,10 +6,16 @@ namespace Netgen\Bundle\OpenApiIbexaBundle\DependencyInjection;
 
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
 use Ibexa\Bundle\Core\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
+use Netgen\OpenApiIbexa\Attribute;
+use Netgen\OpenApiIbexa\OpenApi\PathProviderInterface;
+use Netgen\OpenApiIbexa\OpenApi\SchemaProviderInterface;
+use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
+use Netgen\OpenApiIbexa\Page\PagePartProviderInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
@@ -39,6 +45,9 @@ final class NetgenOpenApiIbexaExtension extends Extension implements PrependExte
         $loader->load('services/**/*.yaml', 'glob');
 
         $this->processSemanticConfig($container, $config);
+
+        $this->registerAutoConfiguration($container);
+        $this->registerAttributeAutoConfiguration($container);
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -63,5 +72,55 @@ final class NetgenOpenApiIbexaExtension extends Extension implements PrependExte
         $processor = new ConfigurationProcessor($container, 'netgen_open_api_ibexa');
         $processor->mapConfigArray('page_schema', $config, ContextualizerInterface::MERGE_FROM_SECOND_LEVEL);
         $processor->mapConfigArray('layouts_dynamic_parameters_schema', $config, ContextualizerInterface::MERGE_FROM_SECOND_LEVEL);
+    }
+
+    private function registerAutoConfiguration(ContainerBuilder $container): void
+    {
+        $container
+            ->registerForAutoconfiguration(VisitorInterface::class)
+            ->addTag('netgen.openapi_ibexa.page.output.visitor');
+
+        $container
+            ->registerForAutoconfiguration(PagePartProviderInterface::class)
+            ->addTag('netgen.openapi_ibexa.page.page_part_provider');
+
+        $container
+            ->registerForAutoconfiguration(PathProviderInterface::class)
+            ->addTag('netgen.openapi_ibexa.path_provider');
+
+        $container
+            ->registerForAutoconfiguration(SchemaProviderInterface::class)
+            ->addTag('netgen.openapi_ibexa.schema_provider');
+    }
+
+    private function registerAttributeAutoConfiguration(ContainerBuilder $container): void
+    {
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsOutputVisitor::class,
+            static function (ChildDefinition $definition): void {
+                $definition->addTag('netgen.openapi_ibexa.page.output.visitor');
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsPagePartProvider::class,
+            static function (ChildDefinition $definition): void {
+                $definition->addTag('netgen.openapi_ibexa.page.page_part_provider');
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsPathProvider::class,
+            static function (ChildDefinition $definition): void {
+                $definition->addTag('netgen.openapi_ibexa.path_provider');
+            },
+        );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsSchemaProvider::class,
+            static function (ChildDefinition $definition): void {
+                $definition->addTag('netgen.openapi_ibexa.schema_provider');
+            },
+        );
     }
 }
