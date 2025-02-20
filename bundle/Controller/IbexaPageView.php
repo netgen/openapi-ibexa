@@ -27,10 +27,13 @@ final class IbexaPageView extends BaseController
 
     public function __invoke(ContentView $view): JsonResponse
     {
+        /** @var \Netgen\Bundle\IbexaSiteApiBundle\QueryType\QueryDefinitionCollection $queryDefinitionCollection */
+        $queryDefinitionCollection = $view->getParameter(ContentView::QUERY_DEFINITION_COLLECTION_NAME);
+
         $rule = $this->layoutResolver->resolveRule();
 
         $data = $this->outputVisitor->visit(
-            $this->pageFactory->buildPage($view->getSiteContent(), $rule?->getLayout()),
+            $this->pageFactory->buildPage($view->getSiteContent(), $queryDefinitionCollection, $rule?->getLayout()),
         );
 
         return new JsonResponse(

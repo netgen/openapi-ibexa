@@ -39,6 +39,10 @@ final class PageVisitor implements VisitorInterface
             yield 'location' => $outputVisitor->visit($value->getLocation());
         }
 
+        if ($pageSchemaConfig['queries']['enabled']) {
+            yield 'queries' => $outputVisitor->visit($value->getQueries());
+        }
+
         if ($pageSchemaConfig['layout']['enabled'] && $value->getLayout() !== null) {
             yield 'layout' => $outputVisitor->visit($value->getLayout());
         }

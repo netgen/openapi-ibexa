@@ -2,4 +2,5 @@ services:
     netgen.openapi_ibexa.page.factory:
         class: Netgen\OpenApiIbexa\Page\PageFactory
         arguments:
+            - '@router'
             - !tagged_iterator netgen.openapi_ibexa.page.page_part_provider

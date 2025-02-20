@@ -41,3 +41,8 @@ netgen_openapi_ibexa_content_reverse_relations:
     defaults:
         maxPerPage: '%netgen.openapi_ibexa.default_limit%'
         currentPage: 1
+
+netgen_openapi_ibexa_site_api_query:
+    path: /page/{contentId}/{locationId}/query/{queryIdentifier}
+    controller: netgen.openapi_ibexa.controller.site_api_query
+    methods: [GET]

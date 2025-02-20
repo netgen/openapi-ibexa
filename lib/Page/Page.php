@@ -15,8 +15,12 @@ final class Page
      */
     private array $pageParts = [];
 
+    /**
+     * @param array<string, string> $queries
+     */
     public function __construct(
         private ?Content $content = null,
+        private array $queries = [],
         private ?Layout $layout = null,
     ) {}
 
@@ -28,6 +32,14 @@ final class Page
     public function getLocation(): ?Location
     {
         return $this->content?->mainLocation;
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public function getQueries(): array
+    {
+        return $this->queries;
     }
 
     public function getLayout(): ?Layout

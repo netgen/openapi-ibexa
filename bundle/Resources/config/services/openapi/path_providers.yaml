@@ -34,3 +34,10 @@ services:
             - '@router'
         tags:
             - { name: netgen.openapi_ibexa.path_provider }
+
+    netgen.openapi_ibexa.openapi.path_provider.site_api_query:
+        class: Netgen\OpenApiIbexa\OpenApi\PathProvider\SiteApiQueryPathProvider
+        arguments:
+            - '@router'
+        tags:
+            - { name: netgen.openapi_ibexa.path_provider }

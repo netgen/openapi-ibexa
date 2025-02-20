@@ -33,6 +33,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
             'SiteApi.Location' => $this->buildLocationSchema(),
             'SiteApi.LocationList' => $this->buildLocationListSchema(),
             'SiteApi.ContentAndLocation' => $this->buildContentAndLocationSchema(),
+            'SiteApi.Queries' => $this->buildQueriesSchema(),
         ];
 
         yield from $innerContentTypeSchemas;
@@ -200,5 +201,16 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
+    }
+
+    private function buildQueriesSchema(): Schema\ObjectSchema
+    {
+        return new Schema\ObjectSchema(
+            null,
+            null,
+            null,
+            null,
+            new Schema\StringSchema(null, null, Schema\Format::IriReference),
+        );
     }
 }

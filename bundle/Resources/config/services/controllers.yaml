@@ -78,3 +78,15 @@ services:
         public: true
         tags:
             - { name: container.service_subscriber }
+
+    netgen.openapi_ibexa.controller.site_api_query:
+        class: Netgen\Bundle\OpenApiIbexaBundle\Controller\SiteApiQuery
+        parent: netgen.openapi_ibexa.controller.base
+        arguments:
+            - '@netgen.ibexa_site_api.view_builder.content'
+            - '@Ibexa\Core\QueryType\QueryTypeRegistry'
+            - '@netgen.ibexa_site_api.query_type.query_executor'
+            - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'
+        public: true
+        tags:
+            - { name: container.service_subscriber }
