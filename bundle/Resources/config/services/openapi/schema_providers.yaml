@@ -26,6 +26,11 @@ services:
         tags:
             - { name: netgen.openapi_ibexa.schema_provider }
 
+    netgen.openapi_ibexa.openapi.schema_provider.tags:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\TagsSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.schema_provider }
+
     netgen.openapi_ibexa.openapi.schema_provider.ibexa:
         class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\IbexaSchemaProvider
         arguments:

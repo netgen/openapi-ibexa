@@ -11,16 +11,7 @@ final class TagsFieldValueSchemaProvider implements FieldValueSchemaProviderInte
     public function provideFieldValueSchema(): Schema
     {
         return new Schema\ArraySchema(
-            new Schema\ObjectSchema(
-                [
-                    'id' => new Schema\IntegerSchema(),
-                    'remoteId' => new Schema\StringSchema(),
-                    'parentTagId' => new Schema\IntegerSchema(),
-                    'keyword' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
-                ],
-                null,
-                ['id', 'remoteId', 'parentTagId', 'keyword'],
-            ),
+            new Schema\ReferenceSchema('NetgenTags.Tag'),
         );
     }
 }
