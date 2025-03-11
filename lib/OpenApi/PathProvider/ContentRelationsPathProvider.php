@@ -30,6 +30,7 @@ final class ContentRelationsPathProvider implements PathProviderInterface
                 new Parameter('fieldIdentifier', ParameterIn::Path, new Schema\StringSchema()),
                 new Parameter('maxPerPage', ParameterIn::Path, new Schema\IntegerSchema()),
                 new Parameter('currentPage', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('contentTypes[]', ParameterIn::Query, new Schema\ArraySchema(new Schema\StringSchema())),
             ],
             null,
             new Responses(

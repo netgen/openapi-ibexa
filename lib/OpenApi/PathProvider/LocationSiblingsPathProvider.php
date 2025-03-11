@@ -29,6 +29,7 @@ final class LocationSiblingsPathProvider implements PathProviderInterface
                 new Parameter('locationId', ParameterIn::Path, new Schema\IntegerSchema()),
                 new Parameter('maxPerPage', ParameterIn::Path, new Schema\IntegerSchema()),
                 new Parameter('currentPage', ParameterIn::Path, new Schema\IntegerSchema()),
+                new Parameter('contentTypes[]', ParameterIn::Query, new Schema\ArraySchema(new Schema\StringSchema())),
             ],
             null,
             new Responses(

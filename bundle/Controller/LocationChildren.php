@@ -9,6 +9,7 @@ use Netgen\OpenApiIbexa\Page\LocationList;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use function json_encode;
@@ -24,7 +25,7 @@ final class LocationChildren extends AbstractController
         private int $defaultLimit,
     ) {}
 
-    public function __invoke(Location $location, int $maxPerPage, int $currentPage): JsonResponse
+    public function __invoke(Request $request, Location $location, int $maxPerPage, int $currentPage): JsonResponse
     {
         $currentPage = max($currentPage, 1);
 
@@ -32,7 +33,11 @@ final class LocationChildren extends AbstractController
             $maxPerPage = $this->defaultLimit;
         }
 
-        $children = $location->filterChildren([], $maxPerPage, $currentPage);
+        $children = $location->filterChildren(
+            $request->query->all('contentTypes'),
+            $maxPerPage,
+            $currentPage,
+        );
 
         $data = $this->outputVisitor->visit(new LocationList($children));
 

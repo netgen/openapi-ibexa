@@ -9,6 +9,7 @@ use Netgen\OpenApiIbexa\Page\ContentList;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use function json_encode;
@@ -24,7 +25,7 @@ final class ContentReverseRelations extends AbstractController
         private int $defaultLimit,
     ) {}
 
-    public function __invoke(Content $content, string $fieldIdentifier, int $maxPerPage, int $currentPage): JsonResponse
+    public function __invoke(Request $request, Content $content, string $fieldIdentifier, int $maxPerPage, int $currentPage): JsonResponse
     {
         $currentPage = max($currentPage, 1);
 
@@ -32,7 +33,12 @@ final class ContentReverseRelations extends AbstractController
             $maxPerPage = $this->defaultLimit;
         }
 
-        $relatedContent = $content->filterReverseFieldRelations($fieldIdentifier, [], $maxPerPage, $currentPage);
+        $relatedContent = $content->filterReverseFieldRelations(
+            $fieldIdentifier,
+            $request->query->all('contentTypes'),
+            $maxPerPage,
+            $currentPage,
+        );
 
         $data = $this->outputVisitor->visit(new ContentList($relatedContent));
 
