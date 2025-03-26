@@ -29,7 +29,7 @@ final class ParameterVisitor implements VisitorInterface
         $parameterType = $parameterDefinition->getType();
 
         try {
-            $parameterValue = $value->getValueObject() ?? $parameterType->toHash($parameterDefinition, $value->getValue());
+            $parameterValue = $value->getValueObject();
         } catch (ParameterException) {
             $parameterValue = $parameterType->toHash($parameterDefinition, $value->getValue());
         }
