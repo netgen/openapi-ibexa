@@ -13,5 +13,6 @@ final class NetgenOpenApiIbexaBundle extends Bundle
     public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new CompilerPass\ContentTypeSchemaProviderPass());
+        $container->addCompilerPass(new CompilerPass\ContentTypePartProviderPass());
     }
 }

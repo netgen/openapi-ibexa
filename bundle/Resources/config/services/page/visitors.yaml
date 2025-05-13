@@ -60,6 +60,8 @@ services:
 
     netgen.openapi_ibexa.page.output.visitor.site_api.content:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\SiteApi\ContentVisitor
+        arguments:
+            - []
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
 
