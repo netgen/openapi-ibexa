@@ -122,5 +122,12 @@ final class NetgenOpenApiIbexaExtension extends Extension implements PrependExte
                 $definition->addTag('netgen.openapi_ibexa.schema_provider');
             },
         );
+
+        $container->registerAttributeForAutoconfiguration(
+            Attribute\AsContentTypeSchemaProvider::class,
+            static function (ChildDefinition $definition, Attribute\AsContentTypeSchemaProvider $attribute): void {
+                $definition->addTag('netgen.openapi_ibexa.ibexa.content_type_schema_provider', ['content_type' => $attribute->contentType]);
+            },
+        );
     }
 }

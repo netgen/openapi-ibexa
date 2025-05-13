@@ -23,6 +23,7 @@ services:
         class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\SiteApiSchemaProvider
         arguments:
             - '@ibexa.api.service.content_type'
+            - []
         tags:
             - { name: netgen.openapi_ibexa.schema_provider }
 

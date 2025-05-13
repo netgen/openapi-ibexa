@@ -17,8 +17,12 @@ use function Symfony\Component\String\u;
 
 final class SiteApiSchemaProvider implements SchemaProviderInterface
 {
+    /**
+     * @param array<string, \Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\ContentType\ContentTypeSchemaProviderInterface[]> $contentTypeSchemaProviders
+     */
     public function __construct(
         private ContentTypeService $contentTypeService,
+        private array $contentTypeSchemaProviders,
     ) {}
 
     public function provideSchemas(): iterable
@@ -54,14 +58,20 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
             $contentTypes = $this->contentTypeService->loadContentTypes($contentTypeGroup);
 
             foreach ($contentTypes as $contentType) {
+                $additionalSchemas = [];
+
+                foreach ($this->contentTypeSchemaProviders[$contentType->getIdentifier()] ?? [] as $contentTypeSchemaProvider) {
+                    $additionalSchemas = [...$additionalSchemas, ...$contentTypeSchemaProvider->provideContentTypeSchemas()];
+                }
+
                 $schemaName = sprintf('SiteApi.Content.%s.Inner', u($contentType->getName())->camel()->title());
                 $schema = new Schema\ObjectSchema(
                     [
                         'contentType' => new Schema\StringSchema(null, $contentType->identifier),
                         'fields' => $this->buildFieldsSchema($contentType),
-                    ],
+                    ] + $additionalSchemas,
                     null,
-                    ['contentType', 'fields'],
+                    ['contentType', 'fields', ...array_keys($additionalSchemas)],
                 );
 
                 $contentTypeSchemas[$schemaName] = $schema;
