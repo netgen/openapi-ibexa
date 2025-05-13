@@ -47,7 +47,7 @@ final class PageView extends AbstractController
         $rule = $this->layoutResolver->resolveRule();
 
         $data = $this->outputVisitor->visit(
-            $this->pageFactory->buildPage($location->content, null, $rule?->getLayout()),
+            $this->pageFactory->buildPage($location->content, $location, null, $rule?->getLayout()),
         );
 
         return new JsonResponse(

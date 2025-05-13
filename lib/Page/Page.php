@@ -20,6 +20,7 @@ final class Page
      */
     public function __construct(
         private ?Content $content = null,
+        private ?Location $location = null,
         private array $queries = [],
         private ?Layout $layout = null,
     ) {}
@@ -31,7 +32,7 @@ final class Page
 
     public function getLocation(): ?Location
     {
-        return $this->content?->mainLocation;
+        return $this->location ?? $this->content?->mainLocation;
     }
 
     /**

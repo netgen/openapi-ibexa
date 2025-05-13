@@ -33,7 +33,7 @@ final class IbexaPageView extends BaseController
         $rule = $this->layoutResolver->resolveRule();
 
         $data = $this->outputVisitor->visit(
-            $this->pageFactory->buildPage($view->getSiteContent(), $queryDefinitionCollection, $rule?->getLayout()),
+            $this->pageFactory->buildPage($view->getSiteContent(), $view->getSiteLocation(), $queryDefinitionCollection, $rule?->getLayout()),
         );
 
         return new JsonResponse(
