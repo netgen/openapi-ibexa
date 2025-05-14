@@ -17,12 +17,12 @@ use function Symfony\Component\String\u;
 final class IbexaSchemaProvider implements SchemaProviderInterface
 {
     /**
-     * @var array<string, \Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValueSchemaProviderInterface>
+     * @var array<string, \Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValue\FieldValueSchemaProviderInterface>
      */
     private array $fieldValueSchemaProviders;
 
     /**
-     * @param iterable<\Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValueSchemaProviderInterface> $fieldValueSchemaProviders
+     * @param iterable<\Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValue\FieldValueSchemaProviderInterface> $fieldValueSchemaProviders
      */
     public function __construct(
         private FieldTypeService $fieldTypeService,

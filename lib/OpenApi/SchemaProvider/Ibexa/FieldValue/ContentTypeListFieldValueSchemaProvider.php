@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa;
+namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValue;
 
 use Netgen\OpenApi\Model\Schema;
 
-final class EnhancedSelectionFieldValueSchemaProvider implements FieldValueSchemaProviderInterface
+final class ContentTypeListFieldValueSchemaProvider implements FieldValueSchemaProviderInterface
 {
     public function provideFieldValueSchema(): Schema
     {

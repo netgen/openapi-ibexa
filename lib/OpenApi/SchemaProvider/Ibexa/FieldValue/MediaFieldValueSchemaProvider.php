@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa;
+namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValue;
 
 use Netgen\OpenApi\Model\Schema;
 
 use function array_keys;
 
-final class BinaryFileFieldValueSchemaProvider implements FieldValueSchemaProviderInterface
+final class MediaFieldValueSchemaProvider implements FieldValueSchemaProviderInterface
 {
     public function provideFieldValueSchema(): Schema
     {
@@ -19,7 +19,11 @@ final class BinaryFileFieldValueSchemaProvider implements FieldValueSchemaProvid
             'uri' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
             'inputUri' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
             'mimeType' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
-            'downloadCount' => new Schema\IntegerSchema(),
+            'width' => new Schema\IntegerSchema(),
+            'height' => new Schema\IntegerSchema(),
+            'autoplay' => new Schema\BooleanSchema(),
+            'hasController' => new Schema\BooleanSchema(),
+            'loop' => new Schema\BooleanSchema(),
         ];
 
         return new Schema\ObjectSchema($properties, null, array_keys($properties));
