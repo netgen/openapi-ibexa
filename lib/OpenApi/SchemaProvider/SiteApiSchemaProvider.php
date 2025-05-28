@@ -16,6 +16,7 @@ use function array_keys;
 use function array_map;
 use function sprintf;
 use function Symfony\Component\String\u;
+use function usort;
 
 final class SiteApiSchemaProvider implements SchemaProviderInterface
 {
@@ -56,12 +57,12 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
 
         $contentTypeGroups = (array) $this->contentTypeService->loadContentTypeGroups();
 
-        usort($contentTypeGroups, static fn(ContentTypeGroup $a, ContentTypeGroup $b) => $a->identifier <=> $b->identifier);
+        usort($contentTypeGroups, static fn (ContentTypeGroup $a, ContentTypeGroup $b): int => $a->identifier <=> $b->identifier);
 
         foreach ($contentTypeGroups as $contentTypeGroup) {
             $contentTypes = (array) $this->contentTypeService->loadContentTypes($contentTypeGroup);
 
-            usort($contentTypes, static fn(ContentType $a, ContentType $b) => $a->identifier <=> $b->identifier);
+            usort($contentTypes, static fn (ContentType $a, ContentType $b): int => $a->identifier <=> $b->identifier);
 
             foreach ($contentTypes as $contentType) {
                 $additionalSchemas = [];
@@ -121,7 +122,7 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
 
         $fieldDefinitions = $contentType->getFieldDefinitions()->toArray();
 
-        usort($fieldDefinitions, static fn(FieldDefinition $a, FieldDefinition $b) => $a->identifier <=> $b->identifier);
+        usort($fieldDefinitions, static fn (FieldDefinition $a, FieldDefinition $b): int => $a->identifier <=> $b->identifier);
 
         foreach ($fieldDefinitions as $fieldDefinition) {
             $fieldName = u($fieldDefinition->getFieldTypeIdentifier())->camel()->title();
