@@ -95,10 +95,14 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     {
         $contentTypeSchemas = [];
 
-        $contentTypeGroups = $this->contentTypeService->loadContentTypeGroups();
+        $contentTypeGroups = (array) $this->contentTypeService->loadContentTypeGroups();
+
+        usort($contentTypeGroups, static fn (ContentTypeGroup $a, ContentTypeGroup $b): int => $a->identifier <=> $b->identifier);
 
         foreach ($contentTypeGroups as $contentTypeGroup) {
-            $contentTypes = $this->contentTypeService->loadContentTypes($contentTypeGroup);
+            $contentTypes = (array) $this->contentTypeService->loadContentTypes($contentTypeGroup);
+
+            usort($contentTypes, static fn (ContentType $a, ContentType $b): int => $a->identifier <=> $b->identifier);
 
             foreach ($contentTypes as $contentType) {
                 $schemaName = sprintf('SiteApi.Content.%s', u($contentType->getName())->camel()->title());
