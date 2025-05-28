@@ -6,6 +6,8 @@ namespace Netgen\OpenApiIbexa\OpenApi\SchemaProvider;
 
 use Ibexa\Contracts\Core\Repository\ContentTypeService;
 use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentType;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\ContentTypeGroup;
+use Ibexa\Contracts\Core\Repository\Values\ContentType\FieldDefinition;
 use Netgen\OpenApi\Model\Discriminator;
 use Netgen\OpenApi\Model\Schema;
 use Netgen\OpenApiIbexa\OpenApi\SchemaProviderInterface;
@@ -52,10 +54,14 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     {
         $contentTypeSchemas = [];
 
-        $contentTypeGroups = $this->contentTypeService->loadContentTypeGroups();
+        $contentTypeGroups = (array) $this->contentTypeService->loadContentTypeGroups();
+
+        usort($contentTypeGroups, static fn(ContentTypeGroup $a, ContentTypeGroup $b) => $a->identifier <=> $b->identifier);
 
         foreach ($contentTypeGroups as $contentTypeGroup) {
-            $contentTypes = $this->contentTypeService->loadContentTypes($contentTypeGroup);
+            $contentTypes = (array) $this->contentTypeService->loadContentTypes($contentTypeGroup);
+
+            usort($contentTypes, static fn(ContentType $a, ContentType $b) => $a->identifier <=> $b->identifier);
 
             foreach ($contentTypes as $contentType) {
                 $additionalSchemas = [];
@@ -113,7 +119,11 @@ final class SiteApiSchemaProvider implements SchemaProviderInterface
     {
         $fieldSchemas = [];
 
-        foreach ($contentType->getFieldDefinitions() as $fieldDefinition) {
+        $fieldDefinitions = $contentType->getFieldDefinitions()->toArray();
+
+        usort($fieldDefinitions, static fn(FieldDefinition $a, FieldDefinition $b) => $a->identifier <=> $b->identifier);
+
+        foreach ($fieldDefinitions as $fieldDefinition) {
             $fieldName = u($fieldDefinition->getFieldTypeIdentifier())->camel()->title();
             $fieldSchemas[$fieldDefinition->getIdentifier()] = new Schema\ReferenceSchema(
                 sprintf('Ibexa.Field.%s', $fieldName),
