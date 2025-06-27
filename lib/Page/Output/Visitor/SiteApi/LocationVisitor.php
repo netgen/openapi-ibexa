@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\SiteApi;
 
+use Ibexa\HttpCache\Handler\TagHandler;
 use Netgen\IbexaSiteApi\API\Values\Location;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
@@ -15,6 +16,10 @@ use function array_map;
  */
 final class LocationVisitor implements VisitorInterface
 {
+    public function __construct(
+        private TagHandler $tagHandler,
+    ) {}
+
     public function accept(object $value): bool
     {
         return $value instanceof Location;
@@ -25,6 +30,8 @@ final class LocationVisitor implements VisitorInterface
      */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
+        $this->tagHandler->addLocationTags([$value->id]);
+
         return [
             'id' => $value->id,
             'type' => 'location',

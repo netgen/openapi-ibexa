@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\SiteApi;
 
+use Ibexa\HttpCache\Handler\TagHandler;
 use Netgen\IbexaSiteApi\API\Values\Content;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
@@ -19,6 +20,7 @@ final class ContentVisitor implements VisitorInterface
      * @param array<string, \Netgen\OpenApiIbexa\Page\Output\Visitor\SiteApi\ContentTypePartProviderInterface[]> $contentTypePartProviders
      */
     public function __construct(
+        private TagHandler $tagHandler,
         private array $contentTypePartProviders,
     ) {}
 
@@ -37,6 +39,8 @@ final class ContentVisitor implements VisitorInterface
         foreach ($this->contentTypePartProviders[$value->contentInfo->contentTypeIdentifier] ?? [] as $contentTypePartProvider) {
             $contentTypeParts = [...$contentTypeParts, ...$contentTypePartProvider->provideContentTypeParts($value)];
         }
+
+        $this->tagHandler->addContentTags([$value->contentInfo->id]);
 
         return [
             'id' => $value->contentInfo->id,

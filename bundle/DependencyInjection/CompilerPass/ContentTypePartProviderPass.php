@@ -41,6 +41,6 @@ final class ContentTypePartProviderPass implements CompilerPassInterface
 
         $container
             ->findDefinition(self::SERVICE_NAME)
-            ->setArgument(0, $services);
+            ->setArgument(1, $services);
     }
 }
