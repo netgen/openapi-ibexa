@@ -6,6 +6,7 @@ namespace Netgen\OpenApiIbexa\Page\Output\Visitor\SiteApi;
 
 use Ibexa\HttpCache\Handler\TagHandler;
 use Netgen\IbexaSiteApi\API\Values\Content;
+use Netgen\IbexaSiteApi\API\Values\Location;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
@@ -41,6 +42,13 @@ final class ContentVisitor implements VisitorInterface
         }
 
         $this->tagHandler->addContentTags([$value->contentInfo->id]);
+
+        $locationIds = array_map(
+            static fn (Location $location): int => $location->id,
+            $value->getLocations(),
+        );
+
+        $this->tagHandler->addLocationTags($locationIds);
 
         return [
             'id' => $value->contentInfo->id,

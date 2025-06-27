@@ -31,6 +31,7 @@ final class LocationVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): iterable
     {
         $this->tagHandler->addLocationTags([$value->id]);
+        $this->tagHandler->addContentTags([$value->contentId]);
 
         return [
             'id' => $value->id,
