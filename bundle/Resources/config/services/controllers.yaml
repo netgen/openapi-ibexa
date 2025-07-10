@@ -35,6 +35,7 @@ services:
             - '@netgen_layouts.layout.resolver'
             - '@netgen.openapi_ibexa.page.factory'
             - '@netgen.openapi_ibexa.page.output.visitor.output_visitor'
+            - '@netgen_layouts.http_cache.tagger'
         public: true
         tags:
             - { name: container.service_subscriber }
