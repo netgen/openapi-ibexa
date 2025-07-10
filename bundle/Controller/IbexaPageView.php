@@ -6,6 +6,7 @@ namespace Netgen\Bundle\OpenApiIbexaBundle\Controller;
 
 use Netgen\Bundle\IbexaSiteApiBundle\Controller\Controller as BaseController;
 use Netgen\Bundle\IbexaSiteApiBundle\View\ContentView;
+use Netgen\Layouts\HttpCache\TaggerInterface;
 use Netgen\Layouts\Layout\Resolver\LayoutResolverInterface;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\PageFactory;
@@ -23,6 +24,7 @@ final class IbexaPageView extends BaseController
         private LayoutResolverInterface $layoutResolver,
         private PageFactory $pageFactory,
         private OutputVisitor $outputVisitor,
+        private TaggerInterface $layoutsTagger,
     ) {}
 
     public function __invoke(ContentView $view): JsonResponse
@@ -31,9 +33,14 @@ final class IbexaPageView extends BaseController
         $queryDefinitionCollection = $view->getParameter(ContentView::QUERY_DEFINITION_COLLECTION_NAME);
 
         $rule = $this->layoutResolver->resolveRule();
+        $layout = $rule?->getLayout();
+
+        if ($layout !== null) {
+            $this->layoutsTagger->tagLayout($layout);
+        }
 
         $data = $this->outputVisitor->visit(
-            $this->pageFactory->buildPage($view->getSiteContent(), $view->getSiteLocation(), $queryDefinitionCollection, $rule?->getLayout()),
+            $this->pageFactory->buildPage($view->getSiteContent(), $view->getSiteLocation(), $queryDefinitionCollection, $layout),
         );
 
         return new JsonResponse(
