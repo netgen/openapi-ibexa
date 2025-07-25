@@ -14,6 +14,8 @@ use function iterator_to_array;
 
 /**
  * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Ibexa\FieldTypeMatrix\FieldType\Value>
+ *
+ * @returns array<int, array<string, string>>
  */
 final class MatrixFieldValueVisitor implements VisitorInterface
 {

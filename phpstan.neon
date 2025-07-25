@@ -10,4 +10,3 @@ parameters:
         - '#Netgen\\Bundle\\EnhancedSelectionBundle\\Core\\FieldType\\EnhancedSelection\\Value#'
         - '#Netgen\\Bundle\\ContentTypeListBundle\\Core\\FieldType\\ContentTypeList\\Value#'
         - '#Ibexa\\FieldTypeMatrix\\FieldType\\Value#'
-        - '#Ibexa\\FieldTypeMatrix\\FieldType\\Value\\Row#'
