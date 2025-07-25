@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue;
 
 use Ibexa\FieldTypeMatrix\FieldType\Value as MatrixValue;
+use Ibexa\FieldTypeMatrix\FieldType\Value\Row;
 use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 
@@ -24,7 +25,7 @@ final class MatrixFieldValueVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): array
     {
         return array_map(
-            static fn ($row): array => $row->getCells(),
+            static fn (Row $row): array => $row->getCells(),
             iterator_to_array($value->getRows()),
         );
     }
