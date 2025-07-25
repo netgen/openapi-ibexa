@@ -14,8 +14,6 @@ use function iterator_to_array;
 
 /**
  * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Ibexa\FieldTypeMatrix\FieldType\Value>
- *
- * @returns array<int, array<string, string>>
  */
 final class MatrixFieldValueVisitor implements VisitorInterface
 {
@@ -24,6 +22,9 @@ final class MatrixFieldValueVisitor implements VisitorInterface
         return $value instanceof MatrixValue;
     }
 
+    /**
+     * @return array<int, array<string, string>>
+     */
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): array
     {
         return array_map(
