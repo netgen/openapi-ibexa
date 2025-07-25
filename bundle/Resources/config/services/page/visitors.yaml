@@ -191,3 +191,8 @@ services:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue\UrlFieldValueVisitor
         tags:
             - { name: netgen.openapi_ibexa.page.output.visitor }
+
+    netgen.openapi_ibexa.page.output.visitor.ibexa_field_value.matrix:
+        class: Netgen\OpenApiIbexa\Page\Output\Visitor\IbexaFieldValue\MatrixFieldValueVisitor
+        tags:
+            - { name: netgen.openapi_ibexa.page.output.visitor }
