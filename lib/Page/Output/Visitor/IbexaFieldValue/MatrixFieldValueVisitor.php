@@ -24,7 +24,7 @@ final class MatrixFieldValueVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor, array $parameters = []): array
     {
         return array_map(
-            static fn ($row) => $row->getCells(),
+            static fn ($row): array => $row->getCells(),
             iterator_to_array($value->getRows()),
         );
     }
