@@ -108,3 +108,8 @@ services:
         class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValue\UrlFieldValueSchemaProvider
         tags:
             - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezurl }
+
+    netgen.openapi_ibexa.ibexa.field_value_schema_provider.matrix:
+        class: Netgen\OpenApiIbexa\OpenApi\SchemaProvider\Ibexa\FieldValue\MatrixFieldValueSchemaProvider
+        tags:
+            - { name: netgen.openapi_ibexa.ibexa.field_value_schema_provider, identifier: ezmatrix }
