@@ -9,3 +9,4 @@ parameters:
         - '#Netgen\\TagsBundle\\Core\\FieldType\\Tags\\Value#'
         - '#Netgen\\Bundle\\EnhancedSelectionBundle\\Core\\FieldType\\EnhancedSelection\\Value#'
         - '#Netgen\\Bundle\\ContentTypeListBundle\\Core\\FieldType\\ContentTypeList\\Value#'
+        - '#Ibexa\\FieldTypeMatrix\\FieldType\\Value#'
