@@ -38,11 +38,11 @@ final class IbexaSchemaProvider implements SchemaProviderInterface
         foreach ($this->fieldTypeService->getFieldTypes() as $fieldType) {
             $fieldName = u($fieldType->getFieldTypeIdentifier())->camel()->title();
 
-            yield sprintf('Ibexa.Field.%s', $fieldName) => $this->buildFieldDefinitionSchema($fieldType->getFieldTypeIdentifier());
+            yield sprintf('Ibexa.Field.%s', $fieldName) => $this->buildFieldTypeSchema($fieldType->getFieldTypeIdentifier());
         }
     }
 
-    private function buildFieldDefinitionSchema(string $fieldTypeIdentifier): Schema\ObjectSchema
+    private function buildFieldTypeSchema(string $fieldTypeIdentifier): Schema\ObjectSchema
     {
         $properties = [
             'fieldType' => new Schema\StringSchema(null, $fieldTypeIdentifier),
