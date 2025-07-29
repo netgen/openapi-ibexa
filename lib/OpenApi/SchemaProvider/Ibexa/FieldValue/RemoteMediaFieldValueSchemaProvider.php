@@ -27,7 +27,7 @@ final class RemoteMediaFieldValueSchemaProvider implements FieldValueSchemaProvi
             'altText' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
             'caption' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),
             'tags' => new Schema\ArraySchema(new Schema\StringSchema()),
-            'metadata' => new Schema\OneOfSchema([new Schema\ObjectSchema(), new Schema\NullSchema()]),
+            'metadata' => new Schema\OneOfSchema([new Schema\ObjectSchema(null, null, null, null, true), new Schema\NullSchema()]),
             'context' => new Schema\OneOfSchema([new Schema\ObjectSchema(), new Schema\NullSchema()]),
             'locationId' => new Schema\OneOfSchema([new Schema\IntegerSchema(), new Schema\NullSchema()]),
             'locationSource' => new Schema\OneOfSchema([new Schema\StringSchema(), new Schema\NullSchema()]),

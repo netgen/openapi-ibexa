@@ -12,12 +12,11 @@ final class MatrixFieldValueSchemaProvider implements FieldValueSchemaProviderIn
     {
         return new Schema\ArraySchema(
             new Schema\ObjectSchema(
-                [
-                    'type' => new Schema\StringSchema(),
-                    'value' => new Schema\StringSchema(),
-                ],
                 null,
-                ['type', 'value'],
+                null,
+                null,
+                null,
+                new Schema\StringSchema(),
             ),
         );
     }
