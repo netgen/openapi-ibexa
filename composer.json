@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "netgen/openapi": "^1.0",
+        "netgen/openapi": "^1.0.2",
         "netgen/layouts-core": "^1.4.11",
         "netgen/layouts-ibexa": "^1.4",
         "netgen/ibexa-site-api": "^6.2"
