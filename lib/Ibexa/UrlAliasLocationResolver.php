@@ -11,8 +11,8 @@ use Ibexa\Core\MVC\Symfony\Routing\Generator\UrlAliasGenerator;
 use Netgen\IbexaSiteApi\API\LoadService;
 use Netgen\IbexaSiteApi\API\Values\Location;
 
+use function mb_trim;
 use function sprintf;
-use function trim;
 
 final class UrlAliasLocationResolver
 {
@@ -25,7 +25,7 @@ final class UrlAliasLocationResolver
 
     public function resolveLocation(string $path): Location
     {
-        $urlAlias = $this->getUrlAlias(sprintf('/%s', trim($path, '/')));
+        $urlAlias = $this->getUrlAlias(sprintf('/%s', mb_trim($path, '/')));
 
         if ($urlAlias->type === URLAlias::LOCATION) {
             return $this->loadService->loadLocation($urlAlias->destination);
