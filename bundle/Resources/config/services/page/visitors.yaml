@@ -48,6 +48,7 @@ services:
     netgen.openapi_ibexa.page.output.visitor.layouts.block:
         class: Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts\BlockVisitor
         arguments:
+            - '@Ibexa\HttpCache\Handler\TagHandler'
             - '@netgen_layouts.collection.result.pagerfanta.factory'
             - '@ibexa.config.resolver'
         tags:
