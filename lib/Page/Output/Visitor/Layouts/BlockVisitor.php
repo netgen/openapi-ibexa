@@ -6,6 +6,7 @@ namespace Netgen\OpenApiIbexa\Page\Output\Visitor\Layouts;
 
 use Generator;
 use Ibexa\Contracts\Core\SiteAccess\ConfigResolverInterface;
+use Ibexa\HttpCache\Handler\TagHandler;
 use Netgen\IbexaSiteApi\API\Values\Content;
 use Netgen\IbexaSiteApi\API\Values\Location;
 use Netgen\Layouts\API\Values\Block\Block;
@@ -18,12 +19,15 @@ use Netgen\OpenApiIbexa\Page\Output\OutputVisitor;
 use Netgen\OpenApiIbexa\Page\Output\VisitorInterface;
 use ReflectionClass;
 
+use function is_int;
+
 /**
  * @implements \Netgen\OpenApiIbexa\Page\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
  */
 final class BlockVisitor implements VisitorInterface
 {
     public function __construct(
+        private TagHandler $tagHandler,
         private PagerFactory $pagerFactory,
         private ConfigResolverInterface $configResolver,
     ) {}
@@ -48,10 +52,23 @@ final class BlockVisitor implements VisitorInterface
         ];
 
         if ($value->hasCollection('default')) {
+            /** @var \Netgen\Layouts\API\Values\Collection\Collection $collection */
+            $collection = $value->getCollection('default');
+
             /** @var \Netgen\Layouts\Collection\Result\ResultSet $resultSet */
             $resultSet = $this->pagerFactory
-                ->getPager($value->getCollection('default'), 1)
+                ->getPager($collection, 1)
                 ->getCurrentPageResults();
+
+            $query = $collection->getQuery();
+
+            $parentLocation = $query?->hasParameter('parent_location_id') === true
+                ? $query->getParameter('parent_location_id')->getValue()
+                : null;
+
+            if (is_int($parentLocation)) {
+                $this->tagHandler->addLocationTags([$parentLocation]);
+            }
 
             $properties['items'] = [...$this->visitItems($resultSet, $outputVisitor)];
         }
